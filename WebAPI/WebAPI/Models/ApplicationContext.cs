@@ -18,18 +18,5 @@ namespace WebAPI.Models
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
         }
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Following>()
-        //        .HasOne(f => f.FollowerProfile)
-        //        .WithMany()
-        //        .HasForeignKey(f => f.FollowerProfileId)
-        //        .OnDelete(DeleteBehavior.NoAction);
-        //    modelBuilder.Entity<Following>()
-        //        .HasOne(f => f.FollowingProfile)
-        //        .WithMany()
-        //        .HasForeignKey(f => f.FollowingProfileId)
-        //        .OnDelete(DeleteBehavior.NoAction);
-        //}
     }
 }
