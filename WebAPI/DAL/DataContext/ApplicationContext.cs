@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using DAL.Entities;
 
-namespace WebAPI.Models
+namespace DAL.DataContext
 {
     public class ApplicationContext : DbContext
     {
