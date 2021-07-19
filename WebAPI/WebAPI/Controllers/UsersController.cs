@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> Get(int id)
         {
-            User user = await appContext.Users.Include(u => u.Profiles).FirstOrDefaultAsync(u => u.Id == id);
+            User user = await appContext.Users.FirstOrDefaultAsync(u => u.Id == id);
             if (user == null)
             {
                 return NotFound();
