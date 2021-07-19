@@ -9,7 +9,7 @@ namespace DAL.Entities
 {
     public class Profile
     {
-        public  int Id { get; set; }
+        public int Id { get; set; }
 
         [MaxLength(256)]
         public string ProfileName { get; set; }
@@ -24,7 +24,7 @@ namespace DAL.Entities
 
         [ForeignKey("UserId")]
         public User User { get; set; }
-        
+
         public List<Post> Posts { get; set; }
 
         public List<Reply> Replies { get; set; }

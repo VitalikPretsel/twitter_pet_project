@@ -12,71 +12,71 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class ProfilesController : ControllerBase
     {
         private readonly ApplicationContext appContext;
-        
-        public UsersController(ApplicationContext context)
+
+        public ProfilesController(ApplicationContext context)
         {
             appContext = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> Get()
+        public async Task<ActionResult<IEnumerable<Profile>>> Get()
         {
-            return await appContext.Users.ToListAsync();
+            return await appContext.Profiles.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> Get(int id)
+        public async Task<ActionResult<Profile>> Get(int id)
         {
-            User user = await appContext.Users.FirstOrDefaultAsync(u => u.Id == id);
-            if (user == null)
+            Profile profile = await appContext.Profiles.FirstOrDefaultAsync(p => p.Id == id);
+            if (profile == null)
             {
                 return NotFound();
             }
-            return new ObjectResult(user);
+            return new ObjectResult(profile);
         }
-        
+
         [HttpPost]
-        public async Task<ActionResult<User>> Post(User user)
+        public async Task<ActionResult<Profile>> Post(Profile profile)
         {
-            if (user == null)
+            if (profile == null)
             {
                 return BadRequest();
             }
-            appContext.Users.Add(user);
+            appContext.Profiles.Add(profile);
             await appContext.SaveChangesAsync();
-            return Ok(user);
+            return Ok(profile);
         }
 
         [HttpPut]
-        public async Task<ActionResult<User>> Put(User user)
+        public async Task<ActionResult<Profile>> Put(Profile profile)
         {
-            if (user == null)
+            if (profile == null)
             {
                 return BadRequest();
             }
-            if (!appContext.Users.Any(u => u.Id == user.Id))
+            if (!appContext.Profiles.Any(p => p.Id == profile.Id))
             {
                 return NotFound();
             }
-            appContext.Update(user);
+            appContext.Update(profile);
             await appContext.SaveChangesAsync();
-            return Ok(user);
+            return Ok(profile);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<Post>> Delete(int id)
         {
-            User user = await appContext.Users.FirstOrDefaultAsync(u => u.Id == id);
-            if (user == null)
+            Profile profile = await appContext.Profiles.FirstOrDefaultAsync(p => p.Id == id);
+            if (profile == null)
             {
                 return NotFound();
             }
-            appContext.Remove(user);
+            appContext.Remove(profile);
             await appContext.SaveChangesAsync();
-            return Ok(user);
+            return Ok(profile);
         }
     }
 }
