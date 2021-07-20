@@ -14,9 +14,9 @@ namespace WebAPI.Controllers
     [ApiController]
     public class LikesController : ControllerBase
     {
-        private readonly ApplicationContext appContext;
+        private readonly IApplicationContext appContext;
         
-        public LikesController(ApplicationContext context)
+        public LikesController(IApplicationContext context)
         {
             appContext = context;
         }
@@ -61,7 +61,7 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            appContext.Update(like);
+            appContext.Likes.Update(like);
             await appContext.SaveChangesAsync();
             return Ok(like);
         }
@@ -74,7 +74,7 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            appContext.Remove(like);
+            appContext.Likes.Remove(like);
             await appContext.SaveChangesAsync();
             return Ok(like);
         }

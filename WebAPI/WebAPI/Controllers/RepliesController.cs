@@ -14,9 +14,9 @@ namespace WebAPI.Controllers
     [ApiController]
     public class RepliesController : ControllerBase
     {
-        private readonly ApplicationContext appContext;
+        private readonly IApplicationContext appContext;
         
-        public RepliesController(ApplicationContext context)
+        public RepliesController(IApplicationContext context)
         {
             appContext = context;
         }
@@ -61,7 +61,7 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            appContext.Update(reply);
+            appContext.Replies.Update(reply);
             await appContext.SaveChangesAsync();
             return Ok(reply);
         }
@@ -74,7 +74,7 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            appContext.Remove(reply);
+            appContext.Replies.Remove(reply);
             await appContext.SaveChangesAsync();
             return Ok(reply);
         }

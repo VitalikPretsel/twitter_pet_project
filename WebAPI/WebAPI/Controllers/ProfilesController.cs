@@ -14,9 +14,9 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ProfilesController : ControllerBase
     {
-        private readonly ApplicationContext appContext;
+        private readonly IApplicationContext appContext;
 
-        public ProfilesController(ApplicationContext context)
+        public ProfilesController(IApplicationContext context)
         {
             appContext = context;
         }
@@ -61,7 +61,7 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            appContext.Update(profile);
+            appContext.Profiles.Update(profile);
             await appContext.SaveChangesAsync();
             return Ok(profile);
         }
@@ -74,7 +74,7 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            appContext.Remove(profile);
+            appContext.Profiles.Remove(profile);
             await appContext.SaveChangesAsync();
             return Ok(profile);
         }

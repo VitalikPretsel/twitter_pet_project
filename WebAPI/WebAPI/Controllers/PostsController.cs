@@ -14,9 +14,9 @@ namespace WebAPI.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private readonly ApplicationContext appContext;
+        private readonly IApplicationContext appContext;
         
-        public PostsController(ApplicationContext context)
+        public PostsController(IApplicationContext context)
         {
             appContext = context;
         }
@@ -61,7 +61,7 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            appContext.Update(post);
+            appContext.Posts.Update(post);
             await appContext.SaveChangesAsync();
             return Ok(post);
         }
@@ -74,7 +74,7 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            appContext.Remove(post);
+            appContext.Posts.Remove(post);
             await appContext.SaveChangesAsync();
             return Ok(post);
         }

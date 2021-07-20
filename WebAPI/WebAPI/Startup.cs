@@ -29,7 +29,7 @@ namespace WebAPI
 
             services.AddControllers();
 
-            services.AddDbContext<ApplicationContext>(options =>
+            services.AddDbContext<IApplicationContext, ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 

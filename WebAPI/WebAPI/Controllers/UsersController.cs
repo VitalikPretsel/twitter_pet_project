@@ -14,9 +14,9 @@ namespace WebAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly ApplicationContext appContext;
+        private readonly IApplicationContext appContext;
         
-        public UsersController(ApplicationContext context)
+        public UsersController(IApplicationContext context)
         {
             appContext = context;
         }
@@ -61,7 +61,7 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            appContext.Update(user);
+            appContext.Users.Update(user);
             await appContext.SaveChangesAsync();
             return Ok(user);
         }
@@ -74,7 +74,7 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            appContext.Remove(user);
+            appContext.Users.Remove(user);
             await appContext.SaveChangesAsync();
             return Ok(user);
         }

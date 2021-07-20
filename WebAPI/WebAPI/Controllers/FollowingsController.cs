@@ -14,9 +14,9 @@ namespace WebAPI.Controllers
     [ApiController]
     public class FollowingsController : ControllerBase
     {
-        private readonly ApplicationContext appContext;
+        private readonly IApplicationContext appContext;
         
-        public FollowingsController(ApplicationContext context)
+        public FollowingsController(IApplicationContext context)
         {
             appContext = context;
         }
@@ -61,7 +61,7 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            appContext.Update(following);
+            appContext.Followings.Update(following);
             await appContext.SaveChangesAsync();
             return Ok(following);
         }
@@ -74,7 +74,7 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            appContext.Remove(following);
+            appContext.Followings.Remove(following);
             await appContext.SaveChangesAsync();
             return Ok(following);
         }
