@@ -67,16 +67,16 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Post>> Delete(int id)
+        public async Task<ActionResult<Following>> Delete(int id)
         {
-            Post post = await appContext.Posts.FirstOrDefaultAsync(p => p.Id == id);
-            if (post == null)
+            Following following = await appContext.Followings.FirstOrDefaultAsync(f => f.Id == id);
+            if (following == null)
             {
                 return NotFound();
             }
-            appContext.Remove(post);
+            appContext.Remove(following);
             await appContext.SaveChangesAsync();
-            return Ok(post);
+            return Ok(following);
         }
     }
 }

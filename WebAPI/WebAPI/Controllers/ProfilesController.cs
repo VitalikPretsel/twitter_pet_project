@@ -67,7 +67,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Post>> Delete(int id)
+        public async Task<ActionResult<Profile>> Delete(int id)
         {
             Profile profile = await appContext.Profiles.FirstOrDefaultAsync(p => p.Id == id);
             if (profile == null)
