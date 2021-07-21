@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DAL.DataContext;
 using DAL.Entities;
+using DAL.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,23 +14,24 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ProfilesController : ControllerBase
     {
-        private readonly IApplicationContext appContext;
+        private readonly IProfileRepository profileRepository;
 
-        public ProfilesController(IApplicationContext context)
+        public ProfilesController(IProfileRepository repository)
         {
-            appContext = context;
+            profileRepository = repository;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Profile>>> Get()
         {
-            return await appContext.Profiles.ToListAsync();
+            var profiles = await profileRepository.GetAll();
+            return Ok(profiles);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Profile>> Get(int id)
         {
-            Profile profile = await appContext.Profiles.FirstOrDefaultAsync(p => p.Id == id);
+            Profile profile = await profileRepository.Get(id);
             if (profile == null)
             {
                 return NotFound();
@@ -45,8 +46,7 @@ namespace WebAPI.Controllers
             {
                 return BadRequest();
             }
-            appContext.Profiles.Add(profile);
-            await appContext.SaveChangesAsync();
+            await profileRepository.Add(profile);
             return Ok(profile);
         }
 
@@ -57,25 +57,23 @@ namespace WebAPI.Controllers
             {
                 return BadRequest();
             }
-            if (!appContext.Profiles.Any(p => p.Id == profile.Id))
+            if (!profileRepository.Any(profile.Id))
             {
                 return NotFound();
             }
-            appContext.Profiles.Update(profile);
-            await appContext.SaveChangesAsync();
+            await profileRepository.Update(profile);
             return Ok(profile);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<Profile>> Delete(int id)
         {
-            Profile profile = await appContext.Profiles.FirstOrDefaultAsync(p => p.Id == id);
+            Profile profile = await profileRepository.Get(id);
             if (profile == null)
             {
                 return NotFound();
             }
-            appContext.Profiles.Remove(profile);
-            await appContext.SaveChangesAsync();
+            await profileRepository.Delete(profile);
             return Ok(profile);
         }
     }

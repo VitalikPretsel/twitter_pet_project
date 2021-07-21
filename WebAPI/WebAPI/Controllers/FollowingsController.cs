@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DAL.DataContext;
 using DAL.Entities;
+using DAL.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,39 +14,39 @@ namespace WebAPI.Controllers
     [ApiController]
     public class FollowingsController : ControllerBase
     {
-        private readonly IApplicationContext appContext;
-        
-        public FollowingsController(IApplicationContext context)
+        private readonly IFollowingRepository followingRepository;
+
+        public FollowingsController(IFollowingRepository repository)
         {
-            appContext = context;
+            followingRepository = repository;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Following>>> Get()
         {
-            return await appContext.Followings.ToListAsync();
+            var followings = await followingRepository.GetAll();
+            return Ok(followings);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Following>> Get(int id)
         {
-            Following following = await appContext.Followings.FirstOrDefaultAsync(f => f.Id == id);
+            Following following = await followingRepository.Get(id);
             if (following == null)
             {
                 return NotFound();
             }
             return new ObjectResult(following);
         }
-        
+
         [HttpPost]
-        public async Task<ActionResult<Following>> Following(Following following)
+        public async Task<ActionResult<Following>> Post(Following following)
         {
             if (following == null)
             {
                 return BadRequest();
             }
-            appContext.Followings.Add(following);
-            await appContext.SaveChangesAsync();
+            await followingRepository.Add(following);
             return Ok(following);
         }
 
@@ -57,25 +57,23 @@ namespace WebAPI.Controllers
             {
                 return BadRequest();
             }
-            if (!appContext.Followings.Any(f => f.Id == following.Id))
+            if (!followingRepository.Any(following.Id))
             {
                 return NotFound();
             }
-            appContext.Followings.Update(following);
-            await appContext.SaveChangesAsync();
+            await followingRepository.Update(following);
             return Ok(following);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<Following>> Delete(int id)
         {
-            Following following = await appContext.Followings.FirstOrDefaultAsync(f => f.Id == id);
+            Following following = await followingRepository.Get(id);
             if (following == null)
             {
                 return NotFound();
             }
-            appContext.Followings.Remove(following);
-            await appContext.SaveChangesAsync();
+            await followingRepository.Delete(following);
             return Ok(following);
         }
     }

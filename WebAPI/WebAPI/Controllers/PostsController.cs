@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DAL.DataContext;
 using DAL.Entities;
+using DAL.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,30 +14,31 @@ namespace WebAPI.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private readonly IApplicationContext appContext;
-        
-        public PostsController(IApplicationContext context)
+        private readonly IPostRepository postRepository;
+
+        public PostsController(IPostRepository repository)
         {
-            appContext = context;
+            postRepository = repository;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Post>>> Get()
         {
-            return await appContext.Posts.ToListAsync();
+            var posts = await postRepository.GetAll();
+            return Ok(posts);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Post>> Get(int id)
         {
-            Post post = await appContext.Posts.FirstOrDefaultAsync(p => p.Id == id);
+            Post post = await postRepository.Get(id);
             if (post == null)
             {
                 return NotFound();
             }
             return new ObjectResult(post);
         }
-        
+
         [HttpPost]
         public async Task<ActionResult<Post>> Post(Post post)
         {
@@ -45,8 +46,7 @@ namespace WebAPI.Controllers
             {
                 return BadRequest();
             }
-            appContext.Posts.Add(post);
-            await appContext.SaveChangesAsync();
+            await postRepository.Add(post);
             return Ok(post);
         }
 
@@ -57,25 +57,23 @@ namespace WebAPI.Controllers
             {
                 return BadRequest();
             }
-            if (!appContext.Posts.Any(p => p.Id == post.Id))
+            if (!postRepository.Any(post.Id))
             {
                 return NotFound();
             }
-            appContext.Posts.Update(post);
-            await appContext.SaveChangesAsync();
+            await postRepository.Update(post);
             return Ok(post);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<Post>> Delete(int id)
         {
-            Post post = await appContext.Posts.FirstOrDefaultAsync(p => p.Id == id);
+            Post post = await postRepository.Get(id);
             if (post == null)
             {
                 return NotFound();
             }
-            appContext.Posts.Remove(post);
-            await appContext.SaveChangesAsync();
+            await postRepository.Delete(post);
             return Ok(post);
         }
     }

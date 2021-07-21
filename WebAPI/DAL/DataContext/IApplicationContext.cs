@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace DAL.DataContext
 {
@@ -20,5 +21,7 @@ namespace DAL.DataContext
 
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+        EntityEntry Entry(object entity);
+        DbSet<T> Set<T>() where T : class;
     }
 }

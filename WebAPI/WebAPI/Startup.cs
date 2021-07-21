@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DAL.DataContext;
+using DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,13 @@ namespace WebAPI
         {
 
             services.AddControllers();
+
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IProfileRepository, ProfileRepository>();
+            services.AddTransient<IPostRepository, PostRepository>();
+            services.AddTransient<IReplyRepository, ReplyRepository>();
+            services.AddTransient<ILikeRepository, LikeRepository>();
+            services.AddTransient<IFollowingRepository, FollowingRepository>();
 
             services.AddDbContext<IApplicationContext, ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

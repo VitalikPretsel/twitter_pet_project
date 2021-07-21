@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DAL.DataContext;
 using DAL.Entities;
+using DAL.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,32 +12,33 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RepliesController : ControllerBase
+    public class ReplyController : ControllerBase
     {
-        private readonly IApplicationContext appContext;
-        
-        public RepliesController(IApplicationContext context)
+        private readonly IReplyRepository replyRepository;
+
+        public ReplyController(IReplyRepository repository)
         {
-            appContext = context;
+            replyRepository = repository;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Reply>>> Get()
         {
-            return await appContext.Replies.ToListAsync();
+            var replies = await replyRepository.GetAll();
+            return Ok(replies);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Reply>> Get(int id)
         {
-            Reply reply = await appContext.Replies.FirstOrDefaultAsync(r => r.Id == id);
+            Reply reply = await replyRepository.Get(id);
             if (reply == null)
             {
                 return NotFound();
             }
             return new ObjectResult(reply);
         }
-        
+
         [HttpPost]
         public async Task<ActionResult<Reply>> Post(Reply reply)
         {
@@ -45,8 +46,7 @@ namespace WebAPI.Controllers
             {
                 return BadRequest();
             }
-            appContext.Replies.Add(reply);
-            await appContext.SaveChangesAsync();
+            await replyRepository.Add(reply);
             return Ok(reply);
         }
 
@@ -57,25 +57,23 @@ namespace WebAPI.Controllers
             {
                 return BadRequest();
             }
-            if (!appContext.Replies.Any(r => r.Id == reply.Id))
+            if (!replyRepository.Any(reply.Id))
             {
                 return NotFound();
             }
-            appContext.Replies.Update(reply);
-            await appContext.SaveChangesAsync();
+            await replyRepository.Update(reply);
             return Ok(reply);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<Reply>> Delete(int id)
         {
-            Reply reply = await appContext.Replies.FirstOrDefaultAsync(r => r.Id == id);
+            Reply reply = await replyRepository.Get(id);
             if (reply == null)
             {
                 return NotFound();
             }
-            appContext.Replies.Remove(reply);
-            await appContext.SaveChangesAsync();
+            await replyRepository.Delete(reply);
             return Ok(reply);
         }
     }

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DAL.DataContext;
 using DAL.Entities;
+using DAL.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,23 +14,24 @@ namespace WebAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IApplicationContext appContext;
+        private readonly IUserRepository userRepository;
         
-        public UsersController(IApplicationContext context)
+        public UsersController(IUserRepository repository)
         {
-            appContext = context;
+            userRepository = repository;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
-            return await appContext.Users.ToListAsync();
+            var users = await userRepository.GetAll();
+            return Ok(users);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> Get(int id)
         {
-            User user = await appContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+            User user = await userRepository.Get(id);
             if (user == null)
             {
                 return NotFound();
@@ -45,8 +46,7 @@ namespace WebAPI.Controllers
             {
                 return BadRequest();
             }
-            appContext.Users.Add(user);
-            await appContext.SaveChangesAsync();
+            await userRepository.Add(user);
             return Ok(user);
         }
 
@@ -57,25 +57,23 @@ namespace WebAPI.Controllers
             {
                 return BadRequest();
             }
-            if (!appContext.Users.Any(u => u.Id == user.Id))
+            if (!userRepository.Any(user.Id))
             {
                 return NotFound();
             }
-            appContext.Users.Update(user);
-            await appContext.SaveChangesAsync();
+            await userRepository.Update(user);
             return Ok(user);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> Delete(int id)
         {
-            User user = await appContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+            User user = await userRepository.Get(id);
             if (user == null)
             {
                 return NotFound();
             }
-            appContext.Users.Remove(user);
-            await appContext.SaveChangesAsync();
+            await userRepository.Delete(user);
             return Ok(user);
         }
     }

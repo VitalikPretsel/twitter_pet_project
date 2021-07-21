@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DAL.DataContext;
 using DAL.Entities;
+using DAL.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,30 +14,31 @@ namespace WebAPI.Controllers
     [ApiController]
     public class LikesController : ControllerBase
     {
-        private readonly IApplicationContext appContext;
-        
-        public LikesController(IApplicationContext context)
+        private readonly ILikeRepository likeRepository;
+
+        public LikesController(ILikeRepository repository)
         {
-            appContext = context;
+            likeRepository = repository;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Like>>> Get()
         {
-            return await appContext.Likes.ToListAsync();
+            var likes = await likeRepository.GetAll();
+            return Ok(likes);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Like>> Get(int id)
         {
-            Like like = await appContext.Likes.FirstOrDefaultAsync(l => l.Id == id);
+            Like like = await likeRepository.Get(id);
             if (like == null)
             {
                 return NotFound();
             }
             return new ObjectResult(like);
         }
-        
+
         [HttpPost]
         public async Task<ActionResult<Like>> Post(Like like)
         {
@@ -45,8 +46,7 @@ namespace WebAPI.Controllers
             {
                 return BadRequest();
             }
-            appContext.Likes.Add(like);
-            await appContext.SaveChangesAsync();
+            await likeRepository.Add(like);
             return Ok(like);
         }
 
@@ -57,25 +57,23 @@ namespace WebAPI.Controllers
             {
                 return BadRequest();
             }
-            if (!appContext.Likes.Any(l => l.Id == like.Id))
+            if (!likeRepository.Any(like.Id))
             {
                 return NotFound();
             }
-            appContext.Likes.Update(like);
-            await appContext.SaveChangesAsync();
+            await likeRepository.Update(like);
             return Ok(like);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<Like>> Delete(int id)
         {
-            Like like = await appContext.Likes.FirstOrDefaultAsync(l => l.Id == id);
+            Like like = await likeRepository.Get(id);
             if (like == null)
             {
                 return NotFound();
             }
-            appContext.Likes.Remove(like);
-            await appContext.SaveChangesAsync();
+            await likeRepository.Delete(like);
             return Ok(like);
         }
     }
