@@ -37,7 +37,7 @@ namespace WebAPI
             services.AddTransient<ILikeRepository, LikeRepository>();
             services.AddTransient<IFollowingRepository, FollowingRepository>();
 
-            services.AddDbContext<IApplicationContext, ApplicationContext>(options =>
+            services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 

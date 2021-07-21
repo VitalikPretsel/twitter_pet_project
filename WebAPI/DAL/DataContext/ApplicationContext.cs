@@ -7,7 +7,7 @@ using DAL.Entities;
 
 namespace DAL.DataContext
 {
-    public class ApplicationContext : DbContext, IApplicationContext
+    public class ApplicationContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Profile> Profiles { get; set; }

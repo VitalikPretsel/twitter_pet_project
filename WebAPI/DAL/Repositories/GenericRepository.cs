@@ -10,9 +10,9 @@ namespace DAL.Repositories
 {
     public abstract class GenericRepository<T>: IGenericRepository<T> where T : class
     {
-        protected readonly IApplicationContext appContext;
+        protected readonly ApplicationContext appContext;
 
-        public GenericRepository(IApplicationContext context)
+        public GenericRepository(ApplicationContext context)
         {
             appContext = context;
         }

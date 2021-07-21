@@ -10,7 +10,7 @@ namespace DAL.Repositories
 {
     public class ProfileRepository : GenericRepository<Profile>, IProfileRepository
     {
-        public ProfileRepository(IApplicationContext context) : base(context)
+        public ProfileRepository(ApplicationContext context) : base(context)
         {
 
         }

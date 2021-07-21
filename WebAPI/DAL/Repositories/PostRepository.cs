@@ -10,7 +10,7 @@ namespace DAL.Repositories
 {
     public class PostRepository : GenericRepository<Post>, IPostRepository
     {
-        public PostRepository(IApplicationContext context) : base(context)
+        public PostRepository(ApplicationContext context) : base(context)
         {
 
         }

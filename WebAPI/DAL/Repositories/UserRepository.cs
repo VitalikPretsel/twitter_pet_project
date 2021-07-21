@@ -10,7 +10,7 @@ namespace DAL.Repositories
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {
-        public UserRepository(IApplicationContext context) : base(context)
+        public UserRepository(ApplicationContext context) : base(context)
         {
 
         }

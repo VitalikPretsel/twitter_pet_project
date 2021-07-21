@@ -10,7 +10,7 @@ namespace DAL.Repositories
 {
     public class LikeRepository : GenericRepository<Like>, ILikeRepository
     {
-        public LikeRepository(IApplicationContext context) : base(context)
+        public LikeRepository(ApplicationContext context) : base(context)
         {
 
         }

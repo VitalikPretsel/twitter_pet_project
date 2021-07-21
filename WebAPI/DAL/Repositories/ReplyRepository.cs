@@ -10,7 +10,7 @@ namespace DAL.Repositories
 {
     public class ReplyRepository : GenericRepository<Reply>, IReplyRepository
     {
-        public ReplyRepository(IApplicationContext context) : base(context)
+        public ReplyRepository(ApplicationContext context) : base(context)
         {
 
         }
