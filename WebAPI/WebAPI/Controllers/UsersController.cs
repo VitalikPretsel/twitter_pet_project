@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            return new ObjectResult(user);
+            return Ok(user);
         }
         
         [HttpPost]
