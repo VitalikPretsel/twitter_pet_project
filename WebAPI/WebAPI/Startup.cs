@@ -30,12 +30,12 @@ namespace WebAPI
 
             services.AddControllers();
 
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IProfileRepository, ProfileRepository>();
-            services.AddTransient<IPostRepository, PostRepository>();
-            services.AddTransient<IReplyRepository, ReplyRepository>();
-            services.AddTransient<ILikeRepository, LikeRepository>();
-            services.AddTransient<IFollowingRepository, FollowingRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IProfileRepository, ProfileRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IReplyRepository, ReplyRepository>();
+            services.AddScoped<ILikeRepository, LikeRepository>();
+            services.AddScoped<IFollowingRepository, FollowingRepository>();
 
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
