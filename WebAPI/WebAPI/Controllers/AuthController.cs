@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using WebAPI.Models;
+using DAL.Models;
 
 namespace WebAPI.Controllers
 {
@@ -20,32 +20,33 @@ namespace WebAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        protected readonly ApplicationContext appContext;
+        private readonly IUserRepository userRepository;
 
-        public AuthController(ApplicationContext context)
+        public AuthController(IUserRepository repository)
         {
-            appContext = context;
+            userRepository = repository;
         }
 
         [HttpPost]
-        public IActionResult Login([FromBody]LoginModel user)
+        public IActionResult Login([FromBody]LoginModel loginModel)
         {
-            if (user == null)
+            if (loginModel == null)
             {
                 return BadRequest();
             }
-            if (appContext.Users.Any(u => u.UserName == user.UserName && u.Password == user.Password))
+            User user = userRepository.FindUserByLoginModel(loginModel);
+            if (user != null)
             {
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKey123"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-                var tokeOptions = new JwtSecurityToken(
+                var tokenOptions = new JwtSecurityToken(
                     issuer: "http://localhost:44347",
                     audience: "http://localhost:4200",
                     claims: new List<Claim>(),
                     expires: DateTime.Now.AddMinutes(5),
                     signingCredentials: signinCredentials
                 );
-                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
                 return Ok(new { Token = tokenString });
             }
             else
