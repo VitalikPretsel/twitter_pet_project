@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(LoginModel user)
+        public IActionResult Login([FromBody]LoginModel user)
         {
             if (user == null)
             {
@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKey123"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
                 var tokeOptions = new JwtSecurityToken(
-                    issuer: "http://localhost:5000",
+                    issuer: "http://localhost:44347",
                     audience: "http://localhost:4200",
                     claims: new List<Claim>(),
                     expires: DateTime.Now.AddMinutes(5),
