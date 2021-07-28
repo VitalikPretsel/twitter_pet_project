@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
+
+import { AuthenticationService } from '../_services/authentication.service'
 
 @Component({
   selector: 'app-home',
@@ -9,22 +9,16 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private jwtHelper: JwtHelperService, private router: Router) { }
+  constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
   }
-
+  
   isUserAuthenticated() {
-    const token: string = localStorage.getItem("jwt");
-    if (token && !this.jwtHelper.isTokenExpired(token)) {
-      return true;
-    }
-    else {
-      return false;
-    }
+    return this.authenticationService.isAuthenticated();
   }
 
-  public logOut = () => {
-    localStorage.removeItem("jwt");
+  logOut() {
+    this.authenticationService.logout();
   }
 }

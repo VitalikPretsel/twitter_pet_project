@@ -15,7 +15,11 @@ export class UsersComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get(`${environment.apiUrl}/users`).subscribe(response => {
+    this.http.get(`${environment.apiUrl}/users`, {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json"
+      })
+    }).subscribe(response => {
       this.users = response;
     }, err => {
       this.nonAuthorized = true;
