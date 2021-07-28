@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using WebAPI.Configs;
 
 namespace WebAPI
 {
@@ -35,7 +36,9 @@ namespace WebAPI
             {
                 options.AddPolicy("EnableCORS", builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+                    builder.WithOrigins(
+                        Configuration.GetValue<string>("TokenConfig:ValidAudience"))
+                    .AllowAnyMethod().AllowAnyHeader();
                 });
             });
 
@@ -51,11 +54,16 @@ namespace WebAPI
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = "http://localhost:44347",
-                    ValidAudience = "http://localhost:4200",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKey123"))
+                    ValidIssuer = Configuration.GetValue<string>("TokenConfig:ValidIssuer"),
+                    ValidAudience = Configuration.GetValue<string>("TokenConfig:ValidAudience"),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                        Configuration.GetValue<string>("TokenConfig:SymmetricSecurityKey")))
                 };
             });
+
+            services.AddOptions();
+
+            services.Configure<TokenConfig>(Configuration.GetSection("TokenConfig"));
 
             services.AddControllers();
 

@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using DAL.Models;
+using Microsoft.Extensions.Options;
+using WebAPI.Configs;
 
 namespace WebAPI.Controllers
 {
@@ -21,10 +23,12 @@ namespace WebAPI.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IUserRepository userRepository;
+        private readonly IOptions<TokenConfig> tokenConfig;
 
-        public AuthController(IUserRepository repository)
+        public AuthController(IUserRepository repository, IOptions<TokenConfig> config)
         {
             userRepository = repository;
+            tokenConfig = config;
         }
 
         [HttpPost]
@@ -37,11 +41,11 @@ namespace WebAPI.Controllers
             User user = userRepository.FindUserByLoginModel(loginModel);
             if (user != null)
             {
-                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKey123"));
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfig.Value.SymmetricSecurityKey));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
                 var tokenOptions = new JwtSecurityToken(
-                    issuer: "http://localhost:44347",
-                    audience: "http://localhost:4200",
+                    issuer: tokenConfig.Value.ValidIssuer,
+                    audience: tokenConfig.Value.ValidAudience,
                     claims: new List<Claim>(),
                     expires: DateTime.Now.AddMinutes(5),
                     signingCredentials: signinCredentials
