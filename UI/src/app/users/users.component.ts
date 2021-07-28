@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { environment } from '../../environments/environment';
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -13,7 +15,7 @@ export class UsersComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get("https://localhost:44347/api/users").subscribe(response => {
+    this.http.get(`${environment.apiUrl}/users`).subscribe(response => {
       this.users = response;
     }, err => {
       this.nonAuthorized = true;

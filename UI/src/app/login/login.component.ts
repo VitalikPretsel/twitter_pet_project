@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
+import { environment } from '../../environments/environment';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   public login = (form: NgForm) => {
     const credentials = JSON.stringify(form.value);
-    this.http.post("https://localhost:44347/api/auth", credentials, {
+    this.http.post(`${environment.apiUrl}/auth`, credentials, {
       headers: new HttpHeaders({
         "Content-Type": "application/json"
       })
