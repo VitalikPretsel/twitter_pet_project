@@ -18,6 +18,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using WebAPI.Configs;
+using WebAPI.Services;
 
 namespace WebAPI
 {
@@ -60,6 +61,8 @@ namespace WebAPI
                         Configuration.GetValue<string>("TokenConfig:SymmetricSecurityKey")))
                 };
             });
+
+            services.AddScoped<AuthService>();
 
             services.AddOptions();
 
