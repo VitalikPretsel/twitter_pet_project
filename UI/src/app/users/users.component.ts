@@ -10,7 +10,6 @@ import { environment } from '../../environments/environment';
 })
 export class UsersComponent implements OnInit {
   users: any;
-  nonAuthorized: boolean = false;
 
   constructor(private http: HttpClient) { }
 
@@ -21,10 +20,6 @@ export class UsersComponent implements OnInit {
       })
     }).subscribe(response => {
       this.users = response;
-    }, err => {
-      this.nonAuthorized = true;
-      console.log(err)
     });
   }
-
 }

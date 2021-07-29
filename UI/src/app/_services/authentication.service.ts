@@ -33,7 +33,6 @@ export class AuthenticationService {
   }
 
   login(form: any) {
-    console.log(form);
     return this.http.post<any>(`${environment.apiUrl}/auth`, form, {
       headers: new HttpHeaders({
         "Content-Type": "application/json"
