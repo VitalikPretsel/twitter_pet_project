@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { first } from 'rxjs/operators';
 
-import { environment } from '../../environments/environment';
+import { UsersService } from '../_services/users.service';
 
 @Component({
   selector: 'app-users',
@@ -9,16 +9,11 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./users.component.sass']
 })
 export class UsersComponent implements OnInit {
-  users: any;
+  public users: any;
+  constructor(private service: UsersService) { }
 
-  constructor(private http: HttpClient) { }
-
-  ngOnInit(): void {
-    this.http.get(`${environment.apiUrl}/users`, {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json"
-      })
-    }).subscribe(response => {
+  ngOnInit() {
+    this.service.getUsers().pipe(first()).subscribe(response => {
       this.users = response;
     });
   }
