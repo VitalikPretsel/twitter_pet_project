@@ -22,7 +22,6 @@ namespace WebAPI.Controllers
             userRepository = repository;
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {

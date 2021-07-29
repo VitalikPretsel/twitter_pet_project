@@ -3,9 +3,11 @@ using DAL.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using DAL.Models;
 using WebAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
