@@ -28,7 +28,7 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
-    const token: string = localStorage.getItem("currentUser");
+    const token: string = this.currentUserValue?.token; 
     return token && !this.isTokenExpired(token);
   }
 
