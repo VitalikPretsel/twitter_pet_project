@@ -39,7 +39,7 @@ namespace WebAPI
                 {
                     builder.WithOrigins(
                         Configuration.GetValue<string>("TokenConfig:ValidAudience"))
-                    .AllowAnyMethod().AllowAnyHeader();
+                    .AllowAnyMethod().AllowAnyHeader().AllowCredentials();
                 });
             });
 
@@ -59,6 +59,17 @@ namespace WebAPI
                     ValidAudience = Configuration.GetValue<string>("TokenConfig:ValidAudience"),
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
                         Configuration.GetValue<string>("TokenConfig:SymmetricSecurityKey")))
+                };
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        if (context.Request.Cookies.ContainsKey("X-Access-Token"))
+                        {
+                            context.Token = context.Request.Cookies["X-Access-Token"];
+                        }
+                        return Task.CompletedTask;
+                    }
                 };
             });
 
@@ -86,6 +97,7 @@ namespace WebAPI
 
             app.UseCors("EnableCORS");
 
+            app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseAuthorization();
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using DAL.Models;
 using WebAPI.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace WebAPI.Controllers
 {
@@ -31,7 +32,11 @@ namespace WebAPI.Controllers
             User user = userRepository.FindUserByLoginModel(loginModel);
             if (user != null)
             {
-                return Ok(new { Token = authService.GetTokenString() });
+                var token = authService.GetTokenString();
+                Response.Cookies.Append("X-Access-Token", token,
+                    new CookieOptions() { HttpOnly = false, SameSite = SameSiteMode.None, Secure = true });
+
+                return Ok();
             }
             else
             {
