@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { UsersComponent } from './users/users.component';
 
+import { HttpRequestInterceptor} from './_helpers/http-request.interceptor';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { UsersComponent } from './users/users.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
     CookieService ],
   bootstrap: [AppComponent]
 })

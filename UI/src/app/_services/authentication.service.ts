@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 
 import { environment } from '../../environments/environment';
@@ -25,8 +25,7 @@ export class AuthenticationService {
     return this.http.post<any>(`${environment.apiUrl}/auth`, form, {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-      }),
-      withCredentials: true,
+      })
     })
   }
 

@@ -11,6 +11,6 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   public getUsers() {
-    return this.http.get(`${environment.apiUrl}/users`, { withCredentials: true });
+    return this.http.get(`${environment.apiUrl}/users`);
   }
 }
