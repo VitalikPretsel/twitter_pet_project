@@ -10,7 +10,6 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { UsersComponent } from './users/users.component';
 
-import { JwtInterceptor } from './_helpers/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -25,7 +24,7 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
     FormsModule,
     HttpClientModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  providers: [
     CookieService ],
   bootstrap: [AppComponent]
 })
