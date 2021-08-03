@@ -17,7 +17,7 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
-    const token: string = this.cookieService.get("X-Access-Token");
+    const token: string = this.cookieService.get(environment.cookieAccessTokenName);
     return token && !this.isTokenExpired(token);
   }
 
@@ -30,6 +30,6 @@ export class AuthenticationService {
   }
 
   logout() {
-    this.cookieService.delete("X-Access-Token");
+    this.cookieService.delete(environment.cookieAccessTokenName);
   }
 }

@@ -30,8 +30,7 @@ export class LoginComponent implements OnInit {
 
   public login = (form: NgForm) => {
     this.authenticationService.login(JSON.stringify(form.value))
-      .pipe(first())
-      .subscribe(response => {
+      .pipe(first()).subscribe(response => {
         this.invalidLogin = false;
         this.router.navigate([this.returnUrl]);
       }, err => {
