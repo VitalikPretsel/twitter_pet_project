@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
     {
         private readonly IUserRepository userRepository;
         private readonly AuthService authService;
-        
+
         public AuthController(IUserRepository repository, AuthService service)
         {
             userRepository = repository;
@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login([FromBody]LoginModel loginModel)
+        public IActionResult Login([FromBody] LoginModel loginModel)
         {
             if (loginModel == null)
             {
@@ -42,6 +42,13 @@ namespace WebAPI.Controllers
             {
                 return Unauthorized();
             }
+        }
+
+        [HttpGet]
+        public ActionResult<bool> IsAuthenticated()
+        {
+            var tokenString = Request.Cookies[TokenConstants.TokenName];
+            return Ok(!authService.IsTokenExpired(tokenString));
         }
     }
 }

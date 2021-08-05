@@ -31,5 +31,16 @@ namespace WebAPI.Services
             );
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }
+
+        public bool IsTokenExpired(string tokenString)
+        {
+            if (string.IsNullOrEmpty(tokenString))
+            {
+                return true;
+            }
+
+            var jwtToken = new JwtSecurityToken(tokenString);
+            return (jwtToken == null) || (jwtToken.ValidFrom > DateTime.UtcNow) || (jwtToken.ValidTo < DateTime.UtcNow);
+        }
     }
 }
