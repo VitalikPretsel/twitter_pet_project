@@ -50,5 +50,12 @@ namespace WebAPI.Controllers
             var tokenString = Request.Cookies[TokenConstants.TokenName];
             return Ok(!authService.IsTokenExpired(tokenString));
         }
+
+        [HttpDelete]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete(TokenConstants.TokenName);
+            return Ok();
+        }
     }
 }
