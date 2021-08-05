@@ -59,9 +59,9 @@ namespace WebAPI
                 {
                     OnMessageReceived = context =>
                     {
-                        if (context.Request.Cookies.ContainsKey("X-Access-Token"))
+                        if (context.Request.Cookies.ContainsKey(TokenConstants.TokenName))
                         {
-                            context.Token = context.Request.Cookies["X-Access-Token"];
+                            context.Token = context.Request.Cookies[TokenConstants.TokenName];
                         }
                         return Task.CompletedTask;
                     }
