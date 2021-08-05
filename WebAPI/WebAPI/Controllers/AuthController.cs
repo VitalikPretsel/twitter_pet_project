@@ -34,7 +34,7 @@ namespace WebAPI.Controllers
             {
                 var token = authService.GetTokenString();
                 Response.Cookies.Append("X-Access-Token", token,
-                    new CookieOptions() { HttpOnly = false, SameSite = SameSiteMode.None, Secure = true });
+                    new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.None, Secure = true });
 
                 return Ok();
             }
