@@ -38,6 +38,11 @@ namespace WebAPI.Services
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }
 
+        public IEnumerable<Claim> GetClaims(string tokenString)
+        {
+            return new JwtSecurityToken(tokenString).Claims;
+        }
+
         public bool IsTokenExpired(string tokenString)
         {
             if (string.IsNullOrEmpty(tokenString))

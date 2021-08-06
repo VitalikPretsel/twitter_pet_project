@@ -7,6 +7,12 @@
   </h2>
 </div>
 
+<div *ngIf="isAuthenticatedValue">
+<br>
+  <p>{{user?.userName}}</p>
+  <p>{{user?.email}}</p>
+</div>
+
 <br>
 <ul>
   <li><a routerLink="/users">Users</a></li>
