@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 import { AuthenticationService } from '../_services/authentication.service'
 
@@ -8,19 +10,23 @@ import { AuthenticationService } from '../_services/authentication.service'
   styleUrls: ['./home.component.sass']
 })
 export class HomeComponent implements OnInit {
-
-  constructor(private authenticationService: AuthenticationService) { 
-    this.authenticationService.isAuthenticated().subscribe();
+  private isAuthenticated: boolean;
+  public get isAuthenticatedValue(): boolean {
+    return this.isAuthenticated;
   }
 
-  ngOnInit(): void {
+  constructor(private router: Router, private authenticationService: AuthenticationService) {
   }
-  
-  isUserAuthenticated() {
-    return this.authenticationService.currentAuthValue;
+
+  async ngOnInit() {
+    this.isAuthenticated = await this.authenticationService.isAuthenticated().toPromise();
   }
 
   logOut() {
-    this.authenticationService.logout();
+    this.authenticationService.logout().subscribe(res => {
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate([this.router.url]);
+    });
   }
 }

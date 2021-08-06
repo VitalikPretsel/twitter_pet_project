@@ -22,10 +22,7 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
-    return this.http.get<boolean>(`${environment.apiUrl}/auth`)
-    .pipe(map(auth => {
-      this.currentAuthSubject.next(auth);
-    }));
+    return this.http.get<any>(`${environment.apiUrl}/auth`);
   }
 
   login(form: any) {
@@ -37,6 +34,6 @@ export class AuthenticationService {
   }
 
   logout() {
-    this.http.delete(`${environment.apiUrl}/auth`).subscribe();
+    return this.http.delete(`${environment.apiUrl}/auth`);
   }
 }
