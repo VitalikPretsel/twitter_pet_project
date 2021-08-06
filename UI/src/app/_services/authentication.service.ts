@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 
@@ -9,16 +11,21 @@ import { environment } from '../../environments/environment';
 })
 export class AuthenticationService {
 
-  constructor(private http: HttpClient, private cookieService: CookieService) { }
+  private currentAuthSubject: BehaviorSubject<boolean>;
 
-  private isTokenExpired(token: string) {
-    const expiry = (JSON.parse(atob(token?.split('.')[1]))).exp;
-    return (Math.floor((new Date).getTime() / 1000)) >= expiry;
+  public get currentAuthValue(): boolean {
+    return this.currentAuthSubject.value;
+  }
+
+  constructor(private http: HttpClient, private cookieService: CookieService) {
+    this.currentAuthSubject = new BehaviorSubject<boolean>(false);
   }
 
   isAuthenticated() {
-    const token: string = this.cookieService.get(environment.cookieAccessTokenName);
-    return token && !this.isTokenExpired(token);
+    return this.http.get<boolean>(`${environment.apiUrl}/auth`)
+    .pipe(map(auth => {
+      this.currentAuthSubject.next(auth);
+    }));
   }
 
   login(form: any) {
@@ -30,6 +37,6 @@ export class AuthenticationService {
   }
 
   logout() {
-    this.cookieService.delete(environment.cookieAccessTokenName);
+    this.http.delete(`${environment.apiUrl}/auth`).subscribe();
   }
 }

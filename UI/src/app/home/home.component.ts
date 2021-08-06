@@ -9,13 +9,15 @@ import { AuthenticationService } from '../_services/authentication.service'
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor(private authenticationService: AuthenticationService) { 
+    this.authenticationService.isAuthenticated().subscribe();
+  }
 
   ngOnInit(): void {
   }
   
   isUserAuthenticated() {
-    return this.authenticationService.isAuthenticated();
+    return this.authenticationService.currentAuthValue;
   }
 
   logOut() {

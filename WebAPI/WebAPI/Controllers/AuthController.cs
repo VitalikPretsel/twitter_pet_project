@@ -54,7 +54,7 @@ namespace WebAPI.Controllers
         [HttpDelete]
         public IActionResult Logout()
         {
-            Response.Cookies.Delete(TokenConstants.TokenName);
+            Response.Cookies.Delete(TokenConstants.TokenName, new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.None, Secure = true });
             return Ok();
         }
     }

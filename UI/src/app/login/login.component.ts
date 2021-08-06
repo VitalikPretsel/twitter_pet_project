@@ -19,10 +19,10 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService
   ) {
-    if (this.authenticationService.isAuthenticated()) {
+    this.authenticationService.isAuthenticated().subscribe();
+    if (this.authenticationService.currentAuthValue)
       this.router.navigate(['/']);
-    }
-   }
+  }
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
