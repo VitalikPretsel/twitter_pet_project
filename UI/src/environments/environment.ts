@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:44347/api',
-  cookieAccessTokenName: "X-Access-Token"
+  apiUrl: 'https://localhost:44347/api'
 };
 
 /*

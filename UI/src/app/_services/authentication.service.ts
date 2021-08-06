@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 
@@ -11,15 +8,7 @@ import { environment } from '../../environments/environment';
 })
 export class AuthenticationService {
 
-  private currentAuthSubject: BehaviorSubject<boolean>;
-
-  public get currentAuthValue(): boolean {
-    return this.currentAuthSubject.value;
-  }
-
-  constructor(private http: HttpClient, private cookieService: CookieService) {
-    this.currentAuthSubject = new BehaviorSubject<boolean>(false);
-  }
+  constructor(private http: HttpClient) { }
 
   isAuthenticated() {
     return this.http.get<any>(`${environment.apiUrl}/auth`);

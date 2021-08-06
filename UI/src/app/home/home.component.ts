@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 
 import { AuthenticationService } from '../_services/authentication.service'
 
