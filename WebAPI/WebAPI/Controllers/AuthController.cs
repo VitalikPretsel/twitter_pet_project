@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
             User user = userRepository.FindUserByLoginModel(loginModel);
             if (user != null)
             {
-                var token = authService.GetTokenString();
+                var token = authService.GetTokenString(user);
                 Response.Cookies.Append(TokenConstants.TokenName, token,
                     new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.None, Secure = true });
 

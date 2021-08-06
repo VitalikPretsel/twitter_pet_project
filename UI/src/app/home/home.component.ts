@@ -14,8 +14,7 @@ export class HomeComponent implements OnInit {
     return this.isAuthenticated;
   }
 
-  constructor(private router: Router, private authenticationService: AuthenticationService) {
-  }
+  constructor(private router: Router, private authenticationService: AuthenticationService) { }
 
   async ngOnInit() {
     this.isAuthenticated = await this.authenticationService.isAuthenticated().toPromise();
