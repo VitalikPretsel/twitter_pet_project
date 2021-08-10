@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
 import { AuthenticationService } from '../_services/authentication.service'
 
@@ -19,10 +19,13 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService
   ) {
-    if (this.authenticationService.isAuthenticated()) {
-      this.router.navigate(['/']);
-    }
-   }
+    this.authenticationService.isAuthenticated().pipe(map(
+      (res) => {
+        if (res) {
+          this.router.navigate(['/']);
+        }
+      })).subscribe();
+  }
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
