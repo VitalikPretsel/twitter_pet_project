@@ -1,19 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using DAL;
-using DAL.DataContext;
-using DAL.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
+using WebAPI.Configs;
+using WebAPI.Services;
 
 namespace WebAPI
 {
@@ -28,6 +28,51 @@ namespace WebAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("EnableCORS", builder =>
+                {
+                    builder.WithOrigins(
+                        Configuration.GetValue<string>("TokenConfig:ValidAudience"))
+                    .AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+                });
+            });
+
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration.GetValue<string>("TokenConfig:ValidIssuer"),
+                    ValidAudience = Configuration.GetValue<string>("TokenConfig:ValidAudience"),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                        Configuration.GetValue<string>("TokenConfig:SymmetricSecurityKey")))
+                };
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        if (context.Request.Cookies.ContainsKey(TokenConstants.TokenName))
+                        {
+                            context.Token = context.Request.Cookies[TokenConstants.TokenName];
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
+            });
+
+            services.AddScoped<AuthService>();
+
+            services.AddOptions();
+
+            services.Configure<TokenConfig>(Configuration.GetSection("TokenConfig"));
 
             services.AddControllers();
 
@@ -45,11 +90,14 @@ namespace WebAPI
 
             app.UseRouting();
 
+            app.UseCors("EnableCORS");
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers().RequireAuthorization();
             });
         }
     }

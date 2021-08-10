@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL.DataContext;
 using DAL.Entities;
+using DAL.Models;
 
 namespace DAL.Repositories
 {
@@ -12,7 +13,10 @@ namespace DAL.Repositories
     {
         public UserRepository(ApplicationContext context) : base(context)
         {
-
+        }
+        public User FindUserByLoginModel(LoginModel loginModel)
+        {
+            return appContext.Users.FirstOrDefault(u => u.UserName == loginModel.UserName && u.Password == loginModel.Password);
         }
     }
 }
