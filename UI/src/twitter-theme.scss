@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+@import './_colors';
+
+@include mat-core();
+
+$twitter-palette-primary: mat-palette($blue-twitter);
+$twitter-palette-accent:  mat-palette($green-twitter);
+$twitter-palette-warn:  mat-palette($red-twitter);
+
+$twitter-theme: mat-light-theme($twitter-palette-primary, $twitter-palette-accent, $twitter-palette-warn);
+
+@include angular-material-theme($twitter-theme);

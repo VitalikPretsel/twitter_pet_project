@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { UsersComponent } from './users/users.component';
 
 import { HttpRequestInterceptor} from './_helpers/http-request.interceptor';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HttpRequestInterceptor} from './_helpers/http-request.interceptor';
     UsersComponent
   ],
   imports: [
+    MaterialModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
