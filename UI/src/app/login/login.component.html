@@ -35,9 +35,11 @@
           <input type="password" id="password" name="password" ngModel required matInput>
         </mat-form-field>
       </div>
-
       <div class="input-container">
-        <button type="submit" mat-flat-button class="flat-circle-button" color="primary">Log in</button>
+        <button type="submit" mat-flat-button class="flat-circle-button" color="primary"
+        [disabled]="!loginForm.form.controls.password?.value.length || !loginForm.form.controls.username?.value.length">
+          Log in
+        </button>
       </div>
 
       <div class="input-container">

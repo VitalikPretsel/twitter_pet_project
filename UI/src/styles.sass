@@ -28,6 +28,11 @@
 .flat-circle-button:hover
     background-color: mat-color($blue-twitter, 600)
 
+.flat-circle-button[disabled]
+    background-color: mat-color($blue-twitter, 200) !important
+    color: white !important
+
+
 .form-field
     display: block !important
     margin-left: auto
@@ -38,6 +43,7 @@
     border-radius: 5px
     font-size: 1.25em
     .mat-form-field-flex
+        width: 95%
         margin-left: 10px
         margin-top: 5px
     .mat-form-field-label 
@@ -47,8 +53,6 @@
         background-color: slategray
     .mat-form-field-required-marker 
         display: none
-    .mat-form-field-infix
-        caret-color: black !important
 
 .form-field.mat-focused 
     border: mat-color($blue-twitter, 500) 1px solid
