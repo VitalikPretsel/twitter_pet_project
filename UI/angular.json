@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/twitter-theme.scss",
               "src/styles.sass"
             ],
             "scripts": []
@@ -91,6 +92,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/twitter-theme.scss",
               "src/styles.sass"
             ],
             "scripts": []
