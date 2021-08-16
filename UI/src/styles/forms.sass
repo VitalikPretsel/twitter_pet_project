@@ -1,0 +1,57 @@
+@import '../_colors'
+@import '~@angular/material/theming'
+
+.form-card
+    width: 340px
+    margin-left: auto
+    margin-right: auto
+    margin-top: 20px
+    box-shadow: none !important
+    .card-title-text
+        margin-top: 32px
+        h1
+            font-size: 1.4em
+            font-weight: 500
+            font-weight: bold
+            font-family: Helvetica
+
+.input-container
+    padding-top: 12px
+    padding-bottom: 12px
+
+.form-field
+    display: block !important
+    margin-left: auto
+    margin-right: auto
+    width: 334px 
+    height: 58px
+    border: lightgray 1px solid
+    border-radius: 5px
+    font-size: 1.25em !important
+    .mat-form-field-flex
+        width: 94%
+        margin-left: 10px
+        margin-top: 5px
+    .mat-form-field-label 
+        color: slategray
+    .mat-form-field-underline
+        display: none 
+        background-color: slategray
+    .mat-form-field-required-marker 
+        display: none
+
+.form-field.mat-focused 
+    border: mat-color($blue-twitter, 500) 1px solid
+    box-shadow: 0 0 0 2px mat-color($blue-twitter, 500)
+    caret-color: black !important
+    .mat-form-field-label 
+        color: mat-color($blue-twitter, 500) !important
+    .mat-form-field-infix input
+        caret-color: black !important
+    .mat-form-field-ripple 
+        background-color: black
+
+.form-field.mat-form-field-invalid 
+    .mat-form-field-label 
+        color: slategray
+
