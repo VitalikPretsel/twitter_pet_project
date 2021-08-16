@@ -28,6 +28,12 @@ namespace WebAPI.Controllers
             return Ok(posts);
         }
 
+        [HttpGet("details")]
+        public ActionResult<IEnumerable<Post>> Get(int step, int id = -1)
+        {
+            return Ok(postRepository.GetFewPosts(step, id));
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Post>> Get(int id)
         {
