@@ -32,6 +32,77 @@
     background-color: mat-color($blue-twitter, 200) !important
     color: white !important
 
+.icon-text-button
+    padding: 0 !important
+    height: 25px
+    div
+        margin-top: -6px
+        svg
+            margin-bottom: -5px
+            width: 19px
+            height: 19px
+        .icon-text-button-icon div
+            margin: 0px -8px 
+            padding: 0px 8px 
+            display: inline-block
+            border-radius: 50%
+        .icon-text-button-icon
+            fill: $gray-3
+        .icon-text-button-text
+            font-size: 13px
+            padding: 0 12px
+            color: $gray-3
+
+.icon-text-button .mat-button-focus-overlay, 
+.icon-text-button .mat-button-ripple,
+.icon-text-button .mat-ripple
+    display: none !important
+
+.icon-text-button:hover
+    .icon-text-button-text
+        color: mat-color($blue-twitter, 400)
+    .icon-text-button-icon
+        fill: mat-color($blue-twitter, 400)
+    .icon-text-button-icon div
+        background-color: mat-color($blue-twitter, 100)
+
+.icon-text-button:active
+    .icon-text-button-icon div
+        background-color: mat-color($blue-twitter, 200)
+
+
+.icon-text-button-accent:hover
+    .icon-text-button-text
+        color: mat-color($green-twitter, 400) 
+    .icon-text-button-icon
+        fill: mat-color($green-twitter, 400) 
+    .icon-text-button-icon div
+        background-color: mat-color($green-twitter, 100) 
+
+.icon-text-button-accent:active
+    .icon-text-button-icon div
+        background-color: mat-color($green-twitter, 200) 
+
+
+.icon-text-button-warn:hover
+    .icon-text-button-text
+        color: mat-color($red-twitter, 400) 
+    .icon-text-button-icon
+        fill: mat-color($red-twitter, 400) 
+    .icon-text-button-icon div
+        background-color: mat-color($red-twitter, 100) 
+
+.icon-text-button-warn:active
+    .icon-text-button-icon div
+        background-color: mat-color($red-twitter, 200) 
+
+
+
+.link-button-black
+    font-weight: bold 
+
+.link-button-black:hover
+    text-decoration: underline 
 
 .form-field
     display: block !important
