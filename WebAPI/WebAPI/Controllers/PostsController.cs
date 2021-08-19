@@ -29,9 +29,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("details")]
-        public ActionResult<IEnumerable<Post>> Get(int step, int id = -1)
+        public async Task<ActionResult<IEnumerable<Post>>> Get(int step, int id = -1)
         {
-            return Ok(postRepository.GetFewPosts(step, id));
+            return Ok(await postRepository.GetFewPosts(step, id));
         }
 
         [HttpGet("{id}")]

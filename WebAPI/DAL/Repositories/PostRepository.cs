@@ -15,14 +15,13 @@ namespace DAL.Repositories
         {
         }
 
-        public IEnumerable<Post> GetFewPosts(int step, int id = -1)
+        public async Task<IEnumerable<Post>> GetFewPosts(int step, int id = -1)
         {
-            var posts = appContext.Posts.AsEnumerable().Reverse();
             if (id == -1)
             {
-                id = posts.First().Id;
+                id = (await appContext.Posts.OrderByDescending(p => p.Id).FirstAsync()).Id;
             }
-            return posts.Where(p => p.Id <= id).Take(step);
+            return appContext.Posts.OrderByDescending(p => p.Id).Where(p => p.Id <= id).Take(step).AsEnumerable();
         }
     }
 }
