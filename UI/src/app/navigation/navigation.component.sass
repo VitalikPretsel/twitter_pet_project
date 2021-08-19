@@ -1,0 +1,83 @@
+@import '../../_colors'
+@import '~@angular/material/theming'
+    
+.navigation-container
+    width: 251px
+    min-height: 100vh
+    padding: 0px 12px
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    align-items: center
+    .menu-item
+        display: flex
+        flex-direction: column
+        .twitter-menu-item
+            .circle-button
+                padding: 2px 0
+                .circle-button-container
+                    padding: 12px 10px
+                    svg
+                        fill: map-get($blue-twitter, 500)
+        .nav-menu-item
+            margin-top: 2px
+            margin-bottom: 4px
+            nav
+                display: flex
+                flex-direction: column
+                .circle-button
+                    padding: 4px 0
+        .tweet-menu-item
+            div
+                margin: 16px 0
+                a
+                    width: 226px !important
+                    .button-image
+                        fill: white
+                        display: none
+    .profile-item
+        min-width: 100%
+    .profile-item > div
+        height: 64px
+        margin: 12px 0
+        .circle-button
+            width: 100%
+            height: fit-content
+            .circle-button-container
+                height: fit-content
+                border-radius: 32px
+                .button-image
+                    height: 40px
+                    img
+                        width: 40px
+                        height: 40px
+                        border-radius: 20px 
+                .dots
+                    margin-left: auto
+
+@media screen and (max-width: 1300px)
+    .navigation-container
+        width: 64px
+        .menu-item
+            .circle-button
+                .button-text
+                    display: none
+            .tweet-menu-item
+                div
+                    a
+                        padding: 0
+                        width: 52px !important
+                        .button-image
+                            display: block
+                        .button-text
+                            display: none
+        .profile-item
+            div
+                .circle-button
+                    .button-text, .dots
+                        display: none
+
+@media screen and (max-width: 635px)
+    .navigation-container
+        width: 60px
+        padding: 0px 4px

@@ -6,6 +6,9 @@
     flex-wrap: wrap
     .navigation, .aside
         flex: 1 1 auto
+    .navigation > div
+        display: flex
+        justify-content: flex-end
     .fixed-container
         position: fixed
         min-height: 100%
@@ -16,13 +19,15 @@
     .main > div
         width: 598px
         min-height: 100vh
-        
+
+@media screen and (max-width: 1300px)
+    .container
+        .navigation
+            width: 88px    
 @media screen and (max-width: 1020px)
     .container
         .aside div
             display: none
-        .navigation > div
-            width: 88px
 @media screen and (max-width: 705px) 
     .container
         .main
@@ -31,5 +36,5 @@
             width: 100%
 @media screen and (max-width: 635px)
     .container
-        .navigation > div
+        .navigation
             width: 68px

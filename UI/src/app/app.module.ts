@@ -16,6 +16,7 @@ import { InfiniteScrollComponent } from './infinite-scroll/infinite-scroll.compo
 import { HttpRequestInterceptor} from './_helpers/http-request.interceptor';
 import { MaterialModule } from './material.module';
 import { LayoutComponent } from './layout/layout.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { LayoutComponent } from './layout/layout.component';
     HomeComponent,
     UsersComponent,
     InfiniteScrollComponent,
-    LayoutComponent
+    LayoutComponent,
+    NavigationComponent
   ],
   imports: [
     MaterialModule,
