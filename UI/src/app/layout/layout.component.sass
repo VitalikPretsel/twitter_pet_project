@@ -3,12 +3,12 @@
 .container
     display: flex
     flex-direction: row
-    flex-wrap: wrap
     .navigation, .aside
         flex: 1 1 auto
     .navigation > div
         display: flex
         justify-content: flex-end
+        min-width: 68px
     .fixed-container
         position: fixed
         min-height: 100%
@@ -38,3 +38,4 @@
     .container
         .navigation
             width: 68px
+        .main > div
