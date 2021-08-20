@@ -52,4 +52,8 @@ export class FeedScrollComponent implements OnInit {
     let lastId = this.allPost[this.allPost.length - 1].id - 1;
     this.loadPosts(lastId);
   }
+
+  identify(index, item) {
+    return item.id;
+  }
 }

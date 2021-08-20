@@ -1,5 +1,5 @@
 <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
-    <div *ngFor="let post of allPost">
+    <div *ngFor="let post of allPost; trackBy: identify">
     <div class="post-container">
         <article>
             <div class="blank-item"></div>
