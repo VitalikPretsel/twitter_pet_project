@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { UsersComponent } from './users/users.component';
-import { InfiniteScrollComponent } from './infinite-scroll/infinite-scroll.component';
+import { FeedScrollComponent } from './feed-scroll/feed-scroll.component';
 
 import { HttpRequestInterceptor} from './_helpers/http-request.interceptor';
 import { MaterialModule } from './material.module';
@@ -24,7 +24,7 @@ import { NavigationComponent } from './layout/navigation/navigation.component';
     LoginComponent,
     HomeComponent,
     UsersComponent,
-    InfiniteScrollComponent,
+    FeedScrollComponent,
     LayoutComponent,
     NavigationComponent
   ],

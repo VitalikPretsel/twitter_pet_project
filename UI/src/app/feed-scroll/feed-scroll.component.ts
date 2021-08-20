@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../_services/posts.service';
 
 @Component({
-  selector: 'app-infinite-scroll',
-  templateUrl: './infinite-scroll.component.html',
-  styleUrls: ['./infinite-scroll.component.sass']
+  selector: 'app-feed-scroll',
+  templateUrl: './feed-scroll.component.html',
+  styleUrls: ['./feed-scroll.component.sass']
 })
-export class InfiniteScrollComponent implements OnInit {
+export class FeedScrollComponent implements OnInit {
 
   allPost: Array<any>;
 
