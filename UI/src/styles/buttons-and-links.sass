@@ -3,9 +3,16 @@
     
 .flat-circle-button
     font-size: 1.2em !important
-    height: 46px
-    border-radius: 23px !important
+    height: 52px
+    border-radius: 26px !important
     transition: background-color 0.2s
+
+a.flat-circle-button
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: center
+    min-width: unset 
 
 .flat-circle-button:hover
     background-color: mat-color($blue-twitter, 600)
@@ -13,7 +20,29 @@
 .flat-circle-button[disabled]
     background-color: mat-color($blue-twitter, 200) !important
     color: white !important
+    
 
+.circle-button
+    display: block
+    height: 50px
+    width: fit-content
+    .circle-button-container
+        display: flex
+        align-items: center
+        height: 26px
+        padding: 12px
+        border-radius: 25px
+        transition: background-color 0.2s
+        .button-text
+            font-size: 20px
+            padding: 0 12px
+
+.circle-button:hover
+    .circle-button-container
+        background-color: $gray-2
+.circle-button-primary:hover
+    .circle-button-container
+        background-color: mat-color($blue-twitter, 100)
 
 .icon-text-button
     padding: 0 !important

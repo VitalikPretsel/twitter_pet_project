@@ -1,0 +1,41 @@
+@import '../../_colors'
+
+.container
+    display: flex
+    flex-direction: row
+    .navigation, .aside
+        flex: 1 1 auto
+    .navigation > div
+        display: flex
+        justify-content: flex-end
+        min-width: 68px
+    .fixed-container
+        position: fixed
+        min-height: 100%
+    .main
+        border: 1px solid $gray-4
+        border-top: none
+        border-bottom: none
+    .main > div
+        width: 598px
+        min-height: 100vh
+
+@media screen and (max-width: 1300px)
+    .container
+        .navigation
+            width: 88px    
+@media screen and (max-width: 1020px)
+    .container
+        .aside div
+            display: none
+@media screen and (max-width: 705px) 
+    .container
+        .main
+            flex-grow: 1000
+        .main > div
+            width: 100%
+@media screen and (max-width: 635px)
+    .container
+        .navigation
+            width: 68px
+        .main > div
