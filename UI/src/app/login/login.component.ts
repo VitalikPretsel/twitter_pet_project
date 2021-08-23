@@ -5,6 +5,8 @@ import { first, map } from 'rxjs/operators';
 
 import { AuthenticationService } from '../_services/authentication.service'
 
+import { strings } from 'src/constants/strings';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,6 +15,8 @@ import { AuthenticationService } from '../_services/authentication.service'
 export class LoginComponent implements OnInit {
   invalidLogin: boolean;
   returnUrl: string;
+
+  public loginFormStrings = strings.loginForm;
 
   constructor(
     private router: Router,

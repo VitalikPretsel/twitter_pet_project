@@ -11,7 +11,7 @@
                 </div>
             </a>
         </div>
-        <div class="nav-menu-item">
+        <div class="nav-menu-item">     <!-- TODO: change nav buttons if authenticated / nonauthenticated -->
             <nav>
                 <a class="circle-button">
                     <div class="circle-button-container">
@@ -24,7 +24,7 @@
                             </path>
                         </svg>
                         <span class="button-text">
-                            Home
+                            {{navButtonsStrings.home}}
                         </span>
                     </div>
                 </a>
@@ -36,7 +36,7 @@
                             </path>
                         </svg>
                         <span class="button-text">
-                            Explore
+                            {{navButtonsStrings.explore}}
                         </span>
                     </div>
                 </a>
@@ -48,7 +48,7 @@
                             </path>
                         </svg>
                         <span class="button-text">
-                            Notifications
+                            {{navButtonsStrings.notifications}}
                         </span>
                     </div>
                 </a>
@@ -60,7 +60,7 @@
                             </path>
                         </svg>
                         <span class="button-text">
-                            Messages
+                            {{navButtonsStrings.messages}}
                         </span>
                     </div>
                 </a>
@@ -72,7 +72,7 @@
                             </path>
                         </svg>
                         <span class="button-text">
-                            Bookmarks
+                            {{navButtonsStrings.bookmarks}}
                         </span>
                     </div>
                 </a>
@@ -89,7 +89,7 @@
                             </g>
                         </svg>
                         <span class="button-text">
-                            Lists
+                            {{navButtonsStrings.lists}}
                         </span>
                     </div>
                 </a>
@@ -101,7 +101,7 @@
                             </path>
                         </svg>
                         <span class="button-text">
-                            Profile
+                            {{navButtonsStrings.profile}}
                         </span>
                     </div>
                 </a>
@@ -118,7 +118,7 @@
                             </g>
                         </svg>
                         <span class="button-text">
-                            More
+                            {{navButtonsStrings.more}}
                         </span>
                     </div>
                 </a>
@@ -133,7 +133,7 @@
                         </path>
                     </svg>
                     <span class="button-text">
-                        Tweet
+                        {{navButtonsStrings.tweet}}
                     </span>
                 </a>
             </div>
@@ -148,7 +148,7 @@
                             onerror="this.src='/assets/img/default_profile_img.png'" />
                     </div>
                     <span class="button-text">
-                        UserName
+                        UserName    <!-- TODO: add username and link if authenticated -->
                     </span>
                     <svg class="dots" viewBox="0 0 24 24" width="19" height="19">
                         <g>

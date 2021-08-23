@@ -8,7 +8,7 @@
       </svg>
     </div>
     <div class="card-title-text">
-      <h1>Log in to Twitter</h1>
+      <h1>{{loginFormStrings.header}}</h1>
     </div>
   </mat-card-title>
 
@@ -17,36 +17,36 @@
       <div *ngIf="invalidLogin" class="input-container">
         <div class="error-input">
           <div class="error-input-text">
-            Invalid username or password.
+            {{loginFormStrings.errorMessage}}
           </div>
         </div>
       </div>
 
       <div class="input-container">
         <mat-form-field class="form-field">
-          <mat-label>Email or username</mat-label>
+          <mat-label>{{loginFormStrings.loginLabel}}</mat-label>
           <input type="email" id="username" name="username" ngModel required matInput>
         </mat-form-field>
       </div>
 
       <div class="input-container">
         <mat-form-field class="form-field">
-          <mat-label>Password</mat-label>
+          <mat-label>{{loginFormStrings.passwordLabel}}</mat-label>
           <input type="password" id="password" name="password" ngModel required matInput>
         </mat-form-field>
       </div>
       <div class="input-container">
         <button type="submit" mat-flat-button class="flat-circle-button" color="primary"
           [disabled]="!loginForm.form.controls.password?.value.length || !loginForm.form.controls.username?.value.length">
-          Log in
+          {{loginFormStrings.submitButton}}
         </button>
       </div>
 
       <div class="input-container">
         <span class="link-container">
-          <a routerLink="./" class="link link-blue">Forgot password?</a>
+          <a routerLink="./" class="link link-blue">{{loginFormStrings.forgotLink}}</a>
           ·
-          <a routerLink="./" class="link link-blue">Sign up for Twitter</a>
+          <a routerLink="./" class="link link-blue">{{loginFormStrings.signupLink}}</a>
         </span>
       </div>
     </form>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { PostsService } from '../_services/posts.service';
 
+import { strings } from 'src/constants/strings';
+
 @Component({
   selector: 'app-feed-scroll',
   templateUrl: './feed-scroll.component.html',
@@ -10,6 +12,8 @@ import { PostsService } from '../_services/posts.service';
 export class FeedScrollComponent implements OnInit {
 
   allPost: Array<any>;
+
+  public feedPostStrings = strings.feedPost;
 
   constructor(private service: PostsService) {
     this.allPost = new Array<any>();
