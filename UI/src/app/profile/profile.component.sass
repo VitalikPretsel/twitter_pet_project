@@ -1,0 +1,27 @@
+@import '~@angular/material/theming'
+@import '../../_colors'
+
+.header-container
+    height: 53px
+    padding: 0 16px
+    display: flex
+    position: sticky
+    flex-direction: row
+    align-items: center
+    border-bottom: 1px solid $gray-4
+    .left-button-item, .right-button-item
+        width: 56px
+        .circle-button
+            margin-left: -5px
+    .center-item
+        width: auto
+        flex-grow: 1
+        display: flex
+        flex-direction: column
+        .profile-name
+            line-height: 24px
+            font-size: 20px
+            font-weight: 700
+        .tweets-amount
+            color: $gray-3
+            font-size: 13px

@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { UsersComponent } from './users/users.component';
 import { FeedScrollComponent } from './feed-scroll/feed-scroll.component';
 import { LayoutComponent } from './layout/layout.component';
+import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './_helpers/auth.guard';
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      { path: 'feed-scroll', component: FeedScrollComponent }
+      { path: 'feed-scroll', component: FeedScrollComponent },
+      { path: 'profile', component: ProfileComponent }
     ]
   },
   { path: 'login', component: LoginComponent },

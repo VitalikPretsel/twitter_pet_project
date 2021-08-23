@@ -23,12 +23,16 @@ a.flat-circle-button
     
 
 .circle-button
+    padding: 0
     display: block
     height: 50px
     width: fit-content
+    background-color: transparent
+    border: none
     .circle-button-container
         display: flex
         align-items: center
+        justify-content: center
         height: 26px
         padding: 12px
         border-radius: 25px
@@ -36,6 +40,12 @@ a.flat-circle-button
         .button-text
             font-size: 20px
             padding: 0 12px
+
+.circle-button-s
+    .circle-button-container
+        padding: 0
+        height: 34px
+        width: 34px
 
 .circle-button:hover
     .circle-button-container

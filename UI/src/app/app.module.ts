@@ -17,6 +17,7 @@ import { HttpRequestInterceptor} from './_helpers/http-request.interceptor';
 import { MaterialModule } from './material.module';
 import { LayoutComponent } from './layout/layout.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { NavigationComponent } from './layout/navigation/navigation.component';
     UsersComponent,
     FeedScrollComponent,
     LayoutComponent,
-    NavigationComponent
+    NavigationComponent,
+    ProfileComponent
   ],
   imports: [
     MaterialModule,
