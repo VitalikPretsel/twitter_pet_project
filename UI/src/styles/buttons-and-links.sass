@@ -1,0 +1,124 @@
+@import '../_colors'
+@import '~@angular/material/theming'
+    
+.flat-circle-button
+    font-size: 1.2em !important
+    height: 52px
+    border-radius: 26px !important
+    transition: background-color 0.2s
+
+a.flat-circle-button
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: center
+    min-width: unset 
+
+.flat-circle-button:hover
+    background-color: mat-color($blue-twitter, 600)
+
+.flat-circle-button[disabled]
+    background-color: mat-color($blue-twitter, 200) !important
+    color: white !important
+    
+
+.circle-button
+    display: block
+    height: 50px
+    width: fit-content
+    .circle-button-container
+        display: flex
+        align-items: center
+        height: 26px
+        padding: 12px
+        border-radius: 25px
+        transition: background-color 0.2s
+        .button-text
+            font-size: 20px
+            padding: 0 12px
+
+.circle-button:hover
+    .circle-button-container
+        background-color: $gray-2
+.circle-button-primary:hover
+    .circle-button-container
+        background-color: mat-color($blue-twitter, 100)
+
+.icon-text-button
+    padding: 0 !important
+    height: 25px
+    div
+        margin-top: -6px
+        svg
+            margin-bottom: -5px
+            width: 19px
+            height: 19px
+        .icon-text-button-icon div
+            margin: 0px -8px 
+            padding: 0px 8px 
+            display: inline-block
+            border-radius: 50%
+        .icon-text-button-icon
+            fill: $gray-3
+            transition: fill 0.2s
+        .icon-text-button-text
+            font-size: 13px
+            padding: 0 12px
+            color: $gray-3
+            transition: color 0.2s
+
+.icon-text-button .mat-button-focus-overlay, 
+.icon-text-button .mat-button-ripple,
+.icon-text-button .mat-ripple
+    display: none !important
+
+.icon-text-button:hover
+    .icon-text-button-text
+        color: mat-color($blue-twitter, 400)
+    .icon-text-button-icon
+        fill: mat-color($blue-twitter, 400)
+    .icon-text-button-icon div
+        background-color: mat-color($blue-twitter, 100)
+
+.icon-text-button:active
+    .icon-text-button-icon div
+        background-color: mat-color($blue-twitter, 200)
+
+.icon-text-button-accent:hover
+    .icon-text-button-text
+        color: mat-color($green-twitter, 400) 
+    .icon-text-button-icon
+        fill: mat-color($green-twitter, 400) 
+    .icon-text-button-icon div
+        background-color: mat-color($green-twitter, 100) 
+
+.icon-text-button-accent:active
+    .icon-text-button-icon div
+        background-color: mat-color($green-twitter, 200) 
+
+.icon-text-button-warn:hover
+    .icon-text-button-text
+        color: mat-color($red-twitter, 400) 
+    .icon-text-button-icon
+        fill: mat-color($red-twitter, 400) 
+    .icon-text-button-icon div
+        background-color: mat-color($red-twitter, 100) 
+
+.icon-text-button-warn:active
+    .icon-text-button-icon div
+        background-color: mat-color($red-twitter, 200) 
+
+
+.link
+    text-decoration: none 
+    
+.link:hover
+    text-decoration: underline 
+
+.link-black
+    font-weight: bold 
+    color: black
+
+.link-blue
+    font-size: 1.1em
+    color: mat-color($blue-twitter, 500)

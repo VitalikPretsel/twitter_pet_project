@@ -39,6 +39,12 @@ namespace WebAPI.Controllers
             return Ok(like);
         }
 
+        [HttpGet("OnPostAmount/{postId}")]
+        public ActionResult<int> GetLikesOnPost(int postId)
+        {
+            return Ok(likeRepository.GetLikesOnPostAmount(postId));
+        }
+
         [HttpPost]
         public async Task<ActionResult<Like>> Post(Like like)
         {

@@ -39,6 +39,17 @@ namespace WebAPI.Controllers
             return Ok(profile);
         }
 
+        [HttpGet("profileName/{id}")]
+        public async Task<ActionResult<string>> GetProfileName(int id)
+        {
+            Profile profile = await profileRepository.Get(id);
+            if (profile == null)
+            {
+                return NotFound();
+            }
+            return Ok(profile.ProfileName);
+        }
+
         [HttpPost]
         public async Task<ActionResult<Profile>> Post(Profile profile)
         {

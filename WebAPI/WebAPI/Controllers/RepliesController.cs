@@ -12,11 +12,11 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReplyController : ControllerBase
+    public class RepliesController : ControllerBase
     {
         private readonly IReplyRepository replyRepository;
 
-        public ReplyController(IReplyRepository repository)
+        public RepliesController(IReplyRepository repository)
         {
             replyRepository = repository;
         }
@@ -37,6 +37,12 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
             return Ok(reply);
+        }
+
+        [HttpGet("OnPostAmount/{postId}")]
+        public ActionResult<int> GetRepliesOnPost(int postId)
+        {
+            return Ok(replyRepository.GetRepliesOnPostAmount(postId));
         }
 
         [HttpPost]

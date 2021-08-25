@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL.DataContext;
 using DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
@@ -12,7 +13,15 @@ namespace DAL.Repositories
     {
         public PostRepository(ApplicationContext context) : base(context)
         {
+        }
 
+        public async Task<IEnumerable<Post>> GetFewPosts(int step, int id = -1)
+        {
+            if (id == -1)
+            {
+                id = (await appContext.Posts.OrderByDescending(p => p.Id).FirstAsync()).Id;
+            }
+            return appContext.Posts.OrderByDescending(p => p.Id).Where(p => p.Id <= id).Take(step).AsEnumerable();
         }
     }
 }
