@@ -14,16 +14,75 @@
         <div class="header-item center-item">
             <div class="profile-name">
                 profileName
+                <!-- TODO: display profile name -->
             </div>
             <div class="tweets-amount">
                 N tweets
+                <!-- TODO: display tweets amount -->
             </div>
         </div>
         <div class="header-item right-button-item">
         </div>
     </div>
 
+    <div class="profile-container">
+        <div class="profile-background">
+        </div>
+        <div class="profile-card">
+            <div class="profile-control">
+                <div class="profile-image">
+                    <div class="image-container">   <!-- TODO: display profile picture -->
+                        <img src="/img.png" onerror="this.src='/assets/img/default_profile_img.png'" />
+                    </div>
+                </div>
+                <div class="buttons">
+                    <div>
+                        <button class="circle-button circle-button-s circle-button-border">
+                            <div class="circle-button-container">
+                                <svg viewBox="0 0 24 24" width="20" height="20">
+                                    <g>
+                                        <circle cx="5" cy="12" r="2"></circle>
+                                        <circle cx="12" cy="12" r="2"></circle>
+                                        <circle cx="19" cy="12" r="2"></circle>
+                                    </g>
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
+                    <div>
+                        <button mat-flat-button class="circle-button circle-button-s circle-button-black">
+                            <div class="circle-button-container">
+                                <span class="button-text">
+                                    Follow
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-name">
+                <span class="text">profileName</span> <!-- TODO: display profilename -->
+            </div>
+            <div class="profile-description">
+                description <!-- TODO: display description -->
+            </div>
+            <div class="profile-follows">
+                <span class="following">
+                    <a routerLink="./" class="link">
+                        <span><b>123</b></span> <!-- TODO: display followings amount -->
+                        <span> Following</span>
+                    </a>
+                </span>
+                <span class="followers">
+                    <a routerLink="./" class="link">
+                        <span><b>321</b></span> <!-- TODO: display followers amount -->
+                        <span> Followers</span>
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+
     <!-- TODO: else main content here: -->
-    <!-- profile description with all buttons -->
     <!-- profile posts (feed) -->
 </div>

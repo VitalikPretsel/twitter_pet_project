@@ -23,12 +23,14 @@ a.flat-circle-button
     
 
 .circle-button
-    padding: 0
+    cursor: pointer
+    padding: 0 !important
     display: block
     height: 50px
-    width: fit-content
-    background-color: transparent
+    width: fit-content !important
     border: none
+    border-radius: 25px !important
+    background-color: transparent
     .circle-button-container
         display: flex
         align-items: center
@@ -42,17 +44,44 @@ a.flat-circle-button
             padding: 0 12px
 
 .circle-button-s
+    height: 36px
     .circle-button-container
         padding: 0
         height: 34px
-        width: 34px
+        min-width: 34px
+        border: 1px solid transparent
+        .button-text
+            font-size: 15px
+
+.circle-button-border
+    .circle-button-container
+        border: 1px solid $gray-5
+
+.circle-button-black
+    .circle-button-container
+        background-color: black
+        .button-text
+            color: white
 
 .circle-button:hover
     .circle-button-container
-        background-color: $gray-2
+        background-color: $gray-8
 .circle-button-primary:hover
     .circle-button-container
         background-color: mat-color($blue-twitter, 100)
+.circle-button-black:hover
+    .circle-button-container
+        background-color: $gray-6
+
+.circle-button:active
+    .circle-button-container
+        background-color: $gray-7
+.circle-button-primary:active
+    .circle-button-container
+        background-color: mat-color($blue-twitter, 200)
+.circle-button-black:active
+    .circle-button-container
+        background-color: $gray-6
 
 .icon-text-button
     padding: 0 !important
@@ -124,6 +153,9 @@ a.flat-circle-button
     
 .link:hover
     text-decoration: underline 
+    color: black
+.link:active
+    color: black
 
 .link-black
     font-weight: bold 
