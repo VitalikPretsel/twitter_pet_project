@@ -15,7 +15,6 @@ export class ProfileComponent implements OnInit {
   constructor(private service: ProfileService, private activatedRoute: ActivatedRoute) { 
     let profileName = this.activatedRoute.snapshot.paramMap.get('profileName');
     this.getProfile(profileName);
-    console.log(this.profile);
   }
 
   ngOnInit(): void {
@@ -24,7 +23,20 @@ export class ProfileComponent implements OnInit {
   getProfile(profileName) {
     this.service.getProfile(profileName).subscribe(data => {
         this.profile = data;
+        this.getFollowersAmount(this.profile.id);
+        this.getFollowingsAmount(this.profile.id);
       });
   }
 
+  getFollowersAmount(profileId) {
+    this.service.getFollowersAmount(profileId).subscribe(data => {
+      this.profile.followersAmount = data;
+    });
+  }
+
+  getFollowingsAmount(profileId) {
+    this.service.getFollowingsAmount(profileId).subscribe(data => {
+      this.profile.followingsAmount = data;
+    });
+  }
 }

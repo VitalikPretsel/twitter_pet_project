@@ -13,4 +13,12 @@ export class ProfileService {
   public getProfile(profileName) {
     return this.http.get(`${environment.apiUrl}/profiles/getbyname/${profileName}`);
   }
+
+  public getFollowersAmount(profileId) {
+    return this.http.get(`${environment.apiUrl}/followings/profileFollowersAmount/${profileId}`);
+  }
+
+  public getFollowingsAmount(profileId) {
+    return this.http.get(`${environment.apiUrl}/followings/profileFollowingsAmount/${profileId}`);
+  }
 }
