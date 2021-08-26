@@ -34,6 +34,12 @@ namespace WebAPI.Controllers
             return Ok(await postRepository.GetFewPosts(step, id));
         }
 
+        [HttpGet("{profileId}/details")]
+        public async Task<ActionResult<IEnumerable<Post>>> Get(int step, int profileId, int id = -1)
+        {
+            return Ok(await postRepository.GetFewOfProfilePosts(step, profileId, id));
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Post>> Get(int id)
         {
