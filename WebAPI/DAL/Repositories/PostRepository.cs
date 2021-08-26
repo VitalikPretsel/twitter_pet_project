@@ -24,14 +24,14 @@ namespace DAL.Repositories
             return appContext.Posts.OrderByDescending(p => p.Id).Where(p => p.Id <= id).Take(step).AsEnumerable();
         }
 
-        public async Task<IEnumerable<Post>> GetFewOfProfilePosts(int step, int profileId, int id = -1)
+        public async Task<IEnumerable<Post>> GetFewProfilePosts(int[] profileIds, int step, int id = -1)
         {
             if (id == -1)
             {
-                id = (await appContext.Posts.Where(p => p.ProfileId == profileId).
+                id = (await appContext.Posts.Where(p => profileIds.Any(id => id == p.ProfileId)).
                     OrderByDescending(p => p.Id).FirstAsync()).Id;
             }
-            return appContext.Posts.Where(p => p.ProfileId == profileId).
+            return appContext.Posts.Where(p => profileIds.Any(id => id == p.ProfileId)).
                 OrderByDescending(p => p.Id).Where(p => p.Id <= id).Take(step).AsEnumerable();
         }
 
