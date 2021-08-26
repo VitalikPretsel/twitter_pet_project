@@ -21,4 +21,8 @@ export class ProfileService {
   public getFollowingsAmount(profileId) {
     return this.http.get(`${environment.apiUrl}/followings/profileFollowingsAmount/${profileId}`);
   }
+
+  public getPostsAmount(profileId) {
+    return this.http.get(`${environment.apiUrl}/posts/profilePostsAmount/${profileId}`);
+  }
 }

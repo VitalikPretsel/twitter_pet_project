@@ -11,7 +11,7 @@ export class PostsService {
   constructor(private http: HttpClient) { }
 
   public getPosts(lastId) {
-    return this.http.get(`${environment.apiUrl}/posts/details?step=20&&id=${lastId}`);
+    return this.http.get(`${environment.apiUrl}/posts/details?step=20&id=${lastId}`);
   }
 
   public getLikesAmount(postId) {

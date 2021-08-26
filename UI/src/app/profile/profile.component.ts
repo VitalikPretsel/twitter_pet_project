@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit {
         this.profile = data;
         this.getFollowersAmount(this.profile.id);
         this.getFollowingsAmount(this.profile.id);
+        this.getPostsAmount(this.profile.id)
       });
   }
 
@@ -37,6 +38,12 @@ export class ProfileComponent implements OnInit {
   getFollowingsAmount(profileId) {
     this.service.getFollowingsAmount(profileId).subscribe(data => {
       this.profile.followingsAmount = data;
+    });
+  }
+
+  getPostsAmount(profileId) {
+    this.service.getPostsAmount(profileId).subscribe(data => {
+      this.profile.postsAmount = data;
     });
   }
 }
