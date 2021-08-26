@@ -11,6 +11,7 @@ namespace DAL.Entities
     {
         public int Id { get; set; }
 
+        [Required]
         [MaxLength(256)]
         public string ProfileName { get; set; }
 

@@ -19,5 +19,17 @@ namespace DAL.DataContext
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
         }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<User>()
+                .HasIndex(u => u.UserName)
+                .IsUnique();
+            builder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+            builder.Entity<Profile>()
+                .HasIndex(p => p.ProfileName)
+                .IsUnique();
+        }
     }
 }

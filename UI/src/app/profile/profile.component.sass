@@ -86,20 +86,22 @@
                 color: $gray-3
 
 .tabs 
-    ::ng-deep .mat-tab-label
-        height: 53px !important
-        width: 25%
-        min-width: unset
-        opacity: 1
-        ::ng-deep .mat-tab-label-content
-            font-size: 15px
-            font-weight: 500
-            color: $gray-3 !important
-    ::ng-deep .mat-tab-label:hover
-        background-color: $gray-8
-    ::ng-deep .mat-tab-label-active .mat-tab-label-content
-        font-weight: 700 !important
-        color: black !important
-    ::ng-deep .mat-ink-bar
-        height: 4px
-        border-radius: 2px 
+    ::ng-deep .mat-tab-header
+        border-bottom: 1px solid $gray-4
+        ::ng-deep .mat-tab-label
+            height: 53px !important
+            width: 25%
+            min-width: unset
+            opacity: 1
+            ::ng-deep .mat-tab-label-content
+                font-size: 15px
+                font-weight: 500
+                color: $gray-3 !important
+        ::ng-deep .mat-tab-label:hover
+            background-color: $gray-8
+        ::ng-deep .mat-tab-label-active .mat-tab-label-content
+            font-weight: 700 !important
+            color: black !important
+        ::ng-deep .mat-ink-bar
+            height: 4px
+            border-radius: 2px 
