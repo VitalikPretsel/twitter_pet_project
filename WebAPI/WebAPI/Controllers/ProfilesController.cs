@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
             return Ok(profile);
         }
 
-        [HttpGet("getbyname/{profileName}")]
+        [HttpGet("getByName/{profileName}")]
         public ActionResult<Profile> GetByName(string profileName)
         {
             Profile profile = profileRepository.GetByProfileName(profileName);

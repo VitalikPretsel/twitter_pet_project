@@ -14,5 +14,15 @@ namespace DAL.Repositories
         {
 
         }
+
+        public int GetProfileFollowersAmount(int profileId)
+        {
+            return appContext.Followings.Where(f => f.FollowingProfileId == profileId).Count();
+        }
+
+        public int GetProfileFollowingsAmount(int profileId)
+        {
+            return appContext.Followings.Where(f => f.FollowerProfileId == profileId).Count();
+        }
     }
 }
