@@ -10,17 +10,17 @@ import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './_helpers/auth.guard';
 
 const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: '', component: HomeComponent },
   {
     path: '',
     component: LayoutComponent,
     children: [
       { path: 'feed-scroll', component: FeedScrollComponent },
-      { path: 'profile', component: ProfileComponent }
+      { path: ':profileName', component: ProfileComponent }
     ]
-  },
-  { path: 'login', component: LoginComponent },
-  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] }
+  }
 ];
 
 @NgModule({
