@@ -29,7 +29,8 @@
         <div class="profile-card">
             <div class="profile-control">
                 <div class="profile-image">
-                    <div class="image-container">   <!-- TODO: display profile picture -->
+                    <div class="image-container">
+                        <!-- TODO: display profile picture -->
                         <img src="/img.png" onerror="this.src='/assets/img/default_profile_img.png'" />
                     </div>
                 </div>
@@ -59,7 +60,7 @@
                 </div>
             </div>
             <div class="profile-name">
-                <span class="text">{{profile?.profileName}}</span> 
+                <span class="text">{{profile?.profileName}}</span>
             </div>
             <div class="profile-description">
                 {{profile?.profileDescription}}
@@ -82,7 +83,11 @@
     </div>
 
     <mat-tab-group class="tabs">
-        <mat-tab label="Tweets"> Tweets </mat-tab>  <!-- TODO: add feed with posts -->
+        <mat-tab label="Tweets">
+            <div *ngIf="profileIds != undefined && profileIds.length != 0">
+                <app-feed-scroll [profileIds]="profileIds"></app-feed-scroll>
+            </div>
+        </mat-tab> <!-- TODO: add feed with posts -->
         <mat-tab label="Tweets & replies"> Tweets & replies </mat-tab>
         <mat-tab label="Media"> Media </mat-tab>
         <mat-tab label="Likes"> Likes </mat-tab>

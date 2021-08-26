@@ -11,6 +11,7 @@ import { ProfileService } from '../_services/profile.service';
 export class ProfileComponent implements OnInit {
 
   profile: any;
+  profileIds: Array<number>;
 
   constructor(private service: ProfileService, private activatedRoute: ActivatedRoute) { 
     let profileName = this.activatedRoute.snapshot.paramMap.get('profileName');
@@ -26,6 +27,7 @@ export class ProfileComponent implements OnInit {
         this.getFollowersAmount(this.profile.id);
         this.getFollowingsAmount(this.profile.id);
         this.getPostsAmount(this.profile.id)
+        this.profileIds = [this.profile.id];
       });
   }
 

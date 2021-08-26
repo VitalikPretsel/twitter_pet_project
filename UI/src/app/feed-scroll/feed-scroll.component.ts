@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { PostsService } from '../_services/posts.service';
 
@@ -11,19 +11,22 @@ import { strings } from 'src/constants/strings';
 })
 export class FeedScrollComponent implements OnInit {
 
+  @Input() profileIds: Array<number>; 
+
   allPost: Array<any>;
 
   public feedPostStrings = strings.feedPost;
 
   constructor(private service: PostsService) {
     this.allPost = new Array<any>();
-    this.loadPosts();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.loadPosts(this.profileIds);
+  }
 
-  loadPosts(lastId = -1) {
-    this.service.getPosts(lastId).subscribe(data => {
+  loadPosts(profileIds, lastId = -1) {
+    this.service.getProfilesPosts(profileIds, lastId).subscribe(data => {
       let startIndex = this.allPost.length;
       this.allPost = this.allPost.concat(data);
       for (let i = startIndex; i < this.allPost.length; i++) {
@@ -54,7 +57,7 @@ export class FeedScrollComponent implements OnInit {
 
   onScroll() {
     let lastId = this.allPost[this.allPost.length - 1].id - 1;
-    this.loadPosts(lastId);
+    this.loadPosts(this.profileIds, lastId);
   }
 
   identify(index, item) {

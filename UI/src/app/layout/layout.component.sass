@@ -12,10 +12,12 @@
     .fixed-container
         position: fixed
         min-height: 100%
-    .main
-        border: 1px solid $gray-4
-        border-top: none
-        border-bottom: none
+    .navigation .fixed-container
+        background-color: white
+        border-right: 1px solid $gray-4
+        z-index: 3
+    .aside
+        border-left: 1px solid $gray-4
     .main > div
         width: 598px
         min-height: 100vh
