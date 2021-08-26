@@ -39,6 +39,17 @@ namespace WebAPI.Controllers
             return Ok(profile);
         }
 
+        [HttpGet("getbyname/{profileName}")]
+        public ActionResult<Profile> GetByName(string profileName)
+        {
+            Profile profile = profileRepository.GetByProfileName(profileName);
+            if (profile == null)
+            {
+                return NotFound();
+            }
+            return Ok(profile);
+        }
+
         [HttpGet("profileName/{id}")]
         public async Task<ActionResult<string>> GetProfileName(int id)
         {

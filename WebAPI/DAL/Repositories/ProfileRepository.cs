@@ -14,5 +14,10 @@ namespace DAL.Repositories
         {
 
         }
+
+        public Profile GetByProfileName(string profileName)
+        {
+            return appContext.Profiles.FirstOrDefault(p => p.ProfileName == profileName);
+        }
     }
 }
