@@ -45,6 +45,12 @@ namespace WebAPI.Controllers
             return Ok(post);
         }
 
+        [HttpGet("profilePostsAmount/{profileId}")]
+        public ActionResult<int> GetProfilePostsAmount(int profileId)
+        {
+            return Ok(postRepository.GetProfilePostsAmount(profileId));
+        }
+
         [HttpPost]
         public async Task<ActionResult<Post>> Post(Post post)
         {

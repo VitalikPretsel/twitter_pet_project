@@ -23,5 +23,11 @@ namespace DAL.Repositories
             }
             return appContext.Posts.OrderByDescending(p => p.Id).Where(p => p.Id <= id).Take(step).AsEnumerable();
         }
+
+        public int GetProfilePostsAmount(int profileId)
+        {
+            return appContext.Posts.Where(p => p.ProfileId == profileId).Count();
+        }
+
     }
 }
