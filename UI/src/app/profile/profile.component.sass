@@ -9,7 +9,7 @@
     top: 0
     flex-direction: row
     align-items: center
-    border-bottom: 1px solid $gray-4
+    border-bottom: 1px solid $gray-2
     background-color: white
     z-index: 2
     .left-button-item, .right-button-item
@@ -27,7 +27,7 @@
             font-weight: 700
             letter-spacing: 0.02em
         .tweets-amount
-            color: $gray-3
+            color: $gray-7
             font-size: 13px
 
 .profile-container
@@ -68,6 +68,7 @@
                     margin: 0 8px 12px 0
             .buttons div:last-child
                 button
+                    width: 81px !important
                     margin-right: 0
         .profile-name
             margin: 4px 0 12px
@@ -86,11 +87,11 @@
             span:first-child
                 color: black
             span:last-child
-                color: $gray-3
+                color: $gray-7
 
 .tabs 
     ::ng-deep .mat-tab-header
-        border-bottom: 1px solid $gray-4
+        border-bottom: 1px solid $gray-2
         ::ng-deep .mat-tab-label
             height: 53px !important
             width: 25%
@@ -99,9 +100,9 @@
             ::ng-deep .mat-tab-label-content
                 font-size: 15px
                 font-weight: 500
-                color: $gray-3 !important
+                color: $gray-7 !important
         ::ng-deep .mat-tab-label:hover
-            background-color: $gray-8
+            background-color: $gray-4
         ::ng-deep .mat-tab-label-active .mat-tab-label-content
             font-weight: 700 !important
             color: black !important

@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ProfileService } from '../_services/profile.service';
 
+import { strings } from 'src/constants/strings';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -12,6 +14,8 @@ export class ProfileComponent implements OnInit {
 
   profile: any;
   profileIds: Array<number>;
+
+  public profileStrings = strings.profile;
 
   constructor(private service: ProfileService, private activatedRoute: ActivatedRoute) { 
     let profileName = this.activatedRoute.snapshot.paramMap.get('profileName');

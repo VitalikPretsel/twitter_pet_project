@@ -21,5 +21,19 @@ export const strings = {
     },
     feedPost: {
         showThreadButton: 'Show this thread'
+    },
+    profile: {
+        tweets: "tweets",
+        card: {
+            follow: "Follow",
+            following: "Following",
+            followers: "Followers"
+        },
+        tabLabels: {
+            tweets: "Tweets",
+            tweetsAndReplies: "Tweets & replies",
+            media: "Media",
+            likes: "Likes"
+        }
     }
 }

@@ -16,7 +16,7 @@
                 {{profile?.profileName}}
             </div>
             <div class="tweets-amount">
-                {{profile?.postsAmount}} tweets
+                {{profile?.postsAmount}} {{profileStrings.tweets}}
             </div>
         </div>
         <div class="header-item right-button-item">
@@ -31,10 +31,10 @@
                 <div class="profile-image">
                     <div class="image-container">
                         <!-- TODO: display profile picture -->
-                        <img src="/img.png" onerror="this.src='/assets/img/default_profile_img.png'" />
+                        <img src="{{profile?.profilePicturePath}}" onerror="this.src='/assets/img/default_profile_img.png'" />
                     </div>
                 </div>
-                <div class="buttons">
+                <div class="buttons">   <!-- TODO: display different buttons for owner of profile and readers -->
                     <div>
                         <button class="circle-button circle-button-s circle-button-border">
                             <div class="circle-button-container">
@@ -52,7 +52,7 @@
                         <button mat-flat-button class="circle-button circle-button-s circle-button-black">
                             <div class="circle-button-container">
                                 <span class="button-text">
-                                    Follow
+                                    {{profileStrings.card.follow}}
                                 </span>
                             </div>
                         </button>
@@ -67,15 +67,15 @@
             </div>
             <div class="profile-follows">
                 <span class="following">
-                    <a routerLink="./" class="link">
+                    <a routerLink="./" class="link">    <!-- TODO: add link to page with list of followings -->
                         <span><b>{{profile?.followingsAmount}}</b></span>
-                        <span> Following</span>
+                        <span> {{profileStrings.card.following}}</span>
                     </a>
                 </span>
                 <span class="followers">
-                    <a routerLink="./" class="link">
+                    <a routerLink="./" class="link">    <!-- TODO: add link to page with list of followers -->
                         <span><b>{{profile?.followersAmount}}</b></span>
-                        <span> Followers</span>
+                        <span> {{profileStrings.card.followers}}</span> 
                     </a>
                 </span>
             </div>
@@ -83,13 +83,13 @@
     </div>
 
     <mat-tab-group class="tabs">
-        <mat-tab label="Tweets">
+        <mat-tab label="{{profileStrings.tabLabels.tweets}}">
             <div *ngIf="profileIds != undefined && profileIds.length != 0">
                 <app-feed-scroll [profileIds]="profileIds"></app-feed-scroll>
             </div>
-        </mat-tab> <!-- TODO: add feed with posts -->
-        <mat-tab label="Tweets & replies"> Tweets & replies </mat-tab>
-        <mat-tab label="Media"> Media </mat-tab>
-        <mat-tab label="Likes"> Likes </mat-tab>
+        </mat-tab> 
+        <mat-tab label="{{profileStrings.tabLabels.tweetsAndReplies}}"> {{profileStrings.tabLabels.tweetsAndReplies}} </mat-tab>  <!-- TODO: add feed with replies and posts -->
+        <mat-tab label="{{profileStrings.tabLabels.media}}"> {{profileStrings.tabLabels.media}} </mat-tab>                        <!-- TODO: add feed with media posts -->
+        <mat-tab label="{{profileStrings.tabLabels.likes}}"> {{profileStrings.tabLabels.likes}} </mat-tab>                        <!-- TODO: add feed with liked posts -->
     </mat-tab-group>
 </div>
