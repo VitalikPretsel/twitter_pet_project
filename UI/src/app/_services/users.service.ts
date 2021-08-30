@@ -18,4 +18,8 @@ export class UsersService {
   public getCurrentUser() {
     return this.http.get<User>(`${environment.apiUrl}/account`);
   }
+
+  public getCurrentUserName() {
+    return this.http.get(`${environment.apiUrl}/account/userName`, { responseType: 'text' });
+  }
 }

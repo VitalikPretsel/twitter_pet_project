@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ProfileService } from '../_services/profile.service';
+import { UsersService } from '../_services/users.service';
+
+import { User } from '../_models/user';
 
 import { strings } from 'src/constants/strings';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,18 +15,37 @@ import { strings } from 'src/constants/strings';
   styleUrls: ['./profile.component.sass']
 })
 export class ProfileComponent implements OnInit {
+  public isAuthenticated: boolean;
+  public isCurrentUserOwner: boolean;
+  public user: any;
 
   profile: any;
   profileIds: Array<number>;
 
   public profileStrings = strings.profile;
 
-  constructor(private service: ProfileService, private activatedRoute: ActivatedRoute) { 
+  constructor(
+    private service: ProfileService,
+    private usersService: UsersService,
+    private authenticationService: AuthenticationService,
+    private activatedRoute: ActivatedRoute) { 
     let profileName = this.activatedRoute.snapshot.paramMap.get('profileName');
     this.getProfile(profileName);
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.isAuthenticated = await this.authenticationService.isAuthenticated().toPromise();
+    if (this.isAuthenticated)
+      this.getCurrentUser();
+  }
+
+  getCurrentUser() {
+    this.usersService.getCurrentUser()
+      .subscribe(res => {
+        this.user = res;
+        this.isCurrentUserOwner = this.user.id == this.profile.userId;
+        console.log(this.isCurrentUserOwner);
+      });
   }
 
   getProfile(profileName) {

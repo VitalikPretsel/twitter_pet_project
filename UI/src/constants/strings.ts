@@ -25,6 +25,7 @@ export const strings = {
     profile: {
         tweets: "tweets",
         card: {
+            setUp: "Set up profile",
             follow: "Follow",
             following: "Following",
             followers: "Followers"
