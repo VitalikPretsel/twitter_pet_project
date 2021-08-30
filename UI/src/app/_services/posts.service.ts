@@ -10,10 +10,6 @@ export class PostsService {
 
   constructor(private http: HttpClient) { }
 
-  public getPosts(lastId) {
-    return this.http.get(`${environment.apiUrl}/posts/details?step=20&id=${lastId}`);
-  }
-
   public getProfilesPosts(profileIds, lastId) {
     let params = new HttpParams();
     params = params.append('profileIds', profileIds.join(', '));

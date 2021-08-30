@@ -29,13 +29,6 @@ namespace WebAPI.Controllers
             var posts = await postRepository.GetAll();
             return Ok(posts);
         }
-        
-        [AllowAnonymous]
-        [HttpGet("details")]
-        public async Task<ActionResult<IEnumerable<Post>>> Get(int step, int id = -1)
-        {
-            return Ok(await postRepository.GetFewPosts(step, id));
-        }
 
         [AllowAnonymous]
         [HttpGet("getFewProfilePosts/details")]
