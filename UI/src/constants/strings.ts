@@ -36,5 +36,16 @@ export const strings = {
             media: "Media",
             likes: "Likes"
         }
+    },
+    welcome: {
+        header1: "Here and now",
+        header2: "Join Twitter today.",
+        buttons: {
+            signin1: "Sign in with Google",
+            signin2: "Sign in with Apple",
+            signin3: "Sign in with email",
+        },
+        loginMessage: "Already have an account",
+        login: "Login"
     }
 }

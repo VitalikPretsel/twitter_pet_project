@@ -26,13 +26,13 @@ export class LoginComponent implements OnInit {
     this.authenticationService.isAuthenticated().pipe(map(
       (res) => {
         if (res) {
-          this.router.navigate(['/']);
+          this.router.navigate(['/home']);
         }
       })).subscribe();
   }
 
   ngOnInit(): void {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
   }
 
   public login = (form: NgForm) => {

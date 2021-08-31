@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DAL.Entities;
 using DAL.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +40,7 @@ namespace WebAPI.Controllers
             return Ok(like);
         }
 
+        [AllowAnonymous]
         [HttpGet("OnPostAmount/{postId}")]
         public ActionResult<int> GetLikesOnPost(int postId)
         {
