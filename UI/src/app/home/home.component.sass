@@ -1,0 +1,30 @@
+@import '~@angular/material/theming'
+@import '../../_colors'
+
+.header-container
+    height: 53px
+    padding: 0 16px
+    display: flex
+    position: sticky
+    top: 0
+    flex-direction: row
+    align-items: center
+    border-bottom: 1px solid $gray-2
+    background-color: white
+    z-index: 2
+    .right-button-item
+        width: 56px
+        .circle-button
+            float: right
+            margin-right: -9px
+    .center-item
+        width: auto
+        flex-grow: 1
+        display: flex
+        flex-direction: column
+        .profile-name
+            line-height: 24px
+            font-size: 20px
+            font-weight: 700
+            letter-spacing: 0.02em
+
