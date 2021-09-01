@@ -38,14 +38,14 @@ export const strings = {
         }
     },
     welcome: {
-        header1: "Here and now",
+        header1: "Happening now",
         header2: "Join Twitter today.",
         buttons: {
-            signin1: "Sign in with Google",
-            signin2: "Sign in with Apple",
-            signin3: "Sign in with email",
+            signup1: "Sign up with Google",
+            signup2: "Sign up with Apple",
+            signup3: "Sign up with email",
         },
-        loginMessage: "Already have an account",
-        login: "Login"
+        loginMessage: "Already have an account?",
+        login: "Log in"
     }
 }
