@@ -51,6 +51,12 @@ namespace WebAPI.Controllers
             return Ok(followingRepository.GetProfileFollowingsAmount(profileId));
         }
 
+        [HttpGet("profileFollowings/{profileId}")]
+        public async Task<ActionResult<IEnumerable<Following>>> GetProfileFollowings(int profileId)
+        {
+            return Ok(await followingRepository.GetProfileFollowings(profileId));
+        }
+
         [HttpPost]
         public async Task<ActionResult<Following>> Post(Following following)
         {
