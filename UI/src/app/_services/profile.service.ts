@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs'
 
 import { environment } from '../../environments/environment';
 
@@ -8,7 +9,14 @@ import { environment } from '../../environments/environment';
 })
 export class ProfileService {
 
+  public profileChanged = new BehaviorSubject<any>(null);
+  profileChangedObservable = this.profileChanged.asObservable();
+
   constructor(private http: HttpClient) { }
+
+  public changeProfile(profile) {
+    this.profileChanged.next(profile);
+  }
 
   public getProfile(profileName) {
     return this.http.get(`${environment.apiUrl}/profiles/getbyname/${profileName}`);

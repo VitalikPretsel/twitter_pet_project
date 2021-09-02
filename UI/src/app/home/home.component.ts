@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { User } from '../_models/user';
-import { AuthenticationService } from '../_services/authentication.service'
 import { ProfileService } from '../_services/profile.service';
 import { UsersService } from '../_services/users.service';
+
+import { User } from '../_models/user';
+
+import { strings } from '../../constants/strings';
 
 @Component({
   selector: 'app-home',
@@ -12,28 +13,19 @@ import { UsersService } from '../_services/users.service';
   styleUrls: ['./home.component.sass']
 })
 export class HomeComponent implements OnInit {
-  private isAuthenticated: boolean;
   public user: User;
-  public get isAuthenticatedValue(): boolean {
-    return this.isAuthenticated;
-  }
-
   profileIds: Array<number>;
 
+  public homeStrings = strings.home;
+
   constructor(
-    private router: Router,
-    private authenticationService: AuthenticationService,
     private profileService: ProfileService,
     private userService: UsersService
   ) { }
 
-  async ngOnInit() {
-    this.isAuthenticated = await this.authenticationService.isAuthenticated().toPromise();
-    if (this.isAuthenticated)
-    {
-      this.getCurrentUser();
-      this.getFollowingsIds(3);
-    }
+  ngOnInit() {
+    this.getCurrentUser();
+    this.getSelectedProfile();
   }
 
   getCurrentUser() {
@@ -43,18 +35,18 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  getSelectedProfile() {
+    this.profileService.profileChangedObservable.subscribe((res) => {
+      if (res != null) {
+        this.getFollowingsIds(res.id);
+      }
+    });
+  }
+
   getFollowingsIds(profileId) {
     this.profileService.getFollowings(profileId)
       .subscribe(res => {
         this.profileIds = res;
-      })
-  }
-
-  logOut() {
-    this.authenticationService.logout().subscribe(res => {
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-      this.router.onSameUrlNavigation = 'reload';
-      this.router.navigate([this.router.url]);
-    });
+      });
   }
 }

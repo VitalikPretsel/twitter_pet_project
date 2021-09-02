@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 import { PostsService } from '../_services/posts.service';
 
@@ -9,7 +9,7 @@ import { strings } from 'src/constants/strings';
   templateUrl: './feed-scroll.component.html',
   styleUrls: ['./feed-scroll.component.sass']
 })
-export class FeedScrollComponent implements OnInit {
+export class FeedScrollComponent implements OnChanges {
 
   @Input() profileIds: Array<number>; 
 
@@ -21,7 +21,7 @@ export class FeedScrollComponent implements OnInit {
     this.allPost = new Array<any>();
   }
 
-  ngOnInit(): void { 
+  ngOnChanges(): void { 
     this.loadPosts(this.profileIds);
   }
 

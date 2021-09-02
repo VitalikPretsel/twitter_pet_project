@@ -36,5 +36,8 @@ export const strings = {
             media: "Media",
             likes: "Likes"
         }
+    },
+    home: {
+        header: "Home"
     }
 }
