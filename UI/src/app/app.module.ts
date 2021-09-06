@@ -19,6 +19,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserControlsComponent } from './layout/user-controls/user-controls.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { UserControlsComponent } from './layout/user-controls/user-controls.comp
     LayoutComponent,
     NavigationComponent,
     ProfileComponent,
-    UserControlsComponent
+    UserControlsComponent,
+    WelcomeComponent
   ],
   imports: [
     MaterialModule,
