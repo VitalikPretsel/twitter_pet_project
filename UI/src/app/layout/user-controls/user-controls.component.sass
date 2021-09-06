@@ -1,0 +1,46 @@
+@import '~@angular/material/theming'
+@import '../../../_colors'
+    
+.controls-container
+    width: 300px
+    .circle-button
+            text-decoration: none !important
+            width: 100% !important
+            .circle-button-container
+                border-radius: 0
+                justify-content: start
+                .button-text
+                    font-size: 15px
+                    color: black
+    .control-buttons
+        .circle-button
+            .circle-button-container
+                .button-text
+                    padding: 0
+
+    .profiles-list
+        border-bottom: 1px solid $gray-2
+        .circle-button
+            height: fit-content
+            .circle-button-container
+                height: 48px
+                justify-content: center
+                .button-image
+                    height: 48px
+                    img
+                        width: 48px
+                        height: 48px
+                        border-radius: 24px 
+                .button-text
+                    .names-container
+                        display: flex
+                        flex-direction: column
+                        .profile-name
+                            font-weight: 700
+                        .user-name
+                            color: $gray-7
+                .check
+                    margin-left: auto
+                    fill: map-get($blue-twitter, 500)
+
+    

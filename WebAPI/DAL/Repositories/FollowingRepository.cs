@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL.DataContext;
 using DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
@@ -13,6 +14,22 @@ namespace DAL.Repositories
         public FollowingRepository(ApplicationContext context) : base(context)
         {
 
+        }
+
+        public int GetProfileFollowersAmount(int profileId)
+        {
+            return appContext.Followings.Where(f => f.FollowingProfileId == profileId).Count();
+        }
+
+        public int GetProfileFollowingsAmount(int profileId)
+        {
+            return appContext.Followings.Where(f => f.FollowerProfileId == profileId).Count();
+        }
+
+        public async Task<IEnumerable<int?>> GetProfileFollowings(int profileId)
+        {
+            return await appContext.Followings.Where(f => f.FollowerProfileId == profileId)
+                .Select(f => f.FollowingProfileId).ToListAsync();
         }
     }
 }

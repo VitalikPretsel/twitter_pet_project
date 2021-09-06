@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DAL.Entities;
 using DAL.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ namespace WebAPI.Controllers
             profileRepository = repository;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Profile>>> Get()
         {
@@ -28,6 +30,7 @@ namespace WebAPI.Controllers
             return Ok(profiles);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<Profile>> Get(int id)
         {
@@ -39,6 +42,25 @@ namespace WebAPI.Controllers
             return Ok(profile);
         }
 
+        [AllowAnonymous]
+        [HttpGet("getByName/{profileName}")]
+        public ActionResult<Profile> GetByName(string profileName)
+        {
+            Profile profile = profileRepository.GetByProfileName(profileName);
+            if (profile == null)
+            {
+                return NotFound();
+            }
+            return Ok(profile);
+        }
+
+        [HttpGet("getUserProfiles/{profileId}")]
+        public async Task<ActionResult<IEnumerable<Profile>>> GetUserProfiles(int profileId)
+        {
+            return Ok(await profileRepository.GetUserProfiles(profileId));
+        }
+
+        [AllowAnonymous]
         [HttpGet("profileName/{id}")]
         public async Task<ActionResult<string>> GetProfileName(int id)
         {

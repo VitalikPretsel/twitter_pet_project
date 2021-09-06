@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DAL.Entities;
 using DAL.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ namespace WebAPI.Controllers
             postRepository = repository;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Post>>> Get()
         {
@@ -28,12 +30,14 @@ namespace WebAPI.Controllers
             return Ok(posts);
         }
 
-        [HttpGet("details")]
-        public async Task<ActionResult<IEnumerable<Post>>> Get(int step, int id = -1)
+        [AllowAnonymous]
+        [HttpGet("getFewProfilePosts/details")]
+        public async Task<ActionResult<IEnumerable<Post>>> Get(int step, int id, [FromQuery] int[] profileIds)
         {
-            return Ok(await postRepository.GetFewPosts(step, id));
+            return Ok(await postRepository.GetFewProfilePosts(profileIds, step, id));
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<Post>> Get(int id)
         {
@@ -43,6 +47,13 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
             return Ok(post);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("profilePostsAmount/{profileId}")]
+        public ActionResult<int> GetProfilePostsAmount(int profileId)
+        {
+            return Ok(postRepository.GetProfilePostsAmount(profileId));
         }
 
         [HttpPost]

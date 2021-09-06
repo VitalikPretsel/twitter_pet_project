@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DAL.Entities;
 using DAL.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +38,26 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
             return Ok(following);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("profileFollowersAmount/{profileId}")]
+        public ActionResult<int> GetProfileFollowersAmount(int profileId)
+        {
+            return Ok(followingRepository.GetProfileFollowersAmount(profileId));
+        }
+        
+        [AllowAnonymous]
+        [HttpGet("profileFollowingsAmount/{profileId}")]
+        public ActionResult<int> GetProfileFollowingsAmount(int profileId)
+        {
+            return Ok(followingRepository.GetProfileFollowingsAmount(profileId));
+        }
+
+        [HttpGet("profileFollowings/{profileId}")]
+        public async Task<ActionResult<IEnumerable<Following>>> GetProfileFollowings(int profileId)
+        {
+            return Ok(await followingRepository.GetProfileFollowings(profileId));
         }
 
         [HttpPost]

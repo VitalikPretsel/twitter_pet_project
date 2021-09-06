@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL.DataContext;
 using DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
@@ -13,6 +14,16 @@ namespace DAL.Repositories
         public ProfileRepository(ApplicationContext context) : base(context)
         {
 
+        }
+
+        public Profile GetByProfileName(string profileName)
+        {
+            return appContext.Profiles.FirstOrDefault(p => p.ProfileName == profileName);
+        }
+
+        public async Task<IEnumerable<Profile>> GetUserProfiles(int userId)
+        {
+            return await appContext.Profiles.Where(p => p.UserId == userId).ToListAsync();
         }
     }
 }

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+
+import { ProfileService } from '../_services/profile.service';
+import { UsersService } from '../_services/users.service';
 
 import { User } from '../_models/user';
-import { AuthenticationService } from '../_services/authentication.service'
-import { UsersService } from '../_services/users.service';
+
+import { strings } from '../../constants/strings';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -12,22 +14,25 @@ import { UsersService } from '../_services/users.service';
   styleUrls: ['./home.component.sass']
 })
 export class HomeComponent implements OnInit {
-  private isAuthenticated: boolean;
+  public isAuthenticated: boolean;
   public user: User;
-  public get isAuthenticatedValue(): boolean {
-    return this.isAuthenticated;
-  }
+  profileIds: Array<number>;
+
+  public homeStrings = strings.home;
 
   constructor(
-    private router: Router,
-    private authenticationService: AuthenticationService,
-    private userService: UsersService
+    private profileService: ProfileService,
+    private userService: UsersService,
+    private authenticationService: AuthenticationService
   ) { }
 
   async ngOnInit() {
     this.isAuthenticated = await this.authenticationService.isAuthenticated().toPromise();
     if (this.isAuthenticated)
-      this.getCurrentUser();
+    {
+    this.getCurrentUser();
+    this.getSelectedProfile();
+    }
   }
 
   getCurrentUser() {
@@ -37,11 +42,18 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  logOut() {
-    this.authenticationService.logout().subscribe(res => {
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-      this.router.onSameUrlNavigation = 'reload';
-      this.router.navigate([this.router.url]);
+  getSelectedProfile() {
+    this.profileService.profileChangedObservable.subscribe((res) => {
+      if (res != null) {
+        this.getFollowingsIds(res.id);
+      }
     });
+  }
+
+  getFollowingsIds(profileId) {
+    this.profileService.getFollowings(profileId)
+      .subscribe(res => {
+        this.profileIds = res;
+      });
   }
 }

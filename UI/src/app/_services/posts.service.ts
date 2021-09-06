@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
 
@@ -10,8 +10,10 @@ export class PostsService {
 
   constructor(private http: HttpClient) { }
 
-  public getPosts(lastId) {
-    return this.http.get(`${environment.apiUrl}/posts/details?step=20&&id=${lastId}`);
+  public getProfilesPosts(profileIds, lastId) {
+    let params = new HttpParams();
+    params = params.append('profileIds', profileIds.join(', '));
+    return this.http.get(`${environment.apiUrl}/posts/getFewProfilePosts/details?step=20&id=${lastId}`, { params: params });
   }
 
   public getLikesAmount(postId) {

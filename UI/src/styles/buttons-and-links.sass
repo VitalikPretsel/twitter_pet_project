@@ -23,12 +23,18 @@ a.flat-circle-button
     
 
 .circle-button
+    cursor: pointer
+    padding: 0 !important
     display: block
     height: 50px
-    width: fit-content
+    width: fit-content !important
+    border: none
+    border-radius: 25px !important
+    background-color: transparent
     .circle-button-container
         display: flex
         align-items: center
+        justify-content: center
         height: 26px
         padding: 12px
         border-radius: 25px
@@ -37,12 +43,45 @@ a.flat-circle-button
             font-size: 20px
             padding: 0 12px
 
+.circle-button-s
+    height: 36px
+    .circle-button-container
+        padding: 0
+        height: 34px
+        min-width: 34px
+        border: 1px solid transparent
+        .button-text
+            font-size: 15px
+
+.circle-button-border
+    .circle-button-container
+        border: 1px solid $gray-5
+
+.circle-button-black
+    .circle-button-container
+        background-color: black
+        .button-text
+            color: white
+
 .circle-button:hover
     .circle-button-container
-        background-color: $gray-2
+        background-color: $gray-4
 .circle-button-primary:hover
     .circle-button-container
         background-color: mat-color($blue-twitter, 100)
+.circle-button-black:hover
+    .circle-button-container
+        background-color: $gray-8
+
+.circle-button:active
+    .circle-button-container
+        background-color: $gray-6
+.circle-button-primary:active
+    .circle-button-container
+        background-color: mat-color($blue-twitter, 200)
+.circle-button-black:active
+    .circle-button-container
+        background-color: $gray-8
 
 .icon-text-button
     padding: 0 !important
@@ -59,12 +98,12 @@ a.flat-circle-button
             display: inline-block
             border-radius: 50%
         .icon-text-button-icon
-            fill: $gray-3
+            fill: $gray-7
             transition: fill 0.2s
         .icon-text-button-text
             font-size: 13px
             padding: 0 12px
-            color: $gray-3
+            color: $gray-7
             transition: color 0.2s
 
 .icon-text-button .mat-button-focus-overlay, 
@@ -118,6 +157,9 @@ a.flat-circle-button
 .link-black
     font-weight: bold 
     color: black
+
+.link-gray
+    color: $gray-7
 
 .link-blue
     font-size: 1.1em

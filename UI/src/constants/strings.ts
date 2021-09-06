@@ -21,5 +21,34 @@ export const strings = {
     },
     feedPost: {
         showThreadButton: 'Show this thread'
+    },
+    profile: {
+        tweets: "tweets",
+        card: {
+            setUp: "Set up profile",
+            follow: "Follow",
+            following: "Following",
+            followers: "Followers"
+        },
+        tabLabels: {
+            tweets: "Tweets",
+            tweetsAndReplies: "Tweets & replies",
+            media: "Media",
+            likes: "Likes"
+        }
+    },
+    home: {
+        header: "Home"
+    },
+    welcome: {
+        header1: "Happening now",
+        header2: "Join Twitter today.",
+        buttons: {
+            signup1: "Sign up with Google",
+            signup2: "Sign up with Apple",
+            signup3: "Sign up with email",
+        },
+        loginMessage: "Already have an account?",
+        login: "Log in"
     }
 }

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using WebAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using DAL.Entities;
-using System.Threading.Tasks;
 using System.Linq;
 using System.Security.Claims;
 
@@ -24,14 +23,20 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<User>> GetCurrentUser()
+        public ActionResult<User> GetCurrentUser()
         {
             var tokenString = Request.Cookies[TokenConstants.TokenName];
             string email = authService.GetClaims(tokenString).ToList()
                 .FirstOrDefault(claim => claim.Type == ClaimTypes.Email).Value;
-            var users = await userRepository.GetAll();
-            return users.FirstOrDefault(user => user.Email == email);
+            return Ok(userRepository.FindUserByNameOrEmail(email));
         }
 
+        [HttpGet("userName")]
+        public ActionResult<string> GetCurrentUserName()
+        {
+            var tokenString = Request.Cookies[TokenConstants.TokenName];
+            return Ok(authService.GetClaims(tokenString).ToList()
+                .FirstOrDefault(claim => claim.Type == ClaimTypes.Name).Value);
+        }
     }
 }
