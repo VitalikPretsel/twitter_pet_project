@@ -37,6 +37,9 @@ export const strings = {
             likes: "Likes"
         }
     },
+    home: {
+        header: "Home"
+    },
     welcome: {
         header1: "Happening now",
         header2: "Join Twitter today.",

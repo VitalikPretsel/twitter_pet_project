@@ -19,6 +19,10 @@ export class UsersService {
     return this.http.get<User>(`${environment.apiUrl}/account`);
   }
 
+  public getUserProfiles(userId) {
+    return this.http.get(`${environment.apiUrl}/profiles/getUserProfiles/${userId}`);
+  }
+
   public getCurrentUserName() {
     return this.http.get(`${environment.apiUrl}/account/userName`, { responseType: 'text' });
   }

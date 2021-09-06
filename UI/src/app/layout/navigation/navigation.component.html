@@ -11,9 +11,9 @@
                 </div>
             </a>
         </div>
-        <div class="nav-menu-item">     <!-- TODO: change nav buttons if authenticated / nonauthenticated -->
+        <div class="nav-menu-item">     <!-- TODO: make buttons functional -->
             <nav>
-                <div *ngIf="isAuthenticated">
+                <div *ngIf="isAuthenticatedValue">
                 <a class="circle-button">
                     <div class="circle-button-container">
                         <svg viewBox="0 0 24 24" width="26" height="26">
@@ -42,7 +42,7 @@
                         </span>
                     </div>
                 </a>
-                <div *ngIf="isAuthenticated">
+                <div *ngIf="isAuthenticatedValue">
                 <a class="circle-button">
                     <div class="circle-button-container">
                         <svg viewBox="0 0 24 24" width="26" height="26">
@@ -144,15 +144,18 @@
         </div>
     </div>
     <div class="nav-item profile-item">
-        <div *ngIf="isAuthenticated">
-            <a class="circle-button">
+        <div *ngIf="isAuthenticatedValue">
+            <a class="circle-button" [matMenuTriggerFor]="menu">
                 <div class="circle-button-container">
                     <div class="button-image">
                         <img src=""
                             onerror="this.src='/assets/img/default_profile_img.png'" />
                     </div>
                     <span class="button-text">
-                        {{userName}}    <!-- TODO: add username and link if authenticated -->
+                        <div class="names-container">
+                            <div class="profile-name">{{selectedProfileName}}</div>
+                            <div class="user-name">{{userName}}</div>
+                        </div>
                     </span>
                     <svg class="dots" viewBox="0 0 24 24" width="19" height="19">
                         <g>
@@ -163,6 +166,9 @@
                     </svg>
                 </div>
             </a>
+            <mat-menu #menu="matMenu">
+                <app-user-controls></app-user-controls>
+            </mat-menu>
         </div>
     </div>
 </div>

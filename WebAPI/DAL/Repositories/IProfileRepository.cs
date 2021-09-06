@@ -9,6 +9,7 @@ namespace DAL.Repositories
 {
     public interface IProfileRepository : IGenericRepository<Profile>
     {
-        public Profile GetByProfileName(string profileName);
+        Profile GetByProfileName(string profileName);
+        Task<IEnumerable<Profile>> GetUserProfiles(int userId);
     }
 }

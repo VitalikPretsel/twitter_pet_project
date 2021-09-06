@@ -1,0 +1,45 @@
+<div class="controls-container">
+    <div *ngFor="let profile of profiles" class="profiles-list">
+        <a (click)="selectProfile(profile)" class="circle-button">
+            <div class="circle-button-container">
+                <div class="button-image">
+                    <img src="" onerror="this.src='/assets/img/default_profile_img.png'" />
+                </div>
+                <span class="button-text">
+                    <div class="names-container">
+                        <div class="profile-name">{{profile?.profileName}}</div>
+                        <div class="user-name">{{user?.userName}}</div>
+                    </div>
+                </span>
+                <div class="check">
+                    <div *ngIf="profile.id == selectedProfileId">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <g>
+                                <path
+                                    d="M9 20c-.264 0-.52-.104-.707-.293l-4.785-4.785c-.39-.39-.39-1.023 0-1.414s1.023-.39 1.414 0l3.946 3.945L18.075 4.41c.32-.45.94-.558 1.395-.24.45.318.56.942.24 1.394L9.817 19.577c-.17.24-.438.395-.732.42-.028.002-.057.003-.085.003z">
+                                </path>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="control-buttons">
+        <a href="./" class="circle-button">
+            <div class="circle-button-container">
+                <span class="button-text">
+                    Add profile     <!-- TODO: make functional -->
+                </span>
+            </div>
+        </a>
+        <a (click)="logOut()" class="circle-button">
+            <div class="circle-button-container">
+                <span class="button-text">
+                    Log out
+                </span>
+            </div>
+        </a>
+    </div>
+</div>

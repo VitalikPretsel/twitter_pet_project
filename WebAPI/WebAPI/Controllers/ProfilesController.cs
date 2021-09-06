@@ -54,6 +54,12 @@ namespace WebAPI.Controllers
             return Ok(profile);
         }
 
+        [HttpGet("getUserProfiles/{profileId}")]
+        public async Task<ActionResult<IEnumerable<Profile>>> GetUserProfiles(int profileId)
+        {
+            return Ok(await profileRepository.GetUserProfiles(profileId));
+        }
+
         [AllowAnonymous]
         [HttpGet("profileName/{id}")]
         public async Task<ActionResult<string>> GetProfileName(int id)

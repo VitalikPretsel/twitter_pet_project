@@ -11,5 +11,6 @@ namespace DAL.Repositories
     {
         int GetProfileFollowersAmount(int profileId);
         int GetProfileFollowingsAmount(int profileId);
+        Task<IEnumerable<int?>> GetProfileFollowings(int profileId);
     }
 }

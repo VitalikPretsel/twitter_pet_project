@@ -18,6 +18,7 @@ import { MaterialModule } from './material.module';
 import { LayoutComponent } from './layout/layout.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UserControlsComponent } from './layout/user-controls/user-controls.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
@@ -30,6 +31,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     LayoutComponent,
     NavigationComponent,
     ProfileComponent,
+    UserControlsComponent,
     WelcomeComponent
   ],
   imports: [

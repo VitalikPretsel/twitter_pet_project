@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { UsersComponent } from './users/users.component';
 import { LayoutComponent } from './layout/layout.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UserControlsComponent } from './layout/user-controls/user-controls.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { WelcomeComponent } from './welcome/welcome.component';
 
