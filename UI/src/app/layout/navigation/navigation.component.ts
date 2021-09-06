@@ -12,7 +12,7 @@ import { strings } from '../../../constants/strings';
   styleUrls: ['./navigation.component.sass']
 })
 export class NavigationComponent implements OnInit {
-  public isAuthenticated: boolean;
+  isAuthenticated: boolean;
   public get isAuthenticatedValue(): boolean {
     return this.isAuthenticated;
   }

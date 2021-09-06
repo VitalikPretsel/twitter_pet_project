@@ -6,6 +6,7 @@ import { UsersService } from '../_services/users.service';
 import { User } from '../_models/user';
 
 import { strings } from '../../constants/strings';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,7 @@ import { strings } from '../../constants/strings';
   styleUrls: ['./home.component.sass']
 })
 export class HomeComponent implements OnInit {
+  public isAuthenticated: boolean;
   public user: User;
   profileIds: Array<number>;
 
@@ -20,12 +22,17 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private profileService: ProfileService,
-    private userService: UsersService
+    private userService: UsersService,
+    private authenticationService: AuthenticationService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.isAuthenticated = await this.authenticationService.isAuthenticated().toPromise();
+    if (this.isAuthenticated)
+    {
     this.getCurrentUser();
     this.getSelectedProfile();
+    }
   }
 
   getCurrentUser() {

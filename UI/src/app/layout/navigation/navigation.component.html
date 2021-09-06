@@ -13,7 +13,7 @@
         </div>
         <div class="nav-menu-item">     <!-- TODO: make buttons functional -->
             <nav>
-                <div *ngIf="isAuthenticated">
+                <div *ngIf="isAuthenticatedValue">
                 <a class="circle-button">
                     <div class="circle-button-container">
                         <svg viewBox="0 0 24 24" width="26" height="26">
@@ -42,7 +42,7 @@
                         </span>
                     </div>
                 </a>
-                <div *ngIf="isAuthenticated">
+                <div *ngIf="isAuthenticatedValue">
                 <a class="circle-button">
                     <div class="circle-button-container">
                         <svg viewBox="0 0 24 24" width="26" height="26">
@@ -144,7 +144,7 @@
         </div>
     </div>
     <div class="nav-item profile-item">
-        <div *ngIf="isAuthenticated">
+        <div *ngIf="isAuthenticatedValue">
             <a class="circle-button" [matMenuTriggerFor]="menu">
                 <div class="circle-button-container">
                     <div class="button-image">
