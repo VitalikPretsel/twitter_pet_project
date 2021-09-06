@@ -45,11 +45,13 @@
     display: block
     font-size: 1.25em 
 
-.form-field.mat-focused 
+.form-field.mat-form-field.mat-focused 
     border: mat-color($blue-twitter, 500) 1px solid
     box-shadow: 0 0 0 2px mat-color($blue-twitter, 500)
     .mat-form-field-infix input
-        caret-color: black 
+        caret-color: black
+    .mat-form-field-label 
+        color: mat-color($blue-twitter, 500) 
     .mat-form-field-ripple 
         background-color: black
 
@@ -57,6 +59,3 @@
     .mat-form-field-label 
         color: slategray
 
-.form-field.mat-form-field.mat-focused
-    .mat-form-field-label 
-        color: mat-color($blue-twitter, 500)
