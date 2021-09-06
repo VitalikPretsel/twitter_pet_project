@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using DAL.DataContext;
 using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DAL
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddRepositoriesWithDbContext(this IServiceCollection services)
+        public static IServiceCollection AddRepositoriesWithDbContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
@@ -21,8 +22,10 @@ namespace DAL
             services.AddScoped<ILikeRepository, LikeRepository>();
             services.AddScoped<IFollowingRepository, FollowingRepository>();
 
+
+
             services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=TwitterDB;Trusted_Connection=True;MultipleActiveResultSets=True"));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             return services;
         }

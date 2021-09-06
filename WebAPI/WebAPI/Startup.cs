@@ -76,7 +76,7 @@ namespace WebAPI
 
             services.AddControllers();
 
-            services.AddRepositoriesWithDbContext();
+            services.AddRepositoriesWithDbContext(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
