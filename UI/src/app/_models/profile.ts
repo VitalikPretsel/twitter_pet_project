@@ -3,8 +3,8 @@ export class Profile {
     profileName: string;
     profileDescription: string;
     profilePicturePath: string;
-    
     userId: number;
+    
     followersAmount: number;
     followingsAmount: number;
     postsAmount: number;

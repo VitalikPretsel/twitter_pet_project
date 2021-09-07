@@ -2,6 +2,7 @@ import { Component, Input, OnChanges } from '@angular/core';
 
 import { PostsService } from '../_services/posts.service';
 
+import { Post } from '../_models/post';
 import { strings } from 'src/constants/strings';
 
 @Component({
@@ -13,12 +14,12 @@ export class FeedScrollComponent implements OnChanges {
 
   @Input() profileIds: Array<number>; 
 
-  allPost: Array<any>;
+  allPost: Array<Post>;
 
   public feedPostStrings = strings.feedPost;
 
   constructor(private service: PostsService) {
-    this.allPost = new Array<any>();
+    this.allPost = new Array<Post>();
   }
 
   ngOnChanges(): void { 
