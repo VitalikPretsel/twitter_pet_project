@@ -19,6 +19,15 @@ export const strings = {
         signupLink: 'Sign up for Twitter',
         errorMessage: 'Invalid username or password.'
     },
+    signupForm: {
+        header: 'Sign up for Twitter',
+        userNameLabel: 'Username',
+        emailLabel: 'Email',
+        passwordLabel: 'Password',
+        submitButton: 'Sign up',
+        loginLink: 'Log in to Twitter',
+        errorMessage: 'Invalid username or email.'
+    },
     feedPost: {
         showThreadButton: 'Show this thread'
     },

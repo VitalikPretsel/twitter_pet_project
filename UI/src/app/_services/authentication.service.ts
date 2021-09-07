@@ -15,7 +15,15 @@ export class AuthenticationService {
   }
 
   login(form: any) {
-    return this.http.post<any>(`${environment.apiUrl}/auth`, form, {
+    return this.http.post<any>(`${environment.apiUrl}/auth/login`, form, {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+      })
+    })
+  }
+
+  signup(form: any) {
+    return this.http.post<any>(`${environment.apiUrl}/auth/signup`, form, {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
       })
