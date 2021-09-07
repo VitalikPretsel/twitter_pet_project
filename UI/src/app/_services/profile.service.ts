@@ -10,8 +10,8 @@ import { environment } from '../../environments/environment';
 })
 export class ProfileService {
 
-  public profileChanged = new BehaviorSubject<Profile>(null);
-  profileChangedObservable = this.profileChanged.asObservable();
+  private profileChanged = new BehaviorSubject<Profile>(null);
+  public profileChangedObservable = this.profileChanged.asObservable();
 
   constructor(private http: HttpClient) { }
 

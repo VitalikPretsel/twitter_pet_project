@@ -45,7 +45,6 @@ export class ProfileComponent implements OnInit {
       .subscribe(res => {
         this.user = res;
         this.isCurrentUserOwner = this.user.id == this.profile.userId;
-        console.log(this.isCurrentUserOwner);
       });
   }
 
