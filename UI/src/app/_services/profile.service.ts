@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs'
 
+import { Profile } from '../_models/profile';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -9,8 +10,8 @@ import { environment } from '../../environments/environment';
 })
 export class ProfileService {
 
-  public profileChanged = new BehaviorSubject<any>(null);
-  profileChangedObservable = this.profileChanged.asObservable();
+  private profileChanged = new BehaviorSubject<Profile>(null);
+  public profileChangedObservable = this.profileChanged.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -19,15 +20,15 @@ export class ProfileService {
   }
 
   public getProfile(profileName) {
-    return this.http.get(`${environment.apiUrl}/profiles/getbyname/${profileName}`);
+    return this.http.get<Profile>(`${environment.apiUrl}/profiles/getbyname/${profileName}`);
   }
 
   public getFollowersAmount(profileId) {
-    return this.http.get(`${environment.apiUrl}/followings/profileFollowersAmount/${profileId}`);
+    return this.http.get<number>(`${environment.apiUrl}/followings/profileFollowersAmount/${profileId}`);
   }
 
   public getFollowingsAmount(profileId) {
-    return this.http.get(`${environment.apiUrl}/followings/profileFollowingsAmount/${profileId}`);
+    return this.http.get<number>(`${environment.apiUrl}/followings/profileFollowingsAmount/${profileId}`);
   }
 
   public getFollowings(profileId) {
@@ -35,6 +36,6 @@ export class ProfileService {
   }
 
   public getPostsAmount(profileId) {
-    return this.http.get(`${environment.apiUrl}/posts/profilePostsAmount/${profileId}`);
+    return this.http.get<number>(`${environment.apiUrl}/posts/profilePostsAmount/${profileId}`);
   }
 }
