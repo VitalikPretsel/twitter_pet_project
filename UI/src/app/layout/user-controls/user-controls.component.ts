@@ -58,9 +58,7 @@ export class UserControlsComponent implements OnInit {
 
   logOut() {
     this.authenticationService.logout().subscribe(res => {
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-      this.router.onSameUrlNavigation = 'reload';
-      this.router.navigate([this.router.url]);
+      this.router.navigate(['']);
     });
   }
 }
