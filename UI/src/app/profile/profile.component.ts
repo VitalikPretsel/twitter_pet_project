@@ -5,6 +5,7 @@ import { ProfileService } from '../_services/profile.service';
 import { UsersService } from '../_services/users.service';
 
 import { User } from '../_models/user';
+import { Profile } from '../_models/profile';
 
 import { strings } from 'src/constants/strings';
 import { AuthenticationService } from '../_services/authentication.service';
@@ -17,9 +18,9 @@ import { AuthenticationService } from '../_services/authentication.service';
 export class ProfileComponent implements OnInit {
   public isAuthenticated: boolean;
   public isCurrentUserOwner: boolean;
-  public user: any;
+  public user: User;
 
-  profile: any;
+  profile: Profile;
   profileIds: Array<number>;
 
   public profileStrings = strings.profile;

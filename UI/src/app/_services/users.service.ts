@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
 import { User } from '../_models/user';
+import { Profile } from '../_models/profile';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class UsersService {
   }
 
   public getUserProfiles(userId) {
-    return this.http.get(`${environment.apiUrl}/profiles/getUserProfiles/${userId}`);
+    return this.http.get<Profile[]>(`${environment.apiUrl}/profiles/getUserProfiles/${userId}`);
   }
 
   public getCurrentUserName() {

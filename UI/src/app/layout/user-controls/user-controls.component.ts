@@ -6,6 +6,7 @@ import { ProfileService } from '../../_services/profile.service';
 import { UsersService } from '../../_services/users.service';
 
 import { User } from '../../_models/user';
+import { Profile } from '../../_models/profile';
 
 @Component({
   selector: 'app-user-controls',
@@ -14,7 +15,7 @@ import { User } from '../../_models/user';
 })
 export class UserControlsComponent implements OnInit {
   public user: User;
-  public profiles: any;
+  public profiles: Profile[];
   public selectedProfileId: Number;
 
   constructor(
