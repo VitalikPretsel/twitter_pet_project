@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
             var tokenString = Request.Cookies[TokenConstants.TokenName];
             string email = authService.GetClaims(tokenString).ToList()
                 .FirstOrDefault(claim => claim.Type == ClaimTypes.Email).Value;
-            return Ok(userRepository.FindUserByNameOrEmail(email));
+            return Ok(userRepository.FindUserByEmail(email));
         }
 
         [HttpGet("userName")]

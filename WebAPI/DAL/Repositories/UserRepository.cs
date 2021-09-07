@@ -20,9 +20,14 @@ namespace DAL.Repositories
             return appContext.Users.FirstOrDefault(u => u.UserName == loginModel.UserName && u.Password == loginModel.Password);
         }
 
-        public User FindUserByNameOrEmail(string userString)
+        public User FindUserByName(string userName)
         {
-            return appContext.Users.FirstOrDefault(u => u.UserName == userString || u.Email == userString);
+            return appContext.Users.FirstOrDefault(u => u.UserName == userName);
+        }
+
+        public User FindUserByEmail(string userEmail)
+        {
+            return appContext.Users.FirstOrDefault(u => u.Email == userEmail);
         }
     }
 }
