@@ -1,7 +1,7 @@
-<div class="main-container">
+<div class="main-container" id="top">
     <div class="header-container">
         <div class="header-item left-button-item">
-            <button class="circle-button circle-button-s">
+            <a routerLink="../home" class="circle-button circle-button-s">
                 <div class="circle-button-container">
                     <svg viewBox="0 0 24 24" width="20" height="20">
                         <path
@@ -9,11 +9,13 @@
                         </path>
                     </svg>
                 </div>
-            </button>
+            </a>
         </div>
         <div class="header-item center-item">
             <div class="profile-name">
-                {{profile?.profileName}}
+                <a class="link link-black" (click)="scrollTo('#top')" routerLink="./">
+                    {{profile?.profileName}}
+                </a>
             </div>
             <div class="tweets-amount">
                 {{profile?.postsAmount}} {{profileStrings.tweets}}

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 import { ProfileService } from '../_services/profile.service';
 import { UsersService } from '../_services/users.service';
+import { AuthenticationService } from '../_services/authentication.service';
 
 import { User } from '../_models/user';
 
 import { strings } from '../../constants/strings';
-import { AuthenticationService } from '../_services/authentication.service';
+import { scrollTo } from '../_helpers/scrollTo';
 
 @Component({
   selector: 'app-home',
@@ -56,4 +57,6 @@ export class HomeComponent implements OnInit {
         this.profileIds = res;
       });
   }
+
+  scrollTo = scrollTo;
 }

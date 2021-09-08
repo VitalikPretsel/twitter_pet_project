@@ -4,11 +4,13 @@
         <article>
             <div class="blank-item"></div>
             <div class="profile-picture-item">
-                <img src="{{post.profilePicturePath}}" onerror="this.src='/assets/img/default_profile_img.png'" />
+                <a (click)="scrollTo('#top')" routerLink="../{{post.profileName}}">
+                    <img src="{{post.profilePicturePath}}" onerror="this.src='/assets/img/default_profile_img.png'" />
+                </a>
             </div>
             <div class="header-item">
                 <div>
-                    <span><a routerLink="./" class="link link-black">{{post.profileName}}</a></span>
+                    <span><a (click)="scrollTo('#top')" routerLink="../{{post.profileName}}" class="link link-black">{{post.profileName}}</a></span>
                     <span class="header-item-date"> · {{post.postingDate | date: 'medium'}}</span>
                 </div>
             </div>

@@ -3,12 +3,13 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ProfileService } from '../_services/profile.service';
 import { UsersService } from '../_services/users.service';
+import { AuthenticationService } from '../_services/authentication.service';
 
 import { User } from '../_models/user';
 import { Profile } from '../_models/profile';
 
 import { strings } from 'src/constants/strings';
-import { AuthenticationService } from '../_services/authentication.service';
+import { scrollTo } from '../_helpers/scrollTo';
 
 @Component({
   selector: 'app-profile',
@@ -75,4 +76,6 @@ export class ProfileComponent implements OnInit {
       this.profile.postsAmount = data;
     });
   }
+
+  scrollTo = scrollTo;
 }

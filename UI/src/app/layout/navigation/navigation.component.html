@@ -1,7 +1,7 @@
 <div class=navigation-container>
     <div class="nav-item menu-item">
         <div class="twitter-menu-item">
-            <a class="circle-button circle-button-primary">
+            <a (click)="scrollTo('#top')" routerLink="home"  class="circle-button circle-button-primary">
                 <div class="circle-button-container">
                     <svg viewBox="0 0 24 24" width="30" height="30">
                         <path
@@ -14,7 +14,7 @@
         <div class="nav-menu-item">     <!-- TODO: make buttons functional -->
             <nav>
                 <div *ngIf="isAuthenticatedValue">
-                <a class="circle-button">
+                <a (click)="scrollTo('#top')" routerLink="home" class="circle-button">
                     <div class="circle-button-container">
                         <svg viewBox="0 0 24 24" width="26" height="26">
                             <path
