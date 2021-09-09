@@ -1,0 +1,56 @@
+@import '~@angular/material/theming'
+@import '../../_colors'
+    
+.stepper-container
+    max-width: 600px
+    height: 650px
+    border: salmon 3px solid
+    display: flex
+    flex-direction: column
+    .stepper-header
+        height: 53px
+        padding: 0 16px
+        display: flex
+        flex-direction: row
+        align-items: center
+        .header-button
+            position: relative
+            flex-basis: 50%
+            flex-grow: 1
+            flex-shrink: 1
+            .circle-button
+                margin-left: -5px
+        .header-logo
+            svg
+                height: 53px
+                width: 32px
+                fill: map-get($blue-twitter, 500)
+    .step-container
+        margin: 0 32px
+        display: flex
+        flex-direction: column
+        .step-header
+            font-family: "Segoe UI"
+            margin: 16px 0
+            font-size: 23px
+            font-weight: 700
+            line-height: 28px
+        .step-label
+            color: $gray-7
+            margin-bottom: 16px
+            font-size: 15px
+            font-weight: 400
+            line-height: 20px
+        .form-field
+            width: 100%
+    .stepper-button
+        margin-top: auto
+        padding: 12px 32px 36px 32px
+        .circle-button
+            width: 100%
+
+
+::ng-deep .mat-horizontal-stepper-header-container
+    display: none !important
+::ng-deep .mat-horizontal-content-container
+    padding: 0 !important
