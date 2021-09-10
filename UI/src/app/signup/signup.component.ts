@@ -33,7 +33,7 @@ export class SignupComponent implements OnInit {
   }
   
   signup = (form: NgForm) => {
-    this.authenticationService.signup(JSON.stringify(form.value))
+    this.authenticationService.signup(form.value)
       .pipe(first()).subscribe(response => {
         this.invalidUser = false;
         this.router.navigate(['/home']);

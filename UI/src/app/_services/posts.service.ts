@@ -26,6 +26,6 @@ export class PostsService {
   }
 
   public getProfileName(profileId) {
-    return this.http.get(`${environment.apiUrl}/profiles/profileName/${profileId}`, { responseType: 'text' });
+    return this.http.get<string>(`${environment.apiUrl}/profiles/profileName/${profileId}`, { responseType: 'text' as 'json'});
   }
 }
