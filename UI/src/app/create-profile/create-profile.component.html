@@ -39,13 +39,26 @@
             <mat-step>
                 <div class="step-container">
                     <div class="step-item step-header">Describe yourself</div>
-                    <div class="step-item step-label">What makes you special? Don't think too hard, just have fun with it.</div>
+                    <div class="step-item step-label">What makes you special? Don't think too hard, just have fun with
+                        it.</div>
                     <div class="step-item input-container">
                         <mat-form-field class="form-field">
                             <mat-label>Your bio</mat-label>
                             <input type="text" id="description" name="description" ngModel matInput>
                         </mat-form-field>
                     </div>
+                </div>
+            </mat-step>
+            <mat-step>
+                <div class="step-container final-step">
+                    <div class="step-item step-header">Your profile is updated</div>
+                    <button mat-flat-button class="step-item circle-button circle-button-black text-button">
+                        <div class="circle-button-container">
+                            <span class="button-text">
+                                See profile
+                            </span>
+                        </div>
+                    </button>
                 </div>
             </mat-step>
         </mat-horizontal-stepper>
