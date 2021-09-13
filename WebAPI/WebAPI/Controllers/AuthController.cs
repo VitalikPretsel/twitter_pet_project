@@ -26,11 +26,17 @@ namespace WebAPI.Controllers
         [HttpPost("signup")]
         public async Task<IActionResult> Signup([FromBody] SignupModel signupModel)
         {
-            if (signupModel == null || 
-                userRepository.FindUserByName(signupModel.UserName) != null ||
-                userRepository.FindUserByEmail(signupModel.Email) != null)
+            if (userRepository.FindUserByName(signupModel.UserName) != null)
             {
-                return BadRequest();
+                ModelState.AddModelError("UserName", "User with such username already exists");
+            }
+            if (userRepository.FindUserByEmail(signupModel.Email) != null)
+            {
+                ModelState.AddModelError("Email", "User with such email already exists");
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
             }
             else
             {
