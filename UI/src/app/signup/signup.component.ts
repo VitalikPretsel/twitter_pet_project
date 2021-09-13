@@ -14,6 +14,7 @@ import { strings } from 'src/constants/strings';
 })
 export class SignupComponent implements OnInit {
   invalidUser: boolean;
+  errors: string[];
 
   public signupFormStrings = strings.signupForm;
 
@@ -31,7 +32,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
+
   signup = (form: NgForm) => {
     this.authenticationService.signup(form.value)
       .pipe(first()).subscribe(response => {
@@ -39,6 +40,21 @@ export class SignupComponent implements OnInit {
         this.router.navigate(['/home']);
       }, err => {
         this.invalidUser = true;
+        this.errors = [];
+        let errorObject;
+
+        if (err.error.errors != null) {
+          errorObject = err.error.errors;
+        }
+        else {
+          errorObject = err.error;
+        }
+
+        for (var errorField in errorObject) {
+          errorObject[errorField].forEach(element => {
+            this.errors.push(errorField + ': ' + element);
+          });
+        }
       });
   }
 }

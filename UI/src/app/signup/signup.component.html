@@ -16,6 +16,13 @@
                 <div class="error-input">
                     <div class="error-input-text">
                         {{signupFormStrings.errorMessage}}
+                        <ul>
+                            <div *ngFor="let error of errors">
+                                <li>
+                                    {{error}}
+                                </li>
+                            </div>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -38,6 +45,13 @@
                 <mat-form-field class="form-field">
                     <mat-label>{{signupFormStrings.passwordLabel}}</mat-label>
                     <input type="password" id="password" name="password" ngModel required matInput>
+                </mat-form-field>
+            </div>
+
+            <div class="input-container">
+                <mat-form-field class="form-field">
+                    <mat-label>{{signupFormStrings.passwordConfirmLabel}}</mat-label>
+                    <input type="password" id="passwordConfirm" name="passwordConfirm" ngModel required matInput>
                 </mat-form-field>
             </div>
 
