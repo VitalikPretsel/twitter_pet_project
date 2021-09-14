@@ -20,7 +20,11 @@ namespace DAL.Entities
 
         [Required]
         [MaxLength(256)]
-        public string Password { get; set; }
+        public string PasswordHash { get; set; }
+
+        [Required]
+        [MaxLength(256)]
+        public byte[] PasswordSalt { get; set; }
 
         public List<Profile> Profiles { get; set; }
     }
