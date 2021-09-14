@@ -16,11 +16,13 @@ namespace WebAPI.Controllers
     {
         private readonly IUserRepository userRepository;
         private readonly AuthService authService;
+        private readonly PasswordEncryptionService passwordEncryptionService;
 
-        public AuthController(IUserRepository repository, AuthService service)
+        public AuthController(IUserRepository repository, AuthService authService, PasswordEncryptionService passwordEncryptionService)
         {
             userRepository = repository;
-            authService = service;
+            this.authService = authService;
+            this.passwordEncryptionService = passwordEncryptionService;
         }
 
         [HttpPost("signup")]
@@ -40,11 +42,15 @@ namespace WebAPI.Controllers
             }
             else
             {
+                string passwordHash;
+                byte[] passwordSalt;
+                passwordEncryptionService.EncryptPassword(signupModel.Password, out passwordHash, out passwordSalt);
                 User user = new User()
                 {
                     UserName = signupModel.UserName,
                     Email = signupModel.Email,
-                    Password = signupModel.Password
+                    PasswordHash = passwordHash,
+                    PasswordSalt = passwordSalt,
                 };
                 await userRepository.Add(user);
                 Authenticate(user);
@@ -59,8 +65,9 @@ namespace WebAPI.Controllers
             {
                 return BadRequest();
             }
-            User user = userRepository.FindUserByLoginModel(loginModel);
-            if (user != null)
+            User user = userRepository.FindUserByName(loginModel.UserName);
+            if (user != null && 
+                passwordEncryptionService.VerifyPassword(loginModel.Password, user?.PasswordHash, user?.PasswordSalt))
             {
                 Authenticate(user);
                 return Ok();
@@ -71,6 +78,7 @@ namespace WebAPI.Controllers
             }
         }
 
+        [NonAction]
         private void Authenticate(User user)
         {
             var token = authService.GetTokenString(user);
