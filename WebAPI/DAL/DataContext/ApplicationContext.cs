@@ -30,6 +30,8 @@ namespace DAL.DataContext
             builder.Entity<Profile>()
                 .HasIndex(p => p.ProfileName)
                 .IsUnique();
+
+            DataSeeder.SeedDataBase(builder);
         }
     }
 }
