@@ -13,7 +13,10 @@ export class PostsService {
 
   public getProfilesPosts(profileIds, lastId) {
     let params = new HttpParams();
-    params = params.append('profileIds', profileIds.join(', '));
+    for (let i = 0; i < profileIds.length; i++)
+    {
+      params = params.append('profileIds', profileIds[i]);
+    }
     return this.http.get<Post[]>(`${environment.apiUrl}/posts/getFewProfilePosts/details?step=20&id=${lastId}`, { params: params });
   }
 

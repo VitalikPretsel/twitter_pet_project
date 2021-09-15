@@ -4,18 +4,18 @@
         <article>
             <div class="blank-item"></div>
             <div class="profile-picture-item">
-                <a (click)="scrollTo('#top')" routerLink="../{{post.profileName}}">
-                    <img src="{{post.profilePicturePath}}" onerror="this.src='/assets/img/default_profile_img.png'" />
+                <a (click)="scrollTo('#top')" routerLink="../{{post?.profileName}}">
+                    <img src="{{post?.profilePicturePath}}" onerror="this.src='/assets/img/default_profile_img.png'" />
                 </a>
             </div>
             <div class="header-item">
                 <div>
-                    <span><a (click)="scrollTo('#top')" routerLink="../{{post.profileName}}" class="link link-black">{{post.profileName}}</a></span>
-                    <span class="header-item-date"> · {{post.postingDate | date: 'medium'}}</span>
+                    <span><a (click)="scrollTo('#top')" routerLink="../{{post?.profileName}}" class="link link-black">{{post.profileName}}</a></span>
+                    <span class="header-item-date"> · {{post?.postingDate | date: 'medium'}}</span>
                 </div>
             </div>
             <div class="text-item">
-                {{post.id}} {{post.postText}}
+                {{post?.id}} {{post?.postText}}
             </div>
             <div class="buttons-item">
                 <div class="buttons-container">
@@ -29,7 +29,7 @@
                                 </div>
                             </span>
                             <span class="icon-text-button-text">
-                                {{post.repliesAmount}}
+                                {{post?.repliesAmount}}
                             </span>
                         </div>
                     </button>
@@ -57,7 +57,7 @@
                                 </div>
                             </span>
                             <span class="icon-text-button-text">
-                                {{post.likesAmount}}
+                                {{post?.likesAmount}}
                             </span>
                         </div>
                     </button>
@@ -80,7 +80,7 @@
                 <div class="blank-thread-item">
                 </div>
                 <div class="show-thread-item">
-                    <div>{{feedPostStrings.showThreadButton}}</div>
+                    <div>{{feedPostStrings?.showThreadButton}}</div>
                 </div>
             </a>
         </article>
