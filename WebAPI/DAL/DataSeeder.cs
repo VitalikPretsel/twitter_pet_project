@@ -2,9 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL
 {
@@ -12,7 +9,7 @@ namespace DAL
     {
         static public void SeedDataBase(ModelBuilder builder)
         {
-            builder.Entity<User>().HasData(
+            builder.Entity<User>().HasData( // password = "testpass" for all users
                 new User { Id = 1, UserName = "TestUser1", Email = "user_1@testmail.com", PasswordHash = "iV44iFF1LTb/t5VpyTwDobB8hQZ7dKRzgH43Tjj/yWc=", PasswordSalt = new byte[] { 45, 202, 189, 71, 44, 206, 203, 143, 216, 27, 78, 72, 212, 121, 141, 214 } },
                 new User { Id = 2, UserName = "TestUser2", Email = "user_2@testmail.com", PasswordHash = "iV44iFF1LTb/t5VpyTwDobB8hQZ7dKRzgH43Tjj/yWc=", PasswordSalt = new byte[] { 45, 202, 189, 71, 44, 206, 203, 143, 216, 27, 78, 72, 212, 121, 141, 214 } },
                 new User { Id = 3, UserName = "TestUser3", Email = "user_3@testmail.com", PasswordHash = "iV44iFF1LTb/t5VpyTwDobB8hQZ7dKRzgH43Tjj/yWc=", PasswordSalt = new byte[] { 45, 202, 189, 71, 44, 206, 203, 143, 216, 27, 78, 72, 212, 121, 141, 214 } });
@@ -42,9 +39,13 @@ namespace DAL
 
             List<Reply> replies = new List<Reply>();
 
-            for (int i = 1; i <= 30; i++)
+            for (int i = 1; i <= 100; i++)
             {
-                replies.Add(new Reply { Id = i, ReplyText = "Reply of profile " + (1 + i % 4) + ".", ReplyingDate = new DateTime(2021, 8, 15, 2 + i % 20, i, 0), PostId = 1 + i % 15, ProfileId = 1 + i % 4 });
+                replies.Add(new Reply { Id = i, ReplyText = "Reply of profile " + (1 + i % 2) + ".", ReplyingDate = new DateTime(2021, 8, 15, 2 + i % 20, i % 60, 0), PostId = 1 + i % 50, ProfileId = 1 + i % 2 });
+            }
+            for (int i = 101; i <= 200; i++)
+            {
+                replies.Add(new Reply { Id = i, ReplyText = "Reply of profile " + (1 + i % 4) + ".", ReplyingDate = new DateTime(2021, 8, 15, 3 + i % 20, i % 60, 0), PostId = 1 + (i * 2) % 100, ProfileId = 1 + i % 4 });
             }
 
             builder.Entity<Reply>().HasData(replies);
