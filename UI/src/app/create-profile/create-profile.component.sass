@@ -26,6 +26,7 @@
                 width: 32px
                 fill: map-get($blue-twitter, 500)
     .step-container
+        z-index: 2
         margin: 0 32px
         display: flex
         flex-direction: column
@@ -48,8 +49,8 @@
         .circle-button
             width: 100%
     .final-step
-        margin-top: auto
-        margin-bottom: auto
+        z-index: 1
+        align-self: center
         .step-header
             font-size: 26px
             font-weight: 800
@@ -64,10 +65,11 @@
     .stepper-content
         flex-grow: 1
         ::ng-deep .mat-horizontal-stepper-content
-            //height: 100%
             display: flex
             justify-content: center
-
+        ::ng-deep .mat-horizontal-stepper-content#cdk-step-content-0-2
+            height: 100%
+            visibility: hidden
 
 ::ng-deep .mat-horizontal-stepper-header-container
     display: none !important

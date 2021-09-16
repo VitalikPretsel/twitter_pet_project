@@ -1,15 +1,17 @@
 <div class="stepper-container">
     <div class="stepper-header">
         <div class="header-button">
-            <button (click)="goBack(stepper)" class="circle-button circle-button-s">
-                <div class="circle-button-container">
-                    <svg viewBox="0 0 24 24" width="20" height="20">
-                        <path
-                            d="M 20 11 H 7.414 l 4.293 -4.293 c 0.39 -0.39 0.39 -1.023 0 -1.414 s -1.023 -0.39 -1.414 0 l -6 6 c -0.39 0.39 -0.39 1.023 0 1.414 l 6 6 c 0.195 0.195 0.45 0.293 0.707 0.293 s 0.512 -0.098 0.707 -0.293 c 0.39 -0.39 0.39 -1.023 0 -1.414 L 7.414 13 H 20 c 0.553 0 1 -0.447 1 -1 s -0.447 -1 -1 -1 Z">
-                        </path>
-                    </svg>
-                </div>
-            </button>
+            <div *ngIf="stepper.selectedIndex != 0">
+                <button (click)="goBack(stepper)" class="circle-button circle-button-s">
+                    <div class="circle-button-container">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path
+                                d="M 20 11 H 7.414 l 4.293 -4.293 c 0.39 -0.39 0.39 -1.023 0 -1.414 s -1.023 -0.39 -1.414 0 l -6 6 c -0.39 0.39 -0.39 1.023 0 1.414 l 6 6 c 0.195 0.195 0.45 0.293 0.707 0.293 s 0.512 -0.098 0.707 -0.293 c 0.39 -0.39 0.39 -1.023 0 -1.414 L 7.414 13 H 20 c 0.553 0 1 -0.447 1 -1 s -0.447 -1 -1 -1 Z">
+                            </path>
+                        </svg>
+                    </div>
+                </button>
+            </div>
         </div>
         <div class="header-logo">
             <svg viewBox="0 0 24 24">
@@ -23,53 +25,70 @@
     </div>
     <div class="stepper-content">
         <mat-horizontal-stepper #stepper>
-            <mat-step>
-                <div class="step-container">
-                    <div class="step-item step-header"><span>Pick up a profile name</span></div>
-                    <div class="step-item step-label"><span>Choose a name, that suits your profile in the best
-                            way.</span></div>
-                    <div class="step-item input-container">
-                        <mat-form-field class="form-field">
-                            <mat-label>Profile name</mat-label>
-                            <input type="text" id="profilename" name="profilename" ngModel matInput>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </mat-step>
-            <mat-step>
-                <div class="step-container">
-                    <div class="step-item step-header">Describe yourself</div>
-                    <div class="step-item step-label">What makes you special? Don't think too hard, just have fun with
-                        it.</div>
-                    <div class="step-item input-container">
-                        <mat-form-field class="form-field">
-                            <mat-label>Your bio</mat-label>
-                            <input type="text" id="description" name="description" ngModel matInput>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </mat-step>
-            <mat-step>
-                <div class="step-container final-step">
-                    <div class="step-item step-header">Your profile is updated</div>
-                    <button mat-flat-button class="step-item circle-button circle-button-black text-button">
-                        <div class="circle-button-container">
-                            <span class="button-text">
-                                See profile
-                            </span>
+            <form #signupForm="ngForm">
+                <mat-step>
+                    <div class="step-container">
+                        <div class="step-item step-header"><span>Pick up a profile name</span></div>
+                        <div class="step-item step-label"><span>Choose a name, that suits your profile in the best
+                                way.</span></div>
+                        <div class="step-item input-container">
+                            <mat-form-field class="form-field">
+                                <mat-label>Profile name</mat-label>
+                                <input type="text" id="profileName" name="profileName" maxlength="256" ngModel matInput>
+                            </mat-form-field>
                         </div>
-                    </button>
-                </div>
-            </mat-step>
+                    </div>
+                </mat-step>
+
+                <mat-step>
+                    <div class="step-container">
+                        <div class="step-item step-header">Describe yourself</div>
+                        <div class="step-item step-label">What makes you special? Don't think too hard, just have fun
+                            with
+                            it.</div>
+                        <div class="step-item input-container">
+                            <mat-form-field class="form-field">
+                                <mat-label>Your bio</mat-label>
+                                <input type="text" id="description" name="description" maxlength="256" ngModel matInput>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-step>
+
+                <mat-step>
+                    <div class="step-container final-step">
+                        <div class="step-item step-header">Your profile is updated</div>
+                        <button type="submit" mat-flat-button
+                            class="step-item circle-button circle-button-black text-button">
+                            <div class="circle-button-container">
+                                <span class="button-text">
+                                    See profile
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                </mat-step>
+            </form>
         </mat-horizontal-stepper>
     </div>
     <div class="stepper-button">
-        <button (click)="goForward(stepper)" class="circle-button-primary circle-button circle-button-m">
-            <div class="circle-button-container">
-                <span class="button-text">
-                    next
-                </span>
+        <div *ngIf="stepper.selectedIndex != 2">
+            <div *ngIf="(signupForm.form.controls.profileName?.value.length && stepper.selectedIndex == 0) 
+                || (signupForm.form.controls.description?.value.length && stepper.selectedIndex == 1); else invalid">
+                <button (click)="goForward(stepper)" mat-flat-button
+                    class="flat-circle-button circle-button circle-button-m" color="primary">
+                    Next
+                </button>
             </div>
-        </button>
+            <ng-template #invalid>
+                <button (click)="goForward(stepper)" class="circle-button-primary circle-button circle-button-m">
+                    <div class="circle-button-container">
+                        <span class="button-text">
+                            Next
+                        </span>
+                    </div>
+                </button>
+            </ng-template>
+        </div>
     </div>
 </div>
