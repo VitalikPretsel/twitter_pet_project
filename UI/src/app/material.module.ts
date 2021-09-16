@@ -7,6 +7,7 @@ import { MatTabsModule } from '@angular/material/tabs'
 import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from '@angular/material/stepper';
 import { CdkStepperModule } from '@angular/cdk/stepper';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const modules = [
   MatCardModule,
@@ -15,7 +16,8 @@ const modules = [
   MatTabsModule,
   MatMenuModule,
   MatStepperModule,
-  CdkStepperModule
+  CdkStepperModule,
+  MatDialogModule
 ];
 
 @NgModule({
