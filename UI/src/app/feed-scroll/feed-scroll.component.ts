@@ -24,6 +24,7 @@ export class FeedScrollComponent implements OnChanges {
   }
 
   ngOnChanges(): void {
+    this.allPost = [];
     this.loadPosts(this.profileIds);
   }
 

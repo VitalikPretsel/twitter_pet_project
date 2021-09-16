@@ -25,6 +25,6 @@ export class UsersService {
   }
 
   public getCurrentUserName() {
-    return this.http.get(`${environment.apiUrl}/account/userName`, { responseType: 'text' });
+    return this.http.get<string>(`${environment.apiUrl}/account/userName`, { responseType: 'text' as 'json'});
   }
 }
