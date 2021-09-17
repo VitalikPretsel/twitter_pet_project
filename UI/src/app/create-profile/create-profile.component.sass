@@ -4,7 +4,6 @@
 .stepper-container
     max-width: 600px
     height: 650px
-    border: salmon 3px solid
     display: flex
     flex-direction: column
     .stepper-header
@@ -20,9 +19,13 @@
             flex-shrink: 1
             .circle-button
                 margin-left: -5px
+                svg
+                    width: 20px
+                    height: 20px
         .header-logo
             svg
-                height: 53px
+                display: flex
+                height: 32px
                 width: 32px
                 fill: map-get($blue-twitter, 500)
     .step-container
@@ -32,7 +35,7 @@
         flex-direction: column
         .step-header
             font-family: "Segoe UI"
-            margin: 16px 0
+            margin-bottom: 32px
             font-size: 23px
             font-weight: 700
             line-height: 28px
@@ -43,7 +46,7 @@
             font-weight: 400
             line-height: 20px
         .form-field
-            width: 100%
+            width: 534px
     .stepper-button
         padding: 12px 32px 36px 32px
         .circle-button
@@ -51,16 +54,26 @@
     .final-step
         z-index: 1
         align-self: center
-        .step-header
-            font-size: 26px
-            font-weight: 800
-            line-height: 32px
-        .circle-button-black
-            width: 100%
-            .button-text
-                font-family: "Segoe UI"
-                font-size: 17px
-                font-weight: 700
+        .logo-container
+            display: flex
+            justify-content: center    
+            margin: 0 16px
+            svg
+                width: 48px
+                height: 48px
+                fill: map-get($blue-twitter, 500)
+        .content-container
+            margin: 32px        
+            .step-header
+                font-size: 26px
+                font-weight: 800
+                line-height: 32px
+            .circle-button-black
+                width: 100%
+                .button-text
+                    font-family: "Segoe UI"
+                    font-size: 17px
+                    font-weight: 700
 
     .stepper-content
         flex-grow: 1
@@ -78,3 +91,7 @@
     height: 100%
 ::ng-deep .mat-stepper-horizontal
     height: 100%
+
+::ng-deep .mat-dialog-container
+    padding: 0
+    border-radius: 16px

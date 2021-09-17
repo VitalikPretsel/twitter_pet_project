@@ -54,10 +54,10 @@ namespace WebAPI.Controllers
             return Ok(profile);
         }
 
-        [HttpGet("getUserProfiles/{profileId}")]
-        public async Task<ActionResult<IEnumerable<Profile>>> GetUserProfiles(int profileId)
+        [HttpGet("getUserProfiles/{userId}")]
+        public async Task<ActionResult<IEnumerable<Profile>>> GetUserProfiles(int userId)
         {
-            return Ok(await profileRepository.GetUserProfiles(profileId));
+            return Ok(await profileRepository.GetUserProfiles(userId));
         }
 
         [AllowAnonymous]
