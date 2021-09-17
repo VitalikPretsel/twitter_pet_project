@@ -23,10 +23,16 @@
     </div>
     <div class="stepper-content">
         <mat-horizontal-stepper #stepper>
-            <form #signupForm="ngForm">
+            <form #createProfileForm="ngForm" (ngSubmit)="createProfile(createProfileForm)">
+                <div style="display: none;">
+                    <mat-form-field class="form-field">
+                        <input type="number" id="userId" name="userId" ngModel matInput>
+                    </mat-form-field>
+                </div>
                 <mat-step>
                     <div class="step-container">
-                        <div class="step-item step-header"><span>{{createProfileStrings.profileName.header}}</span></div>
+                        <div class="step-item step-header"><span>{{createProfileStrings.profileName.header}}</span>
+                        </div>
                         <div class="step-item step-label"><span>{{createProfileStrings.profileName.label}}</span></div>
                         <div class="step-item input-container">
                             <mat-form-field class="form-field">
@@ -58,15 +64,15 @@
                             </svg>
                         </div>
                         <div class="content-container">
-                        <div class="step-item step-header">{{createProfileStrings.finalStep.message}}</div>
-                        <button type="submit" mat-flat-button
-                            class="step-item circle-button circle-button-black text-button">
-                            <div class="circle-button-container">
-                                <span class="button-text">
-                                    {{createProfileStrings.finalStep.button}}
-                                </span>
-                            </div>
-                        </button>
+                            <div class="step-item step-header">{{createProfileStrings.finalStep.message}}</div>
+                            <button (click)="createProfile(createProfileForm)" type="submit" mat-flat-button
+                                class="step-item circle-button circle-button-black text-button">
+                                <div class="circle-button-container">
+                                    <span class="button-text">
+                                        {{createProfileStrings.finalStep.button}}
+                                    </span>
+                                </div>
+                            </button>
                         </div>
                     </div>
                 </mat-step>
@@ -75,9 +81,10 @@
     </div>
     <div class="stepper-button">
         <div *ngIf="stepper.selectedIndex != 2">
-            <div *ngIf="(signupForm.form.controls.profileName?.value.length && stepper.selectedIndex == 0) 
-                || (signupForm.form.controls.description?.value.length && stepper.selectedIndex == 1); else empty">
-                <button (click)="goForward(stepper)" mat-flat-button
+            <div *ngIf="(stepper.selectedIndex == 0) || 
+            (createProfileForm.form.controls.description?.value.length && stepper.selectedIndex == 1); else empty">
+                <button [disabled]="createProfileForm.form.controls.profileName?.value.length == 0"
+                    (click)="goForward(stepper)" mat-flat-button
                     class="flat-circle-button circle-button circle-button-m" color="primary">
                     {{createProfileStrings.nextButton}}
                 </button>
