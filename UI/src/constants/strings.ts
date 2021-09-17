@@ -47,6 +47,25 @@ export const strings = {
             likes: "Likes"
         }
     },
+    createProfile: {
+        profileName:
+        {
+            header: "Pick up a profile name",
+            label: "Choose a name, that suits your profile in the best way.",
+            inputLabel: "Profile name"
+        },
+        description: {
+            header: "Describe yourself",
+            label: "What makes you special? Don't think too hard, just have fun with it.",
+            inputLabel: "Your bio",
+        },
+        finalStep: {
+            message: "Your profile is updated",
+            button: "See profile"
+        },
+        nextButton: "Next",
+        skipButton: "Skip for now"
+    },
     home: {
         header: "Home"
     },

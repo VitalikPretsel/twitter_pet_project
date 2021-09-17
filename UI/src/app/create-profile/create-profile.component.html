@@ -26,12 +26,11 @@
             <form #signupForm="ngForm">
                 <mat-step>
                     <div class="step-container">
-                        <div class="step-item step-header"><span>Pick up a profile name</span></div>
-                        <div class="step-item step-label"><span>Choose a name, that suits your profile in the best
-                                way.</span></div>
+                        <div class="step-item step-header"><span>{{createProfileStrings.profileName.header}}</span></div>
+                        <div class="step-item step-label"><span>{{createProfileStrings.profileName.label}}</span></div>
                         <div class="step-item input-container">
                             <mat-form-field class="form-field">
-                                <mat-label>Profile name</mat-label>
+                                <mat-label>{{createProfileStrings.profileName.inputLabel}}</mat-label>
                                 <input type="text" id="profileName" name="profileName" maxlength="256" ngModel matInput>
                             </mat-form-field>
                         </div>
@@ -40,13 +39,11 @@
 
                 <mat-step>
                     <div class="step-container">
-                        <div class="step-item step-header">Describe yourself</div>
-                        <div class="step-item step-label">What makes you special? Don't think too hard, just have fun
-                            with
-                            it.</div>
+                        <div class="step-item step-header">{{createProfileStrings.description.header}}</div>
+                        <div class="step-item step-label">{{createProfileStrings.description.label}}</div>
                         <div class="step-item input-container">
                             <mat-form-field class="form-field">
-                                <mat-label>Your bio</mat-label>
+                                <mat-label>{{createProfileStrings.description.inputLabel}}</mat-label>
                                 <input type="text" id="description" name="description" maxlength="256" ngModel matInput>
                             </mat-form-field>
                         </div>
@@ -61,12 +58,12 @@
                             </svg>
                         </div>
                         <div class="content-container">
-                        <div class="step-item step-header">Your profile is updated</div>
+                        <div class="step-item step-header">{{createProfileStrings.finalStep.message}}</div>
                         <button type="submit" mat-flat-button
                             class="step-item circle-button circle-button-black text-button">
                             <div class="circle-button-container">
                                 <span class="button-text">
-                                    See profile
+                                    {{createProfileStrings.finalStep.button}}
                                 </span>
                             </div>
                         </button>
@@ -82,14 +79,14 @@
                 || (signupForm.form.controls.description?.value.length && stepper.selectedIndex == 1); else empty">
                 <button (click)="goForward(stepper)" mat-flat-button
                     class="flat-circle-button circle-button circle-button-m" color="primary">
-                    Next
+                    {{createProfileStrings.nextButton}}
                 </button>
             </div>
             <ng-template #empty>
                 <button (click)="goForward(stepper)" class="circle-button-primary circle-button circle-button-m">
                     <div class="circle-button-container">
                         <span class="button-text">
-                            Skip for now
+                            {{createProfileStrings.skipButton}}
                         </span>
                     </div>
                 </button>
