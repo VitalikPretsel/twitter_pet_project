@@ -14,27 +14,40 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./create-profile.component.sass']
 })
 export class CreateProfileComponent implements OnInit {
+  invalidUser: boolean;
+  errors: string[];
+  private id: Number;
 
   public createProfileStrings = strings.createProfile;
-
-  private id: Number;
 
   constructor(
     private profileService: ProfileService,
     private usersService: UsersService,
-    public dialogRef: MatDialogRef<CreateProfileComponent>
+    private dialogRef: MatDialogRef<CreateProfileComponent>
   ) { }
 
   ngOnInit(): void {
   }
 
   createProfile(createProfileForm: NgForm) {
-    console.log("what?");
     this.usersService.getCurrentUser().subscribe(res => {
       this.id = res.id;
       createProfileForm.form.patchValue({ userId: this.id });
       this.profileService.createProfile(createProfileForm.value).subscribe(res => {
+        this.invalidUser = false;
         this.closeDialog();
+      }, err => {
+        this.invalidUser = true;
+        this.errors = [];
+        let errorObject;
+
+        errorObject = err.error;
+
+        for (var errorField in errorObject) {
+          errorObject[errorField].forEach(element => {
+            this.errors.push(errorField + ': ' + element);
+          });
+        }
       });
     });
   }
@@ -44,6 +57,7 @@ export class CreateProfileComponent implements OnInit {
   }
 
   goBack(stepper: MatStepper) {
+    this.invalidUser = false;
     stepper.previous();
   }
 

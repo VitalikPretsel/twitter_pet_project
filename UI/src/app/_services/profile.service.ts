@@ -24,7 +24,6 @@ export class ProfileService {
   }
 
   public createProfile(profileValues) {
-    console.log(profileValues);
     return this.http.post<void>(`${environment.apiUrl}/profiles`, profileValues);
   }
 

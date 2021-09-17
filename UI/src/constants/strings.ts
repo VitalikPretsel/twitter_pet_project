@@ -60,8 +60,9 @@ export const strings = {
             inputLabel: "Your bio",
         },
         finalStep: {
-            message: "Your profile is updated",
-            button: "See profile"
+            message: "Everything is ready",
+            errorMessage: "Something went wrong.",
+            submitButton: "Create profile"
         },
         nextButton: "Next",
         skipButton: "Skip for now"

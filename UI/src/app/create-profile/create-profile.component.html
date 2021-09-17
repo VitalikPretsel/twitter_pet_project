@@ -64,12 +64,28 @@
                             </svg>
                         </div>
                         <div class="content-container">
-                            <div class="step-item step-header">{{createProfileStrings.finalStep.message}}</div>
+                            <div *ngIf="invalidUser">
+                                <div class="error-input">
+                                    <div class="error-input-text">
+                                        {{createProfileStrings.finalStep.errorMessage}}
+                                        <ul>
+                                            <div *ngFor="let error of errors">
+                                                <li>
+                                                    {{error}}
+                                                </li>
+                                            </div>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="!invalidUser">
+                                <div class="step-item step-header">{{createProfileStrings.finalStep.message}}</div>
+                            </div>
                             <button (click)="createProfile(createProfileForm)" type="submit" mat-flat-button
                                 class="step-item circle-button circle-button-black text-button">
                                 <div class="circle-button-container">
                                     <span class="button-text">
-                                        {{createProfileStrings.finalStep.button}}
+                                        {{createProfileStrings.finalStep.submitButton}}
                                     </span>
                                 </div>
                             </button>
