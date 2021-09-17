@@ -75,9 +75,10 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Profile>> Post(Profile profile)
         {
-            if (profile == null)
+            if (profileRepository.GetByProfileName(profile.ProfileName) != null)
             {
-                return BadRequest();
+                ModelState.AddModelError("ProfileName", "Profile with such profilename already exists");
+                return BadRequest(ModelState);
             }
             await profileRepository.Add(profile);
             return Ok(profile);
