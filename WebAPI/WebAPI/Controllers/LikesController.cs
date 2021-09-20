@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
         [HttpGet("OnPostAmount/{postId}")]
         public ActionResult<int> GetLikesOnPost(int postId)
         {
-            return Ok(likeRepository.GetLikesOnPostAmount(postId));
+            return Ok(likeRepository.GetPostLikesAmount(postId));
         }
 
         [HttpPost]

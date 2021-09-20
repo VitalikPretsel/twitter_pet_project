@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
         [HttpGet("OnPostAmount/{postId}")]
         public ActionResult<int> GetRepliesOnPost(int postId)
         {
-            return Ok(replyRepository.GetRepliesOnPostAmount(postId));
+            return Ok(replyRepository.GetPostRepliesAmount(postId));
         }
 
         [HttpPost]

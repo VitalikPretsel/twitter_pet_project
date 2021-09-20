@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using DAL.Entities;
 using DAL.Repositories;
+using DAL.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,37 +18,61 @@ namespace WebAPI.Controllers
     public class PostsController : ControllerBase
     {
         private readonly IPostRepository postRepository;
+        private readonly IProfileRepository profileRepository;
+        private readonly ILikeRepository likeRepository;
+        private readonly IReplyRepository replyRepository;
+        private readonly IMapper mapper;
 
-        public PostsController(IPostRepository repository)
+        public PostsController(IPostRepository postRepository, IProfileRepository profileRepository,
+            ILikeRepository likeRepository, IReplyRepository replyRepository, IMapper mapper)
         {
-            postRepository = repository;
+            this.postRepository = postRepository;
+            this.profileRepository = profileRepository;
+            this.likeRepository = likeRepository;
+            this.replyRepository = replyRepository;
+            this.mapper = mapper;
         }
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Post>>> Get()
+        public async Task<ActionResult<IEnumerable<PostViewModel>>> Get()
         {
-            var posts = await postRepository.GetAll();
-            return Ok(posts);
+            var postViewModels = mapper.Map<List<PostViewModel>>(await postRepository.GetAll());
+            for (int i = 0; i < postViewModels.Count(); i++)
+            {
+                GetPostViewModelInfo(postViewModels[i]);
+            }
+
+            return Ok(postViewModels);
         }
 
         [AllowAnonymous]
         [HttpGet("getFewProfilePosts/details")]
-        public async Task<ActionResult<IEnumerable<Post>>> Get(int step, int id, [FromQuery] int[] profileIds)
+        public async Task<ActionResult<IEnumerable<PostViewModel>>> Get(int step, int id, [FromQuery] int[] profileIds)
         {
-            return Ok(await postRepository.GetFewProfilePosts(profileIds, step, id));
+            var postViewModels = mapper.Map<List<PostViewModel>>(await postRepository.GetFewProfilePosts(profileIds, step, id));
+            for (int i = 0; i < postViewModels.Count(); i++)
+            {
+                GetPostViewModelInfo(postViewModels[i]);
+            }
+
+            return Ok(postViewModels);
         }
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public async Task<ActionResult<Post>> Get(int id)
+        public async Task<ActionResult<PostViewModel>> Get(int id)
         {
-            Post post = await postRepository.Get(id);
-            if (post == null)
+            PostViewModel postViewModel = mapper.Map<PostViewModel>(await postRepository.Get(id));
+            if (postViewModel == null)
             {
                 return NotFound();
             }
-            return Ok(post);
+            else
+            {
+                GetPostViewModelInfo(postViewModel);
+                return Ok(postViewModel);
+            }
         }
 
         [AllowAnonymous]
@@ -57,18 +83,18 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Post>> Post(Post post)
+        public async Task<IActionResult> Post(Post post)
         {
             if (post == null)
             {
                 return BadRequest();
             }
             await postRepository.Add(post);
-            return Ok(post);
+            return Ok();
         }
 
         [HttpPut]
-        public async Task<ActionResult<Post>> Put(Post post)
+        public async Task<IActionResult> Put(Post post)
         {
             if (post == null)
             {
@@ -79,11 +105,11 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
             await postRepository.Update(post);
-            return Ok(post);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Post>> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             Post post = await postRepository.Get(id);
             if (post == null)
@@ -91,7 +117,15 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
             await postRepository.Delete(post);
-            return Ok(post);
+            return Ok();
+        }
+
+        [NonAction]
+        public void GetPostViewModelInfo(PostViewModel postViewModel)
+        {
+            postViewModel.ProfileName = profileRepository.GetProfileName(postViewModel.ProfileId);
+            postViewModel.LikesAmount = likeRepository.GetPostLikesAmount(postViewModel.Id);
+            postViewModel.RepliesAmount = replyRepository.GetPostRepliesAmount(postViewModel.Id);
         }
     }
 }
