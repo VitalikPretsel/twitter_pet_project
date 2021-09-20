@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DAL.Models
+namespace DAL.ViewModels
 {
-    public class SignupModel
+    public class SignupViewModel
     {
         [Required]
         [MaxLength(256)]

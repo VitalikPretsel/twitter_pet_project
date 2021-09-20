@@ -1,7 +1,7 @@
 ﻿using DAL.Entities;
 using DAL.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using DAL.Models;
+using DAL.ViewModels;
 using WebAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -26,7 +26,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("signup")]
-        public async Task<IActionResult> Signup([FromBody] SignupModel signupModel)
+        public async Task<IActionResult> Signup([FromBody] SignupViewModel signupModel)
         {
             if (userRepository.FindUserByName(signupModel.UserName) != null)
             {
@@ -59,7 +59,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginModel loginModel)
+        public IActionResult Login([FromBody] LoginViewModel loginModel)
         {
             if (loginModel == null)
             {
