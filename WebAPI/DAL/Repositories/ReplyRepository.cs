@@ -15,7 +15,7 @@ namespace DAL.Repositories
 
         }
 
-        public int GetRepliesOnPostAmount(int postId)
+        public int GetPostRepliesAmount(int postId)
         {
             return appContext.Replies.Where(r => r.PostId == postId).Count();
         }

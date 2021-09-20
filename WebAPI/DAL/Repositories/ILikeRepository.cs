@@ -9,6 +9,6 @@ namespace DAL.Repositories
 {
     public interface ILikeRepository : IGenericRepository<Like>
     {
-        int GetLikesOnPostAmount(int postId);
+        int GetPostLikesAmount(int postId);
     }
 }

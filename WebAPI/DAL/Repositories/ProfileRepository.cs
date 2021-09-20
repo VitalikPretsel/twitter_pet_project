@@ -21,6 +21,11 @@ namespace DAL.Repositories
             return appContext.Profiles.FirstOrDefault(p => p.ProfileName == profileName);
         }
 
+        public string GetProfileName(int id)
+        {
+            return appContext.Profiles.Find(id).ProfileName;
+        }
+
         public async Task<IEnumerable<Profile>> GetUserProfiles(int userId)
         {
             return await appContext.Profiles.Where(p => p.UserId == userId).ToListAsync();

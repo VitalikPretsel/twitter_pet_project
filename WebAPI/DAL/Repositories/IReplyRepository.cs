@@ -9,6 +9,6 @@ namespace DAL.Repositories
 {
     public interface IReplyRepository : IGenericRepository<Reply>
     {
-        int GetRepliesOnPostAmount(int postId);
+        int GetPostRepliesAmount(int postId);
     }
 }
