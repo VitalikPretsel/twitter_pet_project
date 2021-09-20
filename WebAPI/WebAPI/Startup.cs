@@ -76,6 +76,8 @@ namespace WebAPI
 
             services.Configure<TokenConfig>(Configuration.GetSection("TokenConfig"));
 
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddControllers();
 
             services.AddRepositoriesWithDbContext(Configuration);

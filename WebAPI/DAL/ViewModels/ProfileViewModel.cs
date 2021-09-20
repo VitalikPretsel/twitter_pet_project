@@ -1,6 +1,6 @@
 ﻿namespace DAL.ViewModels
 {
-    class ProfileViewModel
+    public class ProfileViewModel
     {
         public int Id { get; set; }
         public string ProfileName { get; set; }
