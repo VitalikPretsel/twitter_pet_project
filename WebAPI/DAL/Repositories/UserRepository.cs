@@ -14,15 +14,15 @@ namespace DAL.Repositories
         public UserRepository(ApplicationContext context) : base(context)
         {
         }
-     
-        public User FindUserByLoginModel(LoginModel loginModel)
+
+        public User FindUserByName(string userName)
         {
-            return appContext.Users.FirstOrDefault(u => u.UserName == loginModel.UserName && u.Password == loginModel.Password);
+            return appContext.Users.FirstOrDefault(u => u.UserName == userName);
         }
 
-        public User FindUserByNameOrEmail(string userString)
+        public User FindUserByEmail(string userEmail)
         {
-            return appContext.Users.FirstOrDefault(u => u.UserName == userString || u.Email == userString);
+            return appContext.Users.FirstOrDefault(u => u.Email == userEmail);
         }
     }
 }

@@ -4,6 +4,7 @@ import { PostsService } from '../_services/posts.service';
 
 import { Post } from '../_models/post';
 import { strings } from 'src/constants/strings';
+import { scrollTo } from '../_helpers/scrollTo';
 
 @Component({
   selector: 'app-feed-scroll',
@@ -12,8 +13,8 @@ import { strings } from 'src/constants/strings';
 })
 export class FeedScrollComponent implements OnChanges {
 
-  @Input() profileIds: Array<number>; 
-
+  @Input() profileIds: Array<number>;
+  
   allPost: Array<Post>;
 
   public feedPostStrings = strings.feedPost;
@@ -22,7 +23,8 @@ export class FeedScrollComponent implements OnChanges {
     this.allPost = new Array<Post>();
   }
 
-  ngOnChanges(): void { 
+  ngOnChanges(): void {
+    this.allPost = [];
     this.loadPosts(this.profileIds);
   }
 
@@ -64,4 +66,6 @@ export class FeedScrollComponent implements OnChanges {
   identify(index, item) {
     return item.id;
   }
+
+  scrollTo = scrollTo;
 }

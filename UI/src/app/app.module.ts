@@ -20,6 +20,7 @@ import { NavigationComponent } from './layout/navigation/navigation.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserControlsComponent } from './layout/user-controls/user-controls.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
     NavigationComponent,
     ProfileComponent,
     UserControlsComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    SignupComponent
   ],
   imports: [
     MaterialModule,

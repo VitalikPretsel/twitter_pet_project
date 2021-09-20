@@ -1,0 +1,75 @@
+<mat-card class="form-card">
+    <mat-card-title>
+        <div class="card-title-logo">
+            <svg>
+                <use href="/assets/svg/twitter_logo.svg#twitter_logo" />
+            </svg>
+        </div>
+        <div class="card-title-text">
+            <h1>{{signupFormStrings.header}}</h1>
+        </div>
+    </mat-card-title>
+
+    <mat-card-content>
+        <form #signupForm="ngForm" (ngSubmit)="signup(signupForm)">
+            <div *ngIf="invalidUser" class="input-container">
+                <div class="error-input">
+                    <div class="error-input-text">
+                        {{signupFormStrings.errorMessage}}
+                        <ul>
+                            <div *ngFor="let error of errors">
+                                <li>
+                                    {{error}}
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <mat-form-field class="form-field">
+                    <mat-label>{{signupFormStrings.userNameLabel}}</mat-label>
+                    <input type="text" id="username" name="username" maxlength="256" ngModel required matInput>
+                </mat-form-field>
+            </div>
+
+            <div class="input-container">
+                <mat-form-field class="form-field">
+                    <mat-label>{{signupFormStrings.emailLabel}}</mat-label>
+                    <input type="email" id="email" name="email" maxlength="256" ngModel email required matInput>
+                </mat-form-field>
+            </div>
+
+            <div class="input-container">
+                <mat-form-field class="form-field">
+                    <mat-label>{{signupFormStrings.passwordLabel}}</mat-label>
+                    <input type="password" id="password" name="password" maxlength="256" ngModel required matInput>
+                </mat-form-field>
+            </div>
+
+            <div class="input-container">
+                <mat-form-field class="form-field">
+                    <mat-label>{{signupFormStrings.passwordConfirmLabel}}</mat-label>
+                    <input type="password" id="passwordConfirm" name="passwordConfirm"
+                        pattern="{{signupForm.form.controls.password?.value}}" maxlength="256" ngModel required
+                        matInput>
+                </mat-form-field>
+            </div>
+
+            <div class="input-container">
+                <button type="submit" mat-flat-button class="flat-circle-button circle-button" color="primary"
+                    [disabled]="!signupForm.valid">
+                    {{signupFormStrings.submitButton}}
+                </button>
+            </div>
+
+            <div class="input-container">
+                <span class="link-container">
+                    <a routerLink="../login" class="link link-blue">{{signupFormStrings.loginLink}}</a>
+                </span>
+            </div>
+        </form>
+    </mat-card-content>
+
+</mat-card>

@@ -69,6 +69,8 @@ namespace WebAPI
             });
 
             services.AddScoped<AuthService>();
+            
+            services.AddScoped<PasswordEncryptionService>();
 
             services.AddOptions();
 

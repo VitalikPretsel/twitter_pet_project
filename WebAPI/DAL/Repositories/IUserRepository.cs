@@ -10,8 +10,8 @@ namespace DAL.Repositories
 {
     public interface IUserRepository : IGenericRepository<User>
     {
-        User FindUserByLoginModel(LoginModel loginModel);
-        User FindUserByNameOrEmail(string userString);
+        User FindUserByName(string userName);
+        User FindUserByEmail(string userEmail);
 
     }
 }

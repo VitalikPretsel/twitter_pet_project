@@ -5,6 +5,7 @@ import { UsersService } from 'src/app/_services/users.service';
 import { ProfileService } from 'src/app/_services/profile.service';
 
 import { strings } from '../../../constants/strings';
+import { scrollTo } from 'src/app/_helpers/scrollTo';
 
 @Component({
   selector: 'app-navigation',
@@ -48,4 +49,6 @@ export class NavigationComponent implements OnInit {
         this.selectedProfileName = res.profileName;
     });
   }
+
+  scrollTo = scrollTo;
 }
