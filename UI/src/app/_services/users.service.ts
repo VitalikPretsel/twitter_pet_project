@@ -12,10 +12,6 @@ export class UsersService {
 
   constructor(private http: HttpClient) { }
 
-  public getUsers() {
-    return this.http.get<User[]>(`${environment.apiUrl}/users`);
-  }
-
   public getCurrentUser() {
     return this.http.get<User>(`${environment.apiUrl}/account`);
   }
