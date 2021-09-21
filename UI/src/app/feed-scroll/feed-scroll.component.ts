@@ -28,7 +28,7 @@ export class FeedScrollComponent implements OnChanges {
     this.loadPosts(this.profileIds);
   }
 
-  loadPosts(profileIds, lastId = -1) {
+  loadPosts(profileIds, lastId = null) {
     this.service.getProfilesPosts(profileIds, lastId).subscribe(data => {
       let startIndex = this.allPost.length;
       this.allPost = this.allPost.concat(data);

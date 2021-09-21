@@ -9,7 +9,7 @@ namespace DAL.Repositories
 {
     public interface IPostRepository : IGenericRepository<Post>
     {
-        Task<IEnumerable<Post>> GetFewProfilePosts(int[] profileIds, int step, int id = -1);
+        Task<IEnumerable<Post>> GetFewProfilePosts(int[] profileIds, int step, int? id);
         int GetProfilePostsAmount(int profileId);
     }
 }

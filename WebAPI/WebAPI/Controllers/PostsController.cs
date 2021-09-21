@@ -48,7 +48,7 @@ namespace WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpGet("getFewProfilePosts/details")]
-        public async Task<ActionResult<IEnumerable<PostViewModel>>> Get(int step, int id, [FromQuery] int[] profileIds)
+        public async Task<ActionResult<IEnumerable<PostViewModel>>> Get(int step, [FromQuery] int[] profileIds, int? id = null)
         {
             var postViewModels = mapper.Map<List<PostViewModel>>(await postRepository.GetFewProfilePosts(profileIds, step, id));
             for (int i = 0; i < postViewModels.Count(); i++)
