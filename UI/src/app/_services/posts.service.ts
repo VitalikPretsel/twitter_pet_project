@@ -23,16 +23,4 @@ export class PostsService {
     }
     return this.http.get<Post[]>(`${environment.apiUrl}/posts/getFewProfilePosts/details?step=20`, { params: params });
   }
-
-  public getLikesAmount(postId) {
-    return this.http.get<number>(`${environment.apiUrl}/likes/onPostAmount/${postId}`);
-  }
-
-  public getRepliesAmount(postId) {
-    return this.http.get<number>(`${environment.apiUrl}/replies/onPostAmount/${postId}`);
-  }
-
-  public getProfileName(profileId) {
-    return this.http.get<string>(`${environment.apiUrl}/profiles/profileName/${profileId}`, { responseType: 'text' as 'json'});
-  }
 }

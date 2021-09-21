@@ -75,13 +75,6 @@ namespace WebAPI.Controllers
             }
         }
 
-        [AllowAnonymous]
-        [HttpGet("profilePostsAmount/{profileId}")]
-        public ActionResult<int> GetProfilePostsAmount(int profileId)
-        {
-            return Ok(postRepository.GetProfilePostsAmount(profileId));
-        }
-
         [HttpPost]
         public async Task<IActionResult> Post(Post post)
         {

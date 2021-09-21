@@ -23,19 +23,7 @@ export class ProfileService {
     return this.http.get<Profile>(`${environment.apiUrl}/profiles/getbyname/${profileName}`);
   }
 
-  public getFollowersAmount(profileId) {
-    return this.http.get<number>(`${environment.apiUrl}/followings/profileFollowersAmount/${profileId}`);
-  }
-
-  public getFollowingsAmount(profileId) {
-    return this.http.get<number>(`${environment.apiUrl}/followings/profileFollowingsAmount/${profileId}`);
-  }
-
   public getFollowings(profileId) {
     return this.http.get<number[]>(`${environment.apiUrl}/followings/profileFollowings/${profileId}`);
-  }
-
-  public getPostsAmount(profileId) {
-    return this.http.get<number>(`${environment.apiUrl}/posts/profilePostsAmount/${profileId}`);
   }
 }

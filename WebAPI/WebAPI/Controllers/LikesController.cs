@@ -40,13 +40,6 @@ namespace WebAPI.Controllers
             return Ok(like);
         }
 
-        [AllowAnonymous]
-        [HttpGet("OnPostAmount/{postId}")]
-        public ActionResult<int> GetLikesOnPost(int postId)
-        {
-            return Ok(likeRepository.GetPostLikesAmount(postId));
-        }
-
         [HttpPost]
         public async Task<ActionResult<Like>> Post(Like like)
         {
