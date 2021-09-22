@@ -70,7 +70,7 @@ namespace WebAPI.Controllers
             if (user != null && 
                 passwordEncryptionService.VerifyPassword(loginModel.Password, user?.PasswordHash, user?.PasswordSalt))
             {
-                user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(2);
+                user.RefreshTokenExpiryTime = DateTime.Now.AddHours(1);
                 Authenticate(user);
                 return Ok();
             }
@@ -94,7 +94,7 @@ namespace WebAPI.Controllers
                 return BadRequest("Refresh token is not valid.");
             }
 
-            Authenticate(user);
+            SetAccessToken(user);
 
             return Ok();
         }
@@ -123,6 +123,14 @@ namespace WebAPI.Controllers
             CookieOptions options = new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.None, Secure = true };
             Response.Cookies.Append(TokenConstants.AccessTokenName, accessToken, options);
             Response.Cookies.Append(TokenConstants.RefreshTokenName, refreshToken, options);
+        }
+
+        [NonAction]
+        private void SetAccessToken(User user)
+        {
+            string accessToken = authService.GetTokenString(user);
+            CookieOptions options = new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.None, Secure = true };
+            Response.Cookies.Append(TokenConstants.AccessTokenName, accessToken, options);
         }
 
         [HttpGet]
