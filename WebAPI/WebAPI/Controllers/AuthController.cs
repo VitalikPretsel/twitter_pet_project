@@ -6,6 +6,7 @@ using WebAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using System;
 
 namespace WebAPI.Controllers
 {
@@ -69,6 +70,7 @@ namespace WebAPI.Controllers
             if (user != null && 
                 passwordEncryptionService.VerifyPassword(loginModel.Password, user?.PasswordHash, user?.PasswordSalt))
             {
+                user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(2);
                 Authenticate(user);
                 return Ok();
             }
@@ -78,25 +80,64 @@ namespace WebAPI.Controllers
             }
         }
 
+        [HttpPost("refresh")]
+        public IActionResult Refresh()
+        {
+            string accessToken = Request.Cookies[TokenConstants.AccessTokenName];
+            string refreshToken = Request.Cookies[TokenConstants.RefreshTokenName];
+            
+            var principal = authService.GetPrincipalFromExpiredToken(accessToken);
+            User user = userRepository.FindUserByName(principal.Identity.Name);
+            
+            if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
+            {
+                return BadRequest("Refresh token is not valid.");
+            }
+
+            Authenticate(user);
+
+            return Ok();
+        }
+
+        [NonAction]
+        public void Revoke()
+        {
+            User user = userRepository.FindUserByName(User.Identity.Name);
+            if (user == null)
+            {
+                return;
+            }
+
+            user.RefreshToken = null;
+            userRepository.Update(user);
+        }
+
         [NonAction]
         private void Authenticate(User user)
         {
-            var token = authService.GetTokenString(user);
-            Response.Cookies.Append(TokenConstants.TokenName, token,
-                new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.None, Secure = true });
+            string accessToken = authService.GetTokenString(user);
+            string refreshToken = authService.GetRefreshTokenString();
+            user.RefreshToken = refreshToken;
+            userRepository.Update(user);
+
+            CookieOptions options = new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.None, Secure = true };
+            Response.Cookies.Append(TokenConstants.AccessTokenName, accessToken, options);
+            Response.Cookies.Append(TokenConstants.RefreshTokenName, refreshToken, options);
         }
 
         [HttpGet]
         public ActionResult<bool> IsAuthenticated()
         {
-            var tokenString = Request.Cookies[TokenConstants.TokenName];
-            return Ok(!authService.IsTokenExpired(tokenString));
+            return Ok(User.Identity.IsAuthenticated);
         }
 
         [HttpDelete]
         public IActionResult Logout()
         {
-            Response.Cookies.Delete(TokenConstants.TokenName, new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.None, Secure = true });
+            CookieOptions options = new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.None, Secure = true };
+            Response.Cookies.Delete(TokenConstants.AccessTokenName, options);
+            Response.Cookies.Delete(TokenConstants.RefreshTokenName, options);
+            Revoke();
             return Ok();
         }
     }

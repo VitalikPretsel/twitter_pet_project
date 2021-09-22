@@ -50,6 +50,7 @@ namespace WebAPI
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
+                    ClockSkew = TimeSpan.Zero,
                     ValidIssuer = Configuration.GetValue<string>("TokenConfig:ValidIssuer"),
                     ValidAudience = Configuration.GetValue<string>("TokenConfig:ValidAudience"),
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
@@ -59,9 +60,9 @@ namespace WebAPI
                 {
                     OnMessageReceived = context =>
                     {
-                        if (context.Request.Cookies.ContainsKey(TokenConstants.TokenName))
+                        if (context.Request.Cookies.ContainsKey(TokenConstants.AccessTokenName))
                         {
-                            context.Token = context.Request.Cookies[TokenConstants.TokenName];
+                            context.Token = context.Request.Cookies[TokenConstants.AccessTokenName];
                         }
                         return Task.CompletedTask;
                     }

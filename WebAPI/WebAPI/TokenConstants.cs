@@ -2,6 +2,7 @@
 {
     public static class TokenConstants
     {
-        public const string TokenName = "X-Access-Token";
+        public const string AccessTokenName = "X-Access-Token";
+        public const string RefreshTokenName = "X-Refresh-Token";
     }
 }
