@@ -18,7 +18,6 @@ export class AuthenticationService {
   login(loginValues: object) {
     return this.http.post<void>(`${environment.apiUrl}/auth/login`, loginValues)
       .pipe(map(res => {
-        console.log("login");
         this.startRefreshTokenTimer();
         return res;
       }));
@@ -36,7 +35,6 @@ export class AuthenticationService {
   refreshToken() {
     return this.http.post<void>(`${environment.apiUrl}/auth/refresh`, {})
       .pipe(map(() => {
-        console.log("refresh token called");
         this.startRefreshTokenTimer();
       }));
   }
@@ -44,8 +42,7 @@ export class AuthenticationService {
   private refreshTokenTimeout;
 
   private startRefreshTokenTimer() {
-    console.log("refresh token timer called");
-    const timeout = 60 * 1000;
+    const timeout = 4 * 60 * 1000;
     this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
   }
 

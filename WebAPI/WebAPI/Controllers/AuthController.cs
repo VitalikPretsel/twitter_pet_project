@@ -70,7 +70,7 @@ namespace WebAPI.Controllers
             if (user != null && 
                 passwordEncryptionService.VerifyPassword(loginModel.Password, user?.PasswordHash, user?.PasswordSalt))
             {
-                user.RefreshTokenExpiryTime = DateTime.Now.AddHours(1);
+                user.RefreshTokenExpiryTime = DateTime.Now.AddSeconds(30);
                 Authenticate(user);
                 return Ok();
             }
@@ -85,7 +85,11 @@ namespace WebAPI.Controllers
         {
             string accessToken = Request.Cookies[TokenConstants.AccessTokenName];
             string refreshToken = Request.Cookies[TokenConstants.RefreshTokenName];
-            
+            if (accessToken == null)
+            {
+                return BadRequest("No access token was provided.");
+            }
+
             var principal = authService.GetPrincipalFromExpiredToken(accessToken);
             User user = userRepository.FindUserByName(principal.Identity.Name);
             
