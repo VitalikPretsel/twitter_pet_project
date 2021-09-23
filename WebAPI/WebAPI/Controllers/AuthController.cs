@@ -70,7 +70,7 @@ namespace WebAPI.Controllers
             if (user != null && 
                 passwordEncryptionService.VerifyPassword(loginModel.Password, user?.PasswordHash, user?.PasswordSalt))
             {
-                user.RefreshTokenExpiryTime = DateTime.Now.AddSeconds(30);
+                user.RefreshTokenExpiryTime = DateTime.Now.AddHours(1);
                 Authenticate(user);
                 return Ok();
             }
