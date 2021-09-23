@@ -119,7 +119,7 @@ namespace WebAPI.Controllers
         [NonAction]
         private void Authenticate(User user)
         {
-            string accessToken = authService.GetTokenString(user);
+            string accessToken = authService.GetAccessTokenString(user);
             string refreshToken = authService.GetRefreshTokenString();
             user.RefreshToken = refreshToken;
             userRepository.Update(user);
@@ -132,7 +132,7 @@ namespace WebAPI.Controllers
         [NonAction]
         private void SetAccessToken(User user)
         {
-            string accessToken = authService.GetTokenString(user);
+            string accessToken = authService.GetAccessTokenString(user);
             CookieOptions options = new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.None, Secure = true };
             Response.Cookies.Append(TokenConstants.AccessTokenName, accessToken, options);
         }

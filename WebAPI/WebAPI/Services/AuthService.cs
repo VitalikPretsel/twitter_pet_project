@@ -20,7 +20,7 @@ namespace WebAPI.Services
             tokenConfig = config;
         }
 
-        public string GetTokenString(User user)
+        public string GetAccessTokenString(User user)
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfig.Value.SymmetricSecurityKey));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
@@ -73,17 +73,6 @@ namespace WebAPI.Services
             }
 
             return principal;
-        }
-
-        public bool IsTokenExpired(string tokenString)
-        {
-            if (string.IsNullOrEmpty(tokenString))
-            {
-                return true;
-            }
-
-            var jwtToken = new JwtSecurityToken(tokenString);
-            return (jwtToken == null) || (jwtToken.ValidFrom > DateTime.UtcNow) || (jwtToken.ValidTo < DateTime.UtcNow);
         }
     }
 }
