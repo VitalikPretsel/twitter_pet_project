@@ -13,10 +13,5 @@ namespace DAL.Repositories
         public LikeRepository(ApplicationContext context) : base(context)
         {
         }
-
-        public int GetPostLikesAmount(int postId)
-        {
-            return appContext.Likes.Where(l => l.PostId == postId).Count();
-        }
     }
 }

@@ -4,9 +4,9 @@ using DAL.ViewModels;
 
 namespace DAL.MappingConfigurations
 {
-    class UserProfile: AutoMapper.Profile
+    class UserProfileMapping: AutoMapper.Profile
     {
-        public UserProfile()
+        public UserProfileMapping()
         {
             CreateMap<User, UserViewModel>();
         }
