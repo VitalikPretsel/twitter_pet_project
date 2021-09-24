@@ -23,6 +23,10 @@ export class ProfileService {
     return this.http.get<Profile>(`${environment.apiUrl}/profiles/getbyname/${profileName}`);
   }
 
+  public createProfile(profileValues) {
+    return this.http.post<void>(`${environment.apiUrl}/profiles`, profileValues);
+  }
+
   public getFollowings(profileId) {
     return this.http.get<number[]>(`${environment.apiUrl}/followings/profileFollowings/${profileId}`);
   }

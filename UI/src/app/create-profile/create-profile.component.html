@@ -1,0 +1,119 @@
+<div class="stepper-container">
+    <div class="stepper-header">
+        <div class="header-button">
+            <div *ngIf="stepper.selectedIndex != 0">
+                <button (click)="goBack(stepper)" class="circle-button circle-button-s">
+                    <div class="circle-button-container">
+                        <svg>
+                            <use href="/assets/svg/arrow_left_icon.svg#arrow_left_icon" />
+                        </svg>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="header-logo">
+            <div *ngIf="stepper.selectedIndex != 2">
+                <svg>
+                    <use href="/assets/svg/twitter_logo.svg#twitter_logo" />
+                </svg>
+            </div>
+        </div>
+        <div class="header-button">
+        </div>
+    </div>
+    <div class="stepper-content">
+        <mat-horizontal-stepper #stepper>
+            <form #createProfileForm="ngForm" (ngSubmit)="createProfile(createProfileForm)">
+                <div style="display: none;">
+                    <mat-form-field class="form-field">
+                        <input type="number" id="userId" name="userId" ngModel matInput>
+                    </mat-form-field>
+                </div>
+                <mat-step>
+                    <div class="step-container">
+                        <div class="step-item step-header"><span>{{createProfileStrings.profileName.header}}</span>
+                        </div>
+                        <div class="step-item step-label"><span>{{createProfileStrings.profileName.label}}</span></div>
+                        <div class="step-item input-container">
+                            <mat-form-field class="form-field">
+                                <mat-label>{{createProfileStrings.profileName.inputLabel}}</mat-label>
+                                <input type="text" id="profileName" name="profileName" maxlength="256" ngModel matInput>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-step>
+
+                <mat-step>
+                    <div class="step-container">
+                        <div class="step-item step-header">{{createProfileStrings.description.header}}</div>
+                        <div class="step-item step-label">{{createProfileStrings.description.label}}</div>
+                        <div class="step-item input-container">
+                            <mat-form-field class="form-field">
+                                <mat-label>{{createProfileStrings.description.inputLabel}}</mat-label>
+                                <input type="text" id="description" name="description" maxlength="256" ngModel matInput>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-step>
+
+                <mat-step>
+                    <div class="step-container final-step">
+                        <div class="logo-container">
+                            <svg>
+                                <use href="/assets/svg/twitter_logo.svg#twitter_logo" />
+                            </svg>
+                        </div>
+                        <div class="content-container">
+                            <div *ngIf="invalidUser">
+                                <div class="error-input">
+                                    <div class="error-input-text">
+                                        {{createProfileStrings.finalStep.errorMessage}}
+                                        <ul>
+                                            <div *ngFor="let error of errors">
+                                                <li>
+                                                    {{error}}
+                                                </li>
+                                            </div>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="!invalidUser">
+                                <div class="step-item step-header">{{createProfileStrings.finalStep.message}}</div>
+                            </div>
+                            <button (click)="createProfile(createProfileForm)" type="submit" mat-flat-button
+                                class="step-item circle-button circle-button-black text-button">
+                                <div class="circle-button-container">
+                                    <span class="button-text">
+                                        {{createProfileStrings.finalStep.submitButton}}
+                                    </span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </mat-step>
+            </form>
+        </mat-horizontal-stepper>
+    </div>
+    <div class="stepper-button">
+        <div *ngIf="stepper.selectedIndex != 2">
+            <div *ngIf="(stepper.selectedIndex == 0) || 
+            (createProfileForm.form.controls.description?.value.length && stepper.selectedIndex == 1); else empty">
+                <button [disabled]="createProfileForm.form.controls.profileName?.value.length == 0"
+                    (click)="goForward(stepper)" mat-flat-button
+                    class="flat-circle-button circle-button circle-button-m" color="primary">
+                    {{createProfileStrings.nextButton}}
+                </button>
+            </div>
+            <ng-template #empty>
+                <button (click)="goForward(stepper)" class="circle-button-primary circle-button circle-button-m">
+                    <div class="circle-button-container">
+                        <span class="button-text">
+                            {{createProfileStrings.skipButton}}
+                        </span>
+                    </div>
+                </button>
+            </ng-template>
+        </div>
+    </div>
+</div>

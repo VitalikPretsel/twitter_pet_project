@@ -20,6 +20,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserControlsComponent } from './layout/user-controls/user-controls.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { SignupComponent } from './signup/signup.component';
+import { CreateProfileComponent } from './create-profile/create-profile.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SignupComponent } from './signup/signup.component';
     ProfileComponent,
     UserControlsComponent,
     WelcomeComponent,
-    SignupComponent
+    SignupComponent,
+    CreateProfileComponent
   ],
   imports: [
     MaterialModule,
