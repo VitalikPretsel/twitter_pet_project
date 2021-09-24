@@ -38,11 +38,6 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<IEnumerable<PostViewModel>>> Get()
         {
             var postViewModels = mapper.Map<List<PostViewModel>>(await postRepository.GetAll());
-            for (int i = 0; i < postViewModels.Count(); i++)
-            {
-                GetPostViewModelInfo(postViewModels[i]);
-            }
-
             return Ok(postViewModels);
         }
 
@@ -51,11 +46,6 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<IEnumerable<PostViewModel>>> Get(int step, [FromQuery] int[] profileIds, int? id = null)
         {
             var postViewModels = mapper.Map<List<PostViewModel>>(await postRepository.GetFewProfilePosts(profileIds, step, id));
-            for (int i = 0; i < postViewModels.Count(); i++)
-            {
-                GetPostViewModelInfo(postViewModels[i]);
-            }
-
             return Ok(postViewModels);
         }
 
@@ -70,7 +60,6 @@ namespace WebAPI.Controllers
             }
             else
             {
-                GetPostViewModelInfo(postViewModel);
                 return Ok(postViewModel);
             }
         }
