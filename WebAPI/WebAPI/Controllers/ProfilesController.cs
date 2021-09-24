@@ -18,16 +18,11 @@ namespace WebAPI.Controllers
     public class ProfilesController : ControllerBase
     {
         private readonly IProfileRepository profileRepository;
-        private readonly IPostRepository postRepository;
-        private readonly IFollowingRepository followingRepository;
         private readonly IMapper mapper;
 
-        public ProfilesController(IProfileRepository profileRepository, IPostRepository postRepository,
-            IFollowingRepository followingRepository, IMapper mapper)
+        public ProfilesController(IProfileRepository profileRepository, IMapper mapper)
         {
             this.profileRepository = profileRepository;
-            this.postRepository = postRepository;
-            this.followingRepository = followingRepository;
             this.mapper = mapper;
         }
 
@@ -35,13 +30,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProfileViewModel>>> Get()
         {
-            var profileViewModels = mapper.Map<List<ProfileViewModel>>(await profileRepository.GetAll());
-            for (int i = 0; i < profileViewModels.Count(); i++)
-            {
-                GetProfileViewModelInfo(profileViewModels[i]);
-            }
-
-            return Ok(profileViewModels);
+            return Ok(mapper.Map<List<ProfileViewModel>>(await profileRepository.GetAll()));
         }
 
         [AllowAnonymous]
@@ -55,7 +44,6 @@ namespace WebAPI.Controllers
             }
             else
             {
-                GetProfileViewModelInfo(profileViewModel);
                 return Ok(profileViewModel);
             }
         }
@@ -71,7 +59,6 @@ namespace WebAPI.Controllers
             }
             else
             {
-                GetProfileViewModelInfo(profileViewModel);
                 return Ok(profileViewModel);
             }
         }
@@ -79,17 +66,7 @@ namespace WebAPI.Controllers
         [HttpGet("getUserProfiles/{id}")]
         public async Task<ActionResult<IEnumerable<ProfileViewModel>>> GetUserProfiles(int id)
         {
-            if (!profileRepository.Any(id))
-            {
-                return NotFound();
-            }
-            var profileViewModels = mapper.Map<List<ProfileViewModel>>(await profileRepository.GetUserProfiles(id));
-            for (int i = 0; i < profileViewModels.Count(); i++)
-            {
-                GetProfileViewModelInfo(profileViewModels[i]);
-            }
-
-            return Ok(profileViewModels);
+            return Ok(mapper.Map<List<ProfileViewModel>>(await profileRepository.GetUserProfiles(id)));
         }
 
         [AllowAnonymous]
@@ -139,14 +116,6 @@ namespace WebAPI.Controllers
             }
             await profileRepository.Delete(profile);
             return Ok();
-        }
-
-        [NonAction]
-        public void GetProfileViewModelInfo(ProfileViewModel profileViewModel)
-        {
-            profileViewModel.PostsAmount = postRepository.GetProfilePostsAmount(profileViewModel.Id);
-            profileViewModel.FollowersAmount = followingRepository.GetProfileFollowersAmount(profileViewModel.Id);
-            profileViewModel.FollowingsAmount = followingRepository.GetProfileFollowingsAmount(profileViewModel.Id);
         }
     }
 }

@@ -18,18 +18,11 @@ namespace WebAPI.Controllers
     public class PostsController : ControllerBase
     {
         private readonly IPostRepository postRepository;
-        private readonly IProfileRepository profileRepository;
-        private readonly ILikeRepository likeRepository;
-        private readonly IReplyRepository replyRepository;
         private readonly IMapper mapper;
 
-        public PostsController(IPostRepository postRepository, IProfileRepository profileRepository,
-            ILikeRepository likeRepository, IReplyRepository replyRepository, IMapper mapper)
+        public PostsController(IPostRepository postRepository, IMapper mapper)
         {
             this.postRepository = postRepository;
-            this.profileRepository = profileRepository;
-            this.likeRepository = likeRepository;
-            this.replyRepository = replyRepository;
             this.mapper = mapper;
         }
 
@@ -37,16 +30,14 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PostViewModel>>> Get()
         {
-            var postViewModels = mapper.Map<List<PostViewModel>>(await postRepository.GetAll());
-            return Ok(postViewModels);
+            return Ok(mapper.Map<List<PostViewModel>>(await postRepository.GetAll()));
         }
 
         [AllowAnonymous]
         [HttpGet("getFewProfilePosts/details")]
         public async Task<ActionResult<IEnumerable<PostViewModel>>> Get(int step, [FromQuery] int[] profileIds, int? id = null)
         {
-            var postViewModels = mapper.Map<List<PostViewModel>>(await postRepository.GetFewProfilePosts(profileIds, step, id));
-            return Ok(postViewModels);
+            return Ok(mapper.Map<List<PostViewModel>>(await postRepository.GetFewProfilePosts(profileIds, step, id)));
         }
 
         [AllowAnonymous]
@@ -100,14 +91,6 @@ namespace WebAPI.Controllers
             }
             await postRepository.Delete(post);
             return Ok();
-        }
-
-        [NonAction]
-        public void GetPostViewModelInfo(PostViewModel postViewModel)
-        {
-            postViewModel.ProfileName = profileRepository.GetProfileName(postViewModel.ProfileId);
-            postViewModel.LikesAmount = likeRepository.GetPostLikesAmount(postViewModel.Id);
-            postViewModel.RepliesAmount = replyRepository.GetPostRepliesAmount(postViewModel.Id);
         }
     }
 }
