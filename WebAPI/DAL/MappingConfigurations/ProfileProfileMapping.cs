@@ -8,7 +8,7 @@ namespace DAL.MappingConfigurations
     {
         public ProfileProfileMapping()
         {
-            CreateMap<Entities.Profile, ProfileViewModel>()
+            CreateMap<Entities.Profile, ProfileVm>()
                 .ForMember(p => p.PostsAmount, opt => opt.MapFrom(p => p.Posts.Count))
                 .ForMember(p => p.FollowersAmount, opt => opt.MapFrom(p => p.Followers.Count))
                 .ForMember(p => p.FollowingsAmount, opt => opt.MapFrom(p => p.Followings.Count));

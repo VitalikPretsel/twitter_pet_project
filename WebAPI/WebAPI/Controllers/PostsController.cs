@@ -28,23 +28,23 @@ namespace WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PostViewModel>>> Get()
+        public async Task<ActionResult<IEnumerable<PostVm>>> Get()
         {
-            return Ok(mapper.Map<List<PostViewModel>>(await postRepository.GetAll()));
+            return Ok(mapper.Map<List<PostVm>>(await postRepository.GetAll()));
         }
 
         [AllowAnonymous]
         [HttpGet("getFewProfilePosts/details")]
-        public async Task<ActionResult<IEnumerable<PostViewModel>>> Get(int step, [FromQuery] int[] profileIds, int? id = null)
+        public async Task<ActionResult<IEnumerable<PostVm>>> Get(int step, [FromQuery] int[] profileIds, int? id = null)
         {
-            return Ok(mapper.Map<List<PostViewModel>>(await postRepository.GetFewProfilePosts(profileIds, step, id)));
+            return Ok(mapper.Map<List<PostVm>>(await postRepository.GetFewProfilePosts(profileIds, step, id)));
         }
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public async Task<ActionResult<PostViewModel>> Get(int id)
+        public async Task<ActionResult<PostVm>> Get(int id)
         {
-            PostViewModel postViewModel = mapper.Map<PostViewModel>(await postRepository.Get(id));
+            PostVm postViewModel = mapper.Map<PostVm>(await postRepository.Get(id));
             if (postViewModel == null)
             {
                 return NotFound();

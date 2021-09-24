@@ -8,7 +8,7 @@ namespace DAL.MappingConfigurations
     {
         public UserProfileMapping()
         {
-            CreateMap<User, UserViewModel>();
+            CreateMap<User, UserVm>();
         }
     }
 }

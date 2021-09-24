@@ -28,16 +28,16 @@ namespace WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProfileViewModel>>> Get()
+        public async Task<ActionResult<IEnumerable<ProfileVm>>> Get()
         {
-            return Ok(mapper.Map<List<ProfileViewModel>>(await profileRepository.GetAll()));
+            return Ok(mapper.Map<List<ProfileVm>>(await profileRepository.GetAll()));
         }
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProfileViewModel>> Get(int id)
+        public async Task<ActionResult<ProfileVm>> Get(int id)
         {
-            ProfileViewModel profileViewModel = mapper.Map<ProfileViewModel>(await profileRepository.Get(id));
+            ProfileVm profileViewModel = mapper.Map<ProfileVm>(await profileRepository.Get(id));
             if (profileViewModel == null)
             {
                 return NotFound();
@@ -50,9 +50,9 @@ namespace WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpGet("getByName/{profileName}")]
-        public ActionResult<ProfileViewModel> GetByName(string profileName)
+        public ActionResult<ProfileVm> GetByName(string profileName)
         {
-            ProfileViewModel profileViewModel = mapper.Map<ProfileViewModel>(profileRepository.GetByProfileName(profileName));
+            ProfileVm profileViewModel = mapper.Map<ProfileVm>(profileRepository.GetByProfileName(profileName));
             if (profileViewModel == null)
             {
                 return NotFound();
@@ -64,9 +64,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getUserProfiles/{id}")]
-        public async Task<ActionResult<IEnumerable<ProfileViewModel>>> GetUserProfiles(int id)
+        public async Task<ActionResult<IEnumerable<ProfileVm>>> GetUserProfiles(int id)
         {
-            return Ok(mapper.Map<List<ProfileViewModel>>(await profileRepository.GetUserProfiles(id)));
+            return Ok(mapper.Map<List<ProfileVm>>(await profileRepository.GetUserProfiles(id)));
         }
 
         [AllowAnonymous]

@@ -2,7 +2,7 @@
 
 namespace DAL.ViewModels
 {
-    public class PostViewModel
+    public class PostVm
     {
         public int Id { get; set; }
         public string PostText { get; set; }

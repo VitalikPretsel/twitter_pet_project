@@ -27,12 +27,12 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<UserViewModel> GetCurrentUser()
+        public ActionResult<UserVm> GetCurrentUser()
         {
             var tokenString = Request.Cookies[TokenConstants.TokenName];
             string email = authService.GetClaims(tokenString).ToList()
                 .FirstOrDefault(claim => claim.Type == ClaimTypes.Email).Value;
-            return Ok(mapper.Map<UserViewModel>(userRepository.FindUserByEmail(email)));
+            return Ok(mapper.Map<UserVm>(userRepository.FindUserByEmail(email)));
         }
 
         [HttpGet("userName")]
