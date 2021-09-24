@@ -79,10 +79,6 @@ namespace WebAPI.Controllers
         [HttpGet("getUserProfiles/{id}")]
         public async Task<ActionResult<IEnumerable<ProfileViewModel>>> GetUserProfiles(int id)
         {
-            if (!profileRepository.Any(id))
-            {
-                return NotFound();
-            }
             var profileViewModels = mapper.Map<List<ProfileViewModel>>(await profileRepository.GetUserProfiles(id));
             for (int i = 0; i < profileViewModels.Count(); i++)
             {
