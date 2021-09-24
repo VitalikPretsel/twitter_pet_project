@@ -54,10 +54,10 @@ namespace WebAPI.Controllers
             return Ok(profile);
         }
 
-        [HttpGet("getUserProfiles/{profileId}")]
-        public async Task<ActionResult<IEnumerable<Profile>>> GetUserProfiles(int profileId)
+        [HttpGet("getUserProfiles/{userId}")]
+        public async Task<ActionResult<IEnumerable<Profile>>> GetUserProfiles(int userId)
         {
-            return Ok(await profileRepository.GetUserProfiles(profileId));
+            return Ok(await profileRepository.GetUserProfiles(userId));
         }
 
         [AllowAnonymous]
@@ -75,9 +75,10 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Profile>> Post(Profile profile)
         {
-            if (profile == null)
+            if (profileRepository.GetByProfileName(profile.ProfileName) != null)
             {
-                return BadRequest();
+                ModelState.AddModelError("ProfileName", "Profile with such profilename already exists");
+                return BadRequest(ModelState);
             }
             await profileRepository.Add(profile);
             return Ok(profile);

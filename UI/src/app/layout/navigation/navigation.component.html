@@ -74,7 +74,7 @@
                         </span>
                     </div>
                 </a>
-                <a class="circle-button">
+                <a (click)="scrollTo('#top')" [routerLink]="['', selectedProfileName]" class="circle-button">
                     <div class="circle-button-container">
                         <svg>
                             <use href="/assets/svg/navigation_buttons_icons.svg#profile_icon"/>

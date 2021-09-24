@@ -5,13 +5,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatMenuModule } from '@angular/material/menu';
+import { MatStepperModule } from '@angular/material/stepper';
+import { CdkStepperModule } from '@angular/cdk/stepper';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const modules = [
   MatCardModule,
   MatInputModule,
   MatButtonModule,
   MatTabsModule,
-  MatMenuModule
+  MatMenuModule,
+  MatStepperModule,
+  CdkStepperModule,
+  MatDialogModule
 ];
 
 @NgModule({

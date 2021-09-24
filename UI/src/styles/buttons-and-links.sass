@@ -21,12 +21,23 @@
         border-radius: 9999px
         transition: background-color 0.2s
         .button-text
+            font-family: "Segoe UI"
             font-size: 20px
             padding: 0 12px
 
 .circle-button.mat-flat-button
     padding: 0 
     border-radius: 9999px 
+
+.circle-button-m
+    height: 42px
+    .circle-button-container
+        padding: 0
+        height: 42px
+        border: 1px solid transparent
+        .button-text
+            font-weight: 700
+            font-size: 15px
 
 .circle-button-s
     height: 36px
@@ -41,6 +52,11 @@
 .circle-button-border
     .circle-button-container
         border: 1px solid $gray-5
+
+.circle-button-primary
+    .circle-button-container
+        .button-text
+            color: mat-color($blue-twitter, 500)
 
 .circle-button-black
     .circle-button-container
@@ -71,7 +87,6 @@
 
 .flat-circle-button.mat-flat-button
     font-size: 1.2em
-    height: 52px
     transition: background-color 0.2s
 
 a.flat-circle-button
