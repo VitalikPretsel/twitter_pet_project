@@ -13,12 +13,10 @@ namespace DAL.Entities
 
         public int? FollowerProfileId { get; set; }
 
-        [ForeignKey("FollowerProfileId")]
         public Profile FollowerProfile { get; set; }
 
         public int? FollowingProfileId { get; set; }
 
-        [ForeignKey("FollowingProfileId")]
         public Profile FollowingProfile { get; set; }
 
     }

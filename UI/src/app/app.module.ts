@@ -19,6 +19,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserControlsComponent } from './layout/user-controls/user-controls.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { SignupComponent } from './signup/signup.component';
+import { CreateProfileComponent } from './create-profile/create-profile.component';
 
 import { AuthenticationService } from './_services/authentication.service';
 import { appInitializer } from './_helpers/app.initializer';
@@ -35,7 +36,8 @@ import { HttpRequestInterceptor} from './_helpers/http-request.interceptor';
     ProfileComponent,
     UserControlsComponent,
     WelcomeComponent,
-    SignupComponent
+    SignupComponent,
+    CreateProfileComponent
   ],
   imports: [
     MaterialModule,

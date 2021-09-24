@@ -31,5 +31,10 @@ namespace DAL.Entities
         public List<Reply> Replies { get; set; }
 
         public List<Like> Likes { get; set; }
+
+        public List<Following> Followers { get; set; }
+
+        public List<Following> Followings { get; set; }
+
     }
 }

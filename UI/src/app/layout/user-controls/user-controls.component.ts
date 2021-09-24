@@ -4,9 +4,11 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../../_services/authentication.service'
 import { ProfileService } from '../../_services/profile.service';
 import { UsersService } from '../../_services/users.service';
+import { MatDialog } from '@angular/material/dialog';
 
 import { User } from '../../_models/user';
 import { Profile } from '../../_models/profile';
+import { CreateProfileComponent } from 'src/app/create-profile/create-profile.component';
 
 @Component({
   selector: 'app-user-controls',
@@ -22,7 +24,8 @@ export class UserControlsComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private profileService: ProfileService,
-    private userService: UsersService
+    private userService: UsersService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -55,6 +58,14 @@ export class UserControlsComponent implements OnInit {
 
   selectProfile(profile) {
     this.profileService.changeProfile(profile);
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(CreateProfileComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
   logOut() {

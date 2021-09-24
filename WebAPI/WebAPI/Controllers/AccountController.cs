@@ -24,9 +24,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<UserViewModel> GetCurrentUser()
+        public ActionResult<UserVm> GetCurrentUser()
         {
-            return Ok(mapper.Map<UserViewModel>(userRepository.FindUserByName(User.Identity.Name)));
+            return Ok(mapper.Map<UserVm>(userRepository.FindUserByName(User.Identity.Name)));
         }
 
         [HttpGet("userName")]

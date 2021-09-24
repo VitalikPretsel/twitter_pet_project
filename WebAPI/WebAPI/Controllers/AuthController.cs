@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("signup")]
-        public async Task<IActionResult> Signup([FromBody] SignupViewModel signupModel)
+        public async Task<IActionResult> Signup([FromBody] SignupVm signupModel)
         {
             if (userRepository.FindUserByName(signupModel.UserName) != null)
             {
@@ -60,7 +60,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginViewModel loginModel)
+        public IActionResult Login([FromBody] LoginVm loginModel)
         {
             if (loginModel == null)
             {

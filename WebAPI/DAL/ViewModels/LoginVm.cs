@@ -2,7 +2,7 @@
 
 namespace DAL.ViewModels
 {
-    public class LoginViewModel
+    public class LoginVm
     {
         [Required]
         [MaxLength(256)]

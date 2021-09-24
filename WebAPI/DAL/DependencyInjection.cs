@@ -26,9 +26,9 @@ namespace DAL
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
-                mc.AddProfile(new UserProfile());
-                mc.AddProfile(new ProfileProfile());
-                mc.AddProfile(new PostProfile());
+                mc.AddProfile(new UserProfileMapping());
+                mc.AddProfile(new ProfileProfileMapping());
+                mc.AddProfile(new PostProfileMapping());
             });
 
             IMapper mapper = mapperConfig.CreateMapper();

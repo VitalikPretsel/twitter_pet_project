@@ -18,59 +18,39 @@ namespace WebAPI.Controllers
     public class PostsController : ControllerBase
     {
         private readonly IPostRepository postRepository;
-        private readonly IProfileRepository profileRepository;
-        private readonly ILikeRepository likeRepository;
-        private readonly IReplyRepository replyRepository;
         private readonly IMapper mapper;
 
-        public PostsController(IPostRepository postRepository, IProfileRepository profileRepository,
-            ILikeRepository likeRepository, IReplyRepository replyRepository, IMapper mapper)
+        public PostsController(IPostRepository postRepository, IMapper mapper)
         {
             this.postRepository = postRepository;
-            this.profileRepository = profileRepository;
-            this.likeRepository = likeRepository;
-            this.replyRepository = replyRepository;
             this.mapper = mapper;
         }
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PostViewModel>>> Get()
+        public async Task<ActionResult<IEnumerable<PostVm>>> Get()
         {
-            var postViewModels = mapper.Map<List<PostViewModel>>(await postRepository.GetAll());
-            for (int i = 0; i < postViewModels.Count(); i++)
-            {
-                GetPostViewModelInfo(postViewModels[i]);
-            }
-
-            return Ok(postViewModels);
+            return Ok(mapper.Map<List<PostVm>>(await postRepository.GetAll()));
         }
 
         [AllowAnonymous]
         [HttpGet("getFewProfilePosts/details")]
-        public async Task<ActionResult<IEnumerable<PostViewModel>>> Get(int step, [FromQuery] int[] profileIds, int? id = null)
+        public async Task<ActionResult<IEnumerable<PostVm>>> Get(int step, [FromQuery] int[] profileIds, int? id = null)
         {
-            var postViewModels = mapper.Map<List<PostViewModel>>(await postRepository.GetFewProfilePosts(profileIds, step, id));
-            for (int i = 0; i < postViewModels.Count(); i++)
-            {
-                GetPostViewModelInfo(postViewModels[i]);
-            }
-
-            return Ok(postViewModels);
+            return Ok(mapper.Map<List<PostVm>>(await postRepository.GetFewProfilePosts(profileIds, step, id)));
         }
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public async Task<ActionResult<PostViewModel>> Get(int id)
+        public async Task<ActionResult<PostVm>> Get(int id)
         {
-            PostViewModel postViewModel = mapper.Map<PostViewModel>(await postRepository.Get(id));
+            PostVm postViewModel = mapper.Map<PostVm>(await postRepository.Get(id));
             if (postViewModel == null)
             {
                 return NotFound();
             }
             else
             {
-                GetPostViewModelInfo(postViewModel);
                 return Ok(postViewModel);
             }
         }
@@ -111,14 +91,6 @@ namespace WebAPI.Controllers
             }
             await postRepository.Delete(post);
             return Ok();
-        }
-
-        [NonAction]
-        public void GetPostViewModelInfo(PostViewModel postViewModel)
-        {
-            postViewModel.ProfileName = profileRepository.GetProfileName(postViewModel.ProfileId);
-            postViewModel.LikesAmount = likeRepository.GetPostLikesAmount(postViewModel.Id);
-            postViewModel.RepliesAmount = replyRepository.GetPostRepliesAmount(postViewModel.Id);
         }
     }
 }
