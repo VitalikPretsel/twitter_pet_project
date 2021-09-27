@@ -32,8 +32,4 @@ export class UsersService {
   public getUserProfiles(userId) {
     return this.http.get<Profile[]>(`${environment.apiUrl}/profiles/getUserProfiles/${userId}`);
   }
-
-  public getCurrentUserName() {
-    return this.http.get<string>(`${environment.apiUrl}/account/userName`, { responseType: 'text' as 'json'});
-  }
 }

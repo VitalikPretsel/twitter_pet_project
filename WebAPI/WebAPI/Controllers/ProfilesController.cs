@@ -69,17 +69,6 @@ namespace WebAPI.Controllers
             return Ok(mapper.Map<List<ProfileVm>>(await profileRepository.GetUserProfiles(id)));
         }
 
-        [AllowAnonymous]
-        [HttpGet("profileName/{id}")]
-        public ActionResult<string> GetProfileName(int id)
-        {
-            if (!profileRepository.Any(id))
-            {
-                return NotFound();
-            }
-            return Ok(profileRepository.GetProfileName(id));
-        }
-
         [HttpPost]
         public async Task<IActionResult> Post(DAL.Entities.Profile profile)
         {

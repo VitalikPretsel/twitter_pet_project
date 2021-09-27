@@ -34,11 +34,6 @@ namespace DAL.Repositories
                 .Include(p => p.Followings).FirstOrDefault(p => p.ProfileName == profileName);
         }
 
-        public string GetProfileName(int id)
-        {
-            return appContext.Profiles.Find(id).ProfileName;
-        }
-
         public async Task<IEnumerable<Profile>> GetUserProfiles(int userId)
         {
             return await appContext.Profiles.Include(p => p.Posts).Include(p => p.Followers)
