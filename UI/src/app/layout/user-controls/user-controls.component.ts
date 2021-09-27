@@ -24,25 +24,18 @@ export class UserControlsComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private profileService: ProfileService,
-    private userService: UsersService,
+    private usersService: UsersService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    this.getCurrentUser();
-  }
-
-  getCurrentUser() {
-    this.userService.getCurrentUser()
-      .subscribe(res => {
-        this.user = res;
-        this.getUserProfiles(this.user.id);
-        this.getSelectedProfileId();
-      });
+    this.user = this.usersService.currentUserValue;
+    this.getUserProfiles(this.user.id);
+    this.getSelectedProfileId();
   }
 
   getUserProfiles(userId) {
-    this.userService.getUserProfiles(userId)
+    this.usersService.getUserProfiles(userId)
       .subscribe(res => {
         this.profiles = res;
         this.selectProfile(this.profiles[0]);
@@ -69,7 +62,7 @@ export class UserControlsComponent implements OnInit {
   }
 
   logOut() {
-    this.authenticationService.logout().subscribe(res => {
+    this.authenticationService.logout().subscribe(() => {
       this.router.navigate(['']);
     });
   }

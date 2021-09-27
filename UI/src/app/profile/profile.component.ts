@@ -40,15 +40,10 @@ export class ProfileComponent implements OnInit {
     });
     this.isAuthenticated = await this.authenticationService.isAuthenticated().toPromise();
     if (this.isAuthenticated)
-      this.getCurrentUser();
-  }
-
-  getCurrentUser() {
-    this.usersService.getCurrentUser()
-      .subscribe(res => {
-        this.user = res;
-        this.isCurrentUserOwner = this.user.id == this.profile.userId;
-      });
+    {
+      this.user = this.usersService.currentUserValue;
+      this.isCurrentUserOwner = this.user.id == this.profile.userId;
+    }
   }
 
   getProfile(profileName) {

@@ -31,16 +31,9 @@ export class NavigationComponent implements OnInit {
     this.isAuthenticated = await this.authenticationService.isAuthenticated().toPromise();
     if (this.isAuthenticated)
     {
-      this.getCurrentUserName();
+      this.userName = this.usersService.currentUserValue.userName;
       this.getSelectedProfileName();
     }
-  }
-
-  getCurrentUserName() {
-    this.usersService.getCurrentUserName()
-      .subscribe(res => {
-        this.userName = res;
-      });
   }
 
   getSelectedProfileName() {
