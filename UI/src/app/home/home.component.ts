@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
   }
 
   getSelectedProfile() {
-    this.profileService.profileChangedObservable.subscribe((res) => {
+    this.profileService.currentProfileObservable.subscribe((res) => {
       if (res != null) {
         this.getFollowingsIds(res.id);
       }

@@ -43,7 +43,7 @@ export class UserControlsComponent implements OnInit {
   }
 
   getSelectedProfileId() {
-    this.profileService.profileChangedObservable.subscribe(res => {
+    this.profileService.currentProfileObservable.subscribe(res => {
       if (res != null)
         this.selectedProfileId = res.id;
     });

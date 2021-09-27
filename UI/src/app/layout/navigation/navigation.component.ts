@@ -37,7 +37,7 @@ export class NavigationComponent implements OnInit {
   }
 
   getSelectedProfileName() {
-    this.profileService.profileChangedObservable.subscribe(res => {
+    this.profileService.currentProfileObservable.subscribe(res => {
       if (res != null)
         this.selectedProfileName = res.profileName;
     });
