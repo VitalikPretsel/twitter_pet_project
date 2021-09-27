@@ -54,13 +54,13 @@ namespace WebAPI.Controllers
                     PasswordSalt = passwordSalt,
                 };
                 await userRepository.Add(user);
-                Authenticate(user);
+                await Authenticate(user);
                 return Ok();
             }
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginVm loginModel)
+        public async Task<IActionResult> Login([FromBody] LoginVm loginModel)
         {
             if (loginModel == null)
             {
@@ -70,8 +70,7 @@ namespace WebAPI.Controllers
             if (user != null && 
                 passwordEncryptionService.VerifyPassword(loginModel.Password, user?.PasswordHash, user?.PasswordSalt))
             {
-                user.RefreshTokenExpiryTime = DateTime.Now.AddHours(1);
-                Authenticate(user);
+                await Authenticate(user);
                 return Ok();
             }
             else
@@ -117,12 +116,13 @@ namespace WebAPI.Controllers
         }
 
         [NonAction]
-        private void Authenticate(User user)
+        private async Task Authenticate(User user)
         {
             string accessToken = authService.GetAccessTokenString(user);
             string refreshToken = authService.GetRefreshTokenString();
             user.RefreshToken = refreshToken;
-            userRepository.Update(user);
+            user.RefreshTokenExpiryTime = DateTime.Now.AddHours(1);
+            await userRepository.Update(user);
 
             CookieOptions options = new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.None, Secure = true };
             Response.Cookies.Append(TokenConstants.AccessTokenName, accessToken, options);

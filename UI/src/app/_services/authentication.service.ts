@@ -17,14 +17,16 @@ export class AuthenticationService {
 
   login(loginValues: object) {
     return this.http.post<void>(`${environment.apiUrl}/auth/login`, loginValues)
-      .pipe(map(res => {
+      .pipe(map(() => {
         this.startRefreshTokenTimer();
-        return res;
       }));
   }
 
   signup(signupValues: object) {
-    return this.http.post<void>(`${environment.apiUrl}/auth/signup`, signupValues);
+    return this.http.post<void>(`${environment.apiUrl}/auth/signup`, signupValues)
+      .pipe(map(() => {
+        this.startRefreshTokenTimer();
+      }));
   }
 
   logout() {
@@ -43,7 +45,10 @@ export class AuthenticationService {
 
   private startRefreshTokenTimer() {
     const timeout = 4 * 60 * 1000;
-    this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
+    this.refreshTokenTimeout = setTimeout(() => this.refreshToken()
+    .subscribe(() => {}, () => {
+      this.stopRefreshTokenTimer();
+    }), timeout);
   }
 
   private stopRefreshTokenTimer() {
