@@ -17,7 +17,6 @@ import { scrollTo } from '../_helpers/scrollTo';
   styleUrls: ['./profile.component.sass']
 })
 export class ProfileComponent implements OnInit {
-  public isAuthenticated: boolean;
   public isCurrentUserOwner: boolean;
   public user: User;
 
@@ -29,7 +28,6 @@ export class ProfileComponent implements OnInit {
   constructor(
     private service: ProfileService,
     private usersService: UsersService,
-    private authenticationService: AuthenticationService,
     private activatedRoute: ActivatedRoute) {
   }
 
@@ -38,11 +36,10 @@ export class ProfileComponent implements OnInit {
       let profileName = this.activatedRoute.snapshot.paramMap.get('profileName');
       this.getProfile(profileName);
     });
-    this.isAuthenticated = await this.authenticationService.isAuthenticated().toPromise();
-    if (this.isAuthenticated)
+    this.user = this.usersService.currentUserValue;
+    if (this.user)
     {
-      this.user = this.usersService.currentUserValue;
-      this.isCurrentUserOwner = this.user.id == this.profile.userId;
+      this.isCurrentUserOwner = this.user?.id == this.profile.userId;
     }
   }
 

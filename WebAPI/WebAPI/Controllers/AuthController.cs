@@ -86,7 +86,7 @@ namespace WebAPI.Controllers
             string refreshToken = Request.Cookies[TokenConstants.RefreshTokenName];
             if (accessToken == null)
             {
-                return BadRequest("No access token was provided.");
+                return Unauthorized("No access token was provided.");
             }
 
             var principal = authService.GetPrincipalFromExpiredToken(accessToken);
@@ -94,7 +94,7 @@ namespace WebAPI.Controllers
             
             if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
             {
-                return BadRequest("Refresh token is not valid.");
+                return Unauthorized("Refresh token is not valid.");
             }
 
             SetAccessToken(user);
@@ -121,7 +121,7 @@ namespace WebAPI.Controllers
             string accessToken = authService.GetAccessTokenString(user);
             string refreshToken = authService.GetRefreshTokenString();
             user.RefreshToken = refreshToken;
-            user.RefreshTokenExpiryTime = DateTime.Now.AddHours(1);
+            user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(1);
             await userRepository.Update(user);
 
             CookieOptions options = new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.None, Secure = true };

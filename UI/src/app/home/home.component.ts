@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { ProfileService } from '../_services/profile.service';
 import { UsersService } from '../_services/users.service';
-import { AuthenticationService } from '../_services/authentication.service';
 
 import { User } from '../_models/user';
 
@@ -24,14 +23,12 @@ export class HomeComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     private userService: UsersService,
-    private authenticationService: AuthenticationService
   ) { }
 
-  async ngOnInit() {
-    this.isAuthenticated = await this.authenticationService.isAuthenticated().toPromise();
-    if (this.isAuthenticated)
+  ngOnInit() {
+    this.user = this.userService.currentUserValue;
+    if (this.user)
     {
-      this.user = this.userService.currentUserValue;
       this.getSelectedProfile();
     }
   }

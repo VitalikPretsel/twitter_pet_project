@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthenticationService } from '../../_services/authentication.service'
 import { UsersService } from 'src/app/_services/users.service';
 import { ProfileService } from 'src/app/_services/profile.service';
 
 import { strings } from '../../../constants/strings';
 import { scrollTo } from 'src/app/_helpers/scrollTo';
+import { User } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-navigation',
@@ -13,25 +13,19 @@ import { scrollTo } from 'src/app/_helpers/scrollTo';
   styleUrls: ['./navigation.component.sass']
 })
 export class NavigationComponent implements OnInit {
-  isAuthenticated: boolean;
-  public get isAuthenticatedValue(): boolean {
-    return this.isAuthenticated;
-  }
-  public userName: string;
+  public user: User;
   public selectedProfileName: string;
 
   public navButtonsStrings = strings.navigationButtons;
 
   constructor(
-    private authenticationService: AuthenticationService,
     private usersService: UsersService,
     private profileService: ProfileService) { }
 
-  async ngOnInit() {
-    this.isAuthenticated = await this.authenticationService.isAuthenticated().toPromise();
-    if (this.isAuthenticated)
+  ngOnInit() {
+    this.user = this.usersService.currentUserValue;
+    if (this.user)
     {
-      this.userName = this.usersService.currentUserValue.userName;
       this.getSelectedProfileName();
     }
   }

@@ -11,7 +11,7 @@
         </div>
         <div class="nav-menu-item">     <!-- TODO: make buttons functional -->
             <nav>
-                <div *ngIf="isAuthenticatedValue">
+                <div *ngIf="user">
                 <a (click)="scrollTo('#top')" routerLink="home" class="circle-button">
                     <div class="circle-button-container">
                         <svg>
@@ -33,7 +33,7 @@
                         </span>
                     </div>
                 </a>
-                <div *ngIf="isAuthenticatedValue">
+                <div *ngIf="user">
                 <a class="circle-button">
                     <div class="circle-button-container">
                         <svg>
@@ -98,7 +98,7 @@
             </nav>
         </div>
         <div class="tweet-menu-item">
-            <div *ngIf="isAuthenticatedValue">
+            <div *ngIf="user">
                 <a mat-flat-button class="flat-circle-button circle-button" color="primary">
                     <svg class="button-image">
                         <use href="/assets/svg/navigation_buttons_icons.svg#tweet_icon"/>
@@ -111,7 +111,7 @@
         </div>
     </div>
     <div class="nav-item profile-item">
-        <div *ngIf="isAuthenticatedValue">
+        <div *ngIf="user">
             <a class="circle-button" [matMenuTriggerFor]="menu">
                 <div class="circle-button-container">
                     <div class="button-image">
@@ -121,7 +121,7 @@
                     <span class="button-text">
                         <div class="names-container">
                             <div class="profile-name">{{selectedProfileName}}</div>
-                            <div class="user-name">{{userName}}</div>
+                            <div class="user-name">{{user.userName}}</div>
                         </div>
                     </span>
                     <svg class="dots">

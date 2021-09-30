@@ -33,7 +33,7 @@ namespace WebAPI.Services
                 issuer: tokenConfig.Value.ValidIssuer,
                 audience: tokenConfig.Value.ValidAudience,
                 claims: userClaims,
-                expires: DateTime.Now.AddMinutes(5),
+                expires: DateTime.Now.AddSeconds(20),
                 signingCredentials: signinCredentials
             );
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);

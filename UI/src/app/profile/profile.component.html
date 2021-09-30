@@ -37,7 +37,7 @@
                 </div>
                 <div class="buttons">
                     <!-- TODO: display different buttons for owner of profile and readers -->
-                    <div *ngIf="isAuthenticated">
+                    <div *ngIf="user">
                         <div *ngIf="!isCurrentUserOwner; else currentUserOwnerBlock">
                         <div class="button-container">
                             <button class="circle-button circle-button-s circle-button-border">
