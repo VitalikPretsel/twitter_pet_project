@@ -31,22 +31,21 @@ export class ProfileComponent implements OnInit {
     private activatedRoute: ActivatedRoute) {
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.activatedRoute.params.subscribe(() => {
       let profileName = this.activatedRoute.snapshot.paramMap.get('profileName');
       this.getProfile(profileName);
     });
     this.user = this.usersService.currentUserValue;
-    if (this.user)
-    {
-      this.isCurrentUserOwner = this.user?.id == this.profile.userId;
-    }
   }
 
   getProfile(profileName) {
     this.service.getProfile(profileName).subscribe(data => {
       this.profile = data;
       this.profileIds = [this.profile.id];
+      if (this.user) {
+        this.isCurrentUserOwner = this.user.id == this.profile.userId;
+      }
     });
   }
 

@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { UsersService } from './users.service';
 import { environment } from '../../environments/environment';
+
+import { BYPASS_LOG } from '../_helpers/unauthorized.interceptor';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +37,6 @@ export class AuthenticationService {
   }
 
   refreshToken() {
-    return this.http.post<void>(`${environment.apiUrl}/auth/refresh`, {});
+    return this.http.post<void>(`${environment.apiUrl}/auth/refresh`, {}, { context: new HttpContext().set(BYPASS_LOG, true)});
   }
 }
