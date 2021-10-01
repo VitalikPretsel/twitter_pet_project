@@ -25,6 +25,7 @@ import { AuthenticationService } from './_services/authentication.service';
 import { UsersService } from './_services/users.service';
 import { appInitializer } from './_helpers/app.initializer';
 import { HttpRequestInterceptor} from './_helpers/http-request.interceptor';
+import { CreateTweetComponent } from './create-tweet/create-tweet.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { HttpRequestInterceptor} from './_helpers/http-request.interceptor';
     UserControlsComponent,
     WelcomeComponent,
     SignupComponent,
-    CreateProfileComponent
+    CreateProfileComponent,
+    CreateTweetComponent
   ],
   imports: [
     MaterialModule,
