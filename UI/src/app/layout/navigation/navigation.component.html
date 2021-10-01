@@ -99,7 +99,7 @@
         </div>
         <div class="tweet-menu-item">
             <div *ngIf="isAuthenticatedValue">
-                <a mat-flat-button class="flat-circle-button circle-button" color="primary">
+                <a (click)="openDialog()" mat-flat-button class="flat-circle-button circle-button" color="primary">
                     <svg class="button-image">
                         <use href="/assets/svg/navigation_buttons_icons.svg#tweet_icon"/>
                     </svg>

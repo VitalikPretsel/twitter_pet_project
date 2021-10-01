@@ -54,11 +54,7 @@ export class UserControlsComponent implements OnInit {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(CreateProfileComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+    this.dialog.open(CreateProfileComponent);
   }
 
   logOut() {

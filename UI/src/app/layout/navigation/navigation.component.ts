@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
+import { CreateTweetComponent } from 'src/app/create-tweet/create-tweet.component';
 import { AuthenticationService } from '../../_services/authentication.service'
 import { UsersService } from 'src/app/_services/users.service';
 import { ProfileService } from 'src/app/_services/profile.service';
@@ -25,7 +27,9 @@ export class NavigationComponent implements OnInit {
   constructor(
     private authenticationService: AuthenticationService,
     private usersService: UsersService,
-    private profileService: ProfileService) { }
+    private profileService: ProfileService,
+    private dialog: MatDialog
+    ) { }
 
   async ngOnInit() {
     this.isAuthenticated = await this.authenticationService.isAuthenticated().toPromise();
@@ -41,6 +45,10 @@ export class NavigationComponent implements OnInit {
       if (res != null)
         this.selectedProfileName = res.profileName;
     });
+  }
+
+  openDialog() {
+    this.dialog.open(CreateTweetComponent);
   }
 
   scrollTo = scrollTo;

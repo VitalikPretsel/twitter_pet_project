@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-tweet',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateTweetComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialogRef: MatDialogRef<CreateTweetComponent>) { }
 
   ngOnInit(): void {
   }
 
+  closeDialog() {
+    this.dialogRef.close();
+  }
 }
