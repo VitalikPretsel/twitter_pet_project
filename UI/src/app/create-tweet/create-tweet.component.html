@@ -1,11 +1,11 @@
-<div class="dialog-container" style="background-color: khaki;">
+<div class="dialog-container">
     <div class="dialog-header">
         <div class="header-button">
             <div>
                 <button class="circle-button circle-button-s">
                     <div class="circle-button-container">
                         <svg>
-                            <use href="/assets/svg/arrow_left_icon.svg#arrow_left_icon" />
+                            <use href="/assets/svg/cross_icon.svg#cross_icon" />
                         </svg>
                     </div>
                 </button>
@@ -13,17 +13,26 @@
         </div>
     </div>
 
-    <div class="dialog-content" style="background-color: lightgreen;">
+    <div class="dialog-content">
         <div class="profile-picture-container">
             <img src="" onerror="this.src='/assets/img/default_profile_img.png'" />
         </div>
         <div class="tweet-content">
-            <div class="input-container">
-
-            </div>
-            <div class="button-container">
-
-            </div>
+            <form #createTweetForm="ngForm"> <!-- (ngSubmit)="" -->
+                <div class="input-container">
+                    <div class="form-textarea">
+                        <textarea placeholder="What's happening?" id="profileName" name="profileName" maxlength="140" ngModel required></textarea>
+                    </div>
+                </div>
+                <div class="controls-container">
+                    <div class="button-container">
+                        <button [disabled]="!createTweetForm.valid" type="submit" mat-flat-button class="flat-circle-button circle-button circle-button-s"
+                            color="primary">
+                            Tweet
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
 
     </div>
