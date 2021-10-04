@@ -15,13 +15,23 @@
 
     <div class="dialog-content">
         <div class="profile-picture-container">
-            <img src="" onerror="this.src='/assets/img/default_profile_img.png'" />
+            <img src="{{profile?.profilePicturePath}}" onerror="this.src='/assets/img/default_profile_img.png'" />
         </div>
         <div class="tweet-content">
-            <form #createTweetForm="ngForm"> <!-- (ngSubmit)="" -->
+            <form #createTweetForm="ngForm" (ngSubmit)="createTweet(createTweetForm)"> 
+                <div style="display: none;">
+                    <mat-form-field class="form-field">
+                        <input type="number" id="profileId" name="profileId" ngModel matInput>
+                    </mat-form-field>
+                </div>
+                <div style="display: none;">
+                    <mat-form-field class="form-field">
+                        <input type="datetime-local" id="postingDate" name="postingDate" ngModel matInput>
+                    </mat-form-field>
+                </div>
                 <div class="input-container">
                     <div class="form-textarea">
-                        <textarea placeholder="What's happening?" id="profileName" name="profileName" maxlength="140" ngModel required></textarea>
+                        <textarea placeholder="What's happening?" id="postText" name="postText" maxlength="140" ngModel required></textarea>
                     </div>
                 </div>
                 <div class="controls-container">
@@ -34,7 +44,5 @@
                 </div>
             </form>
         </div>
-
     </div>
-
 </div>

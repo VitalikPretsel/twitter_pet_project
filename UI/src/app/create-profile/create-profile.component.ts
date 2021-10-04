@@ -16,7 +16,6 @@ import { NgForm } from '@angular/forms';
 export class CreateProfileComponent implements OnInit {
   invalidUser: boolean;
   errors: string[];
-  private id: Number;
 
   public createProfileStrings = strings.createProfile;
 
@@ -30,25 +29,22 @@ export class CreateProfileComponent implements OnInit {
   }
 
   createProfile(createProfileForm: NgForm) {
-    this.usersService.getCurrentUser().subscribe(res => {
-      this.id = res.id;
-      createProfileForm.form.patchValue({ userId: this.id });
-      this.profileService.createProfile(createProfileForm.value).subscribe(res => {
-        this.invalidUser = false;
-        this.closeDialog();
-      }, err => {
-        this.invalidUser = true;
-        this.errors = [];
-        let errorObject;
+    createProfileForm.form.patchValue({ userId: this.usersService.currentUserValue.id });
+    this.profileService.createProfile(createProfileForm.value).subscribe(res => {
+      this.invalidUser = false;
+      this.closeDialog();
+    }, err => {
+      this.invalidUser = true;
+      this.errors = [];
+      let errorObject;
 
-        errorObject = err.error;
+      errorObject = err.error;
 
-        for (var errorField in errorObject) {
-          errorObject[errorField].forEach(element => {
-            this.errors.push(errorField + ': ' + element);
-          });
-        }
-      });
+      for (var errorField in errorObject) {
+        errorObject[errorField].forEach(element => {
+          this.errors.push(errorField + ': ' + element);
+        });
+      }
     });
   }
 

@@ -11,6 +11,11 @@ export class PostsService {
 
   constructor(private http: HttpClient) { }
 
+  public createPost(postValues) {
+    console.log(postValues);
+    return this.http.post<void>(`${environment.apiUrl}/posts`, postValues);
+  }
+
   public getProfilesPosts(profileIds, lastId) {
     let params = new HttpParams();
     if (lastId != null)
