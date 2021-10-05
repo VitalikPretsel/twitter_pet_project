@@ -4,7 +4,7 @@
             <a routerLink="../home" class="circle-button circle-button-s">
                 <div class="circle-button-container">
                     <svg>
-                        <use href="/assets/svg/arrow_left_icon.svg#arrow_left_icon"/>
+                        <use href="/assets/svg/arrow_left_icon.svg#arrow_left_icon" />
                     </svg>
                 </div>
             </a>
@@ -39,29 +39,30 @@
                     <!-- TODO: display different buttons for owner of profile and readers -->
                     <div *ngIf="isAuthenticated">
                         <div *ngIf="!isCurrentUserOwner; else currentUserOwnerBlock">
-                        <div class="button-container">
-                            <button class="circle-button circle-button-s circle-button-border">
-                                <div class="circle-button-container">
-                                    <svg>
-                                        <use href="/assets/svg/navigation_buttons_icons.svg#dots_icon"/>
-                                    </svg>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="button-container">
-                            <button class="circle-button circle-button-s circle-button-border">
-                                <div class="circle-button-container">
-                                    <svg>
-                                        <use href="/assets/svg/navigation_buttons_icons.svg#messages_icon"/>
-                                    </svg>
-                                </div>
-                            </button>
-                        </div>
+                            <div class="button-container">
+                                <button class="circle-button circle-button-s circle-button-border">
+                                    <div class="circle-button-container">
+                                        <svg>
+                                            <use href="/assets/svg/navigation_buttons_icons.svg#dots_icon" />
+                                        </svg>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="button-container">
+                                <button class="circle-button circle-button-s circle-button-border">
+                                    <div class="circle-button-container">
+                                        <svg>
+                                            <use href="/assets/svg/navigation_buttons_icons.svg#messages_icon" />
+                                        </svg>
+                                    </div>
+                                </button>
+                            </div>
                         </div>
                         <ng-template #currentUserOwnerBlock>
                             <div>
                                 <div class="button-container">
-                                    <button mat-flat-button class="circle-button circle-button-s circle-button-border text-button">
+                                    <button mat-flat-button
+                                        class="circle-button circle-button-s circle-button-border text-button">
                                         <div class="circle-button-container">
                                             <span class="button-text">
                                                 {{profileStrings.card.setUp}}
@@ -73,15 +74,30 @@
                         </ng-template>
                     </div>
                     <div *ngIf="!isCurrentUserOwner">
-                        <div class="button-container">
-                            <button mat-flat-button class="circle-button circle-button-s circle-button-black text-button">
-                                <div class="circle-button-container">
-                                    <span class="button-text">
-                                        {{profileStrings.card.follow}}
-                                    </span>
-                                </div>
-                            </button>
+                        <div *ngIf="isFollowing; else notFollowing">
+                            <div class="button-container">
+                                <button (click)="unfollow(profile.id)" mat-flat-button
+                                    class="circle-button circle-button-s circle-button-black text-button">
+                                    <div class="circle-button-container">
+                                        <span class="button-text">
+                                            {{profileStrings.card.following}}
+                                        </span>
+                                    </div>
+                                </button>
+                            </div>
                         </div>
+                        <ng-template #notFollowing>
+                            <div class="button-container">
+                                <button (click)="follow(profile.id)" mat-flat-button
+                                    class="circle-button circle-button-s circle-button-black text-button">
+                                    <div class="circle-button-container">
+                                        <span class="button-text">
+                                            {{profileStrings.card.follow}}
+                                        </span>
+                                    </div>
+                                </button>
+                            </div>
+                        </ng-template>
                     </div>
                 </div>
             </div>
@@ -116,7 +132,8 @@
                 <app-feed-scroll [profileIds]="profileIds"></app-feed-scroll>
             </div>
         </mat-tab>
-        <mat-tab label="{{profileStrings.tabLabels.tweetsAndReplies}}"> {{profileStrings.tabLabels.tweetsAndReplies}} </mat-tab> 
+        <mat-tab label="{{profileStrings.tabLabels.tweetsAndReplies}}"> {{profileStrings.tabLabels.tweetsAndReplies}}
+        </mat-tab>
         <!-- TODO: add feed with replies and posts -->
         <mat-tab label="{{profileStrings.tabLabels.media}}"> {{profileStrings.tabLabels.media}} </mat-tab>
         <!-- TODO: add feed with media posts -->

@@ -37,6 +37,7 @@ export const strings = {
         card: {
             setUp: "Set up profile",
             follow: "Follow",
+            unfollow: "Unfollow",
             following: "Following",
             followers: "Followers"
         },

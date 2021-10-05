@@ -14,6 +14,10 @@ export class FollowingService {
     return this.http.get<boolean>(`${environment.apiUrl}/followings/details?followerId=${followerId}&followingId=${followingId}`);
   }
 
+  public follow(followingValues) {
+    return this.http.post<void>(`${environment.apiUrl}/followings`, followingValues);
+  }
+
   public unfollow(followerId, followingId) {
     return this.http.delete<void>(`${environment.apiUrl}/followings/details?followerId=${followerId}&followingId=${followingId}`);
   }
