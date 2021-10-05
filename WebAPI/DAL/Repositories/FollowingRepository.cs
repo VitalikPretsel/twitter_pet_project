@@ -21,5 +21,14 @@ namespace DAL.Repositories
             return await appContext.Followings.Where(f => f.FollowerProfileId == profileId)
                 .Select(f => f.FollowingProfileId).ToListAsync();
         }
+        public async Task<Following> Get(int followerId, int followingId)
+        {
+            return await appContext.Followings.FirstOrDefaultAsync(f => f.FollowerProfileId == followerId && f.FollowingProfileId == followerId);
+        }
+
+        public async Task<bool> Any(int followerId, int followingId)
+        {
+            return await appContext.Followings.AnyAsync(f => f.FollowerProfileId == followerId && f.FollowingProfileId == followingId);
+        }
     }
 }

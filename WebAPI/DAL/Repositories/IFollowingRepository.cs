@@ -10,5 +10,7 @@ namespace DAL.Repositories
     public interface IFollowingRepository : IGenericRepository<Following>
     {
         Task<IEnumerable<int?>> GetProfileFollowings(int profileId);
+        Task<Following> Get(int followerId, int followingId);
+        Task<bool> Any(int followerId, int followingId);
     }
 }

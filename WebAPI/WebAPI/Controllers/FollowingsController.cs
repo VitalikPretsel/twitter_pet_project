@@ -46,6 +46,12 @@ namespace WebAPI.Controllers
             return Ok(await followingRepository.GetProfileFollowings(profileId));
         }
 
+        [HttpGet("details")]
+        public async Task<ActionResult<bool>> GetIsFollowing(int followerId, int followingId)
+        {
+            return Ok(await followingRepository.Any(followerId, followingId));
+        }
+
         [HttpPost]
         public async Task<ActionResult<Following>> Post(Following following)
         {
@@ -73,7 +79,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Following>> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             Following following = await followingRepository.Get(id);
             if (following == null)
@@ -81,7 +87,19 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
             await followingRepository.Delete(following);
-            return Ok(following);
+            return Ok();
+        }
+
+        [HttpDelete("details")]
+        public async Task<IActionResult> Delete(int followerId, int followingId)
+        {
+            Following following = await followingRepository.Get(followerId, followingId);
+            if (following == null)
+            {
+                return NotFound();
+            }
+            await followingRepository.Delete(following);
+            return Ok();
         }
     }
 }
