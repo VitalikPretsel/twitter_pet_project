@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using DAL.Entities;
 using DAL.Repositories;
+using DAL.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,43 +18,44 @@ namespace WebAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserRepository userRepository;
-        
-        public UsersController(IUserRepository repository)
+        private readonly IMapper mapper;
+
+        public UsersController(IUserRepository repository, IMapper mapper)
         {
             userRepository = repository;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> Get()
+        public async Task<ActionResult<IEnumerable<UserVm>>> Get()
         {
-            var users = await userRepository.GetAll();
-            return Ok(users);
+            return Ok(mapper.Map<List<UserVm>>(await userRepository.GetAll()));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> Get(int id)
+        public async Task<ActionResult<UserVm>> Get(int id)
         {
-            User user = await userRepository.Get(id);
-            if (user == null)
+            UserVm userVm = mapper.Map<UserVm>(await userRepository.Get(id));
+            if (userVm == null)
             {
                 return NotFound();
             }
-            return Ok(user);
+            return Ok(userVm);
         }
-        
+
         [HttpPost]
-        public async Task<ActionResult<User>> Post(User user)
+        public async Task<IActionResult> Post(User user)
         {
             if (user == null)
             {
                 return BadRequest();
             }
             await userRepository.Add(user);
-            return Ok(user);
+            return Ok();
         }
 
         [HttpPut]
-        public async Task<ActionResult<User>> Put(User user)
+        public async Task<IActionResult> Put(User user)
         {
             if (user == null)
             {
@@ -63,11 +66,11 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
             await userRepository.Update(user);
-            return Ok(user);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             User user = await userRepository.Get(id);
             if (user == null)
@@ -75,7 +78,7 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
             await userRepository.Delete(user);
-            return Ok(user);
+            return Ok();
         }
     }
 }
