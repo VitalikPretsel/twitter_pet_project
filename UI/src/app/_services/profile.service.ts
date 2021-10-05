@@ -13,6 +13,10 @@ export class ProfileService {
   private currentProfileSubject = new BehaviorSubject<Profile>(null);
   public currentProfileObservable = this.currentProfileSubject.asObservable();
 
+  public get currentProfileValue(): Profile {
+    return this.currentProfileSubject.value;
+  }
+
   constructor(private http: HttpClient) { }
 
   public changeProfile(profile) {
