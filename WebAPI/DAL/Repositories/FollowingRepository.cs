@@ -23,7 +23,7 @@ namespace DAL.Repositories
         }
         public async Task<Following> Get(int followerId, int followingId)
         {
-            return await appContext.Followings.FirstOrDefaultAsync(f => f.FollowerProfileId == followerId && f.FollowingProfileId == followerId);
+            return await appContext.Followings.FirstOrDefaultAsync(f => f.FollowerProfileId == followerId && f.FollowingProfileId == followingId);
         }
 
         public async Task<bool> Any(int followerId, int followingId)
