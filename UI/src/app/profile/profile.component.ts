@@ -52,29 +52,8 @@ export class ProfileComponent implements OnInit {
   getProfile(profileName) {
     this.service.getProfile(profileName).subscribe(data => {
         this.profile = data;
-        this.getFollowersAmount(this.profile.id);
-        this.getFollowingsAmount(this.profile.id);
-        this.getPostsAmount(this.profile.id)
         this.profileIds = [this.profile.id];
       });
-  }
-
-  getFollowersAmount(profileId) {
-    this.service.getFollowersAmount(profileId).subscribe(data => {
-      this.profile.followersAmount = data;
-    });
-  }
-
-  getFollowingsAmount(profileId) {
-    this.service.getFollowingsAmount(profileId).subscribe(data => {
-      this.profile.followingsAmount = data;
-    });
-  }
-
-  getPostsAmount(profileId) {
-    this.service.getPostsAmount(profileId).subscribe(data => {
-      this.profile.postsAmount = data;
-    });
   }
 
   scrollTo = scrollTo;

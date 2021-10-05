@@ -40,13 +40,6 @@ namespace WebAPI.Controllers
             return Ok(reply);
         }
 
-        [AllowAnonymous]
-        [HttpGet("OnPostAmount/{postId}")]
-        public ActionResult<int> GetRepliesOnPost(int postId)
-        {
-            return Ok(replyRepository.GetRepliesOnPostAmount(postId));
-        }
-
         [HttpPost]
         public async Task<ActionResult<Reply>> Post(Reply reply)
         {

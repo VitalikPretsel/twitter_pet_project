@@ -40,22 +40,8 @@ namespace WebAPI.Controllers
             return Ok(following);
         }
 
-        [AllowAnonymous]
-        [HttpGet("profileFollowersAmount/{profileId}")]
-        public ActionResult<int> GetProfileFollowersAmount(int profileId)
-        {
-            return Ok(followingRepository.GetProfileFollowersAmount(profileId));
-        }
-        
-        [AllowAnonymous]
-        [HttpGet("profileFollowingsAmount/{profileId}")]
-        public ActionResult<int> GetProfileFollowingsAmount(int profileId)
-        {
-            return Ok(followingRepository.GetProfileFollowingsAmount(profileId));
-        }
-
         [HttpGet("profileFollowings/{profileId}")]
-        public async Task<ActionResult<IEnumerable<Following>>> GetProfileFollowings(int profileId)
+        public async Task<ActionResult<IEnumerable<int?>>> GetProfileFollowings(int profileId)
         {
             return Ok(await followingRepository.GetProfileFollowings(profileId));
         }

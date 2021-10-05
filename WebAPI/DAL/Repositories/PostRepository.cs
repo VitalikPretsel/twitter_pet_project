@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL.DataContext;
-using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
+using DAL.Entities;
 
 namespace DAL.Repositories
 {
@@ -15,21 +15,32 @@ namespace DAL.Repositories
         {
         }
 
-        public async Task<IEnumerable<Post>> GetFewProfilePosts(int[] profileIds, int step, int id = -1)
+        public new async Task<IEnumerable<Post>> GetAll()
         {
-            if (id == -1)
+            return await appContext.Posts.Include(p => p.Profile).Include(p => p.Likes)
+                .Include(p => p.Replies).ToListAsync();
+        }
+
+        public new async Task<Post> Get(int id)
+        {
+            return await appContext.Posts.Include(p => p.Profile).Include(p => p.Likes)
+                .Include(p => p.Replies).FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task<IEnumerable<Post>> GetFewProfilePosts(int[] profileIds, int step, int? id)
+        {
+            if (id == null)
             {
-                id = (await appContext.Posts.Where(p => profileIds.Any(id => id == p.ProfileId)).
-                    OrderByDescending(p => p.Id).FirstAsync()).Id;
+                id ??= (await appContext.Posts.Where(p => profileIds.Any(id => id == p.ProfileId)).
+                        OrderByDescending(p => p.Id).FirstOrDefaultAsync())?.Id;
+                if (id == null)
+                {
+                    return null;
+                }
             }
-            return appContext.Posts.Where(p => profileIds.Any(id => id == p.ProfileId)).
+            return appContext.Posts.Include(p => p.Profile).Include(p => p.Likes).Include(p => p.Replies)
+                .Where(p => profileIds.Any(id => id == p.ProfileId)).
                 OrderByDescending(p => p.Id).Where(p => p.Id <= id).Take(step).AsEnumerable();
         }
-
-        public int GetProfilePostsAmount(int profileId)
-        {
-            return appContext.Posts.Where(p => p.ProfileId == profileId).Count();
-        }
-
     }
 }

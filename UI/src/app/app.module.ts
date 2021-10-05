@@ -10,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { UsersComponent } from './users/users.component';
 import { FeedScrollComponent } from './feed-scroll/feed-scroll.component';
 
 import { HttpRequestInterceptor} from './_helpers/http-request.interceptor';
@@ -28,7 +27,6 @@ import { CreateProfileComponent } from './create-profile/create-profile.componen
     AppComponent,
     LoginComponent,
     HomeComponent,
-    UsersComponent,
     FeedScrollComponent,
     LayoutComponent,
     NavigationComponent,

@@ -21,6 +21,11 @@ namespace DAL.DataContext
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Following>()
+                .HasOne(f => f.FollowerProfile).WithMany(p => p.Followings);
+            builder.Entity<Following>()
+                .HasOne(f => f.FollowingProfile).WithMany(p => p.Followers);
+
             builder.Entity<User>()
                 .HasIndex(u => u.UserName)
                 .IsUnique();
