@@ -36,7 +36,7 @@
                 </div>
                 <div class="buttons">
                     <div *ngIf="isAuthenticated">
-                        <div *ngIf="!isCurrentUserOwner; else currentUserOwnerBlock">
+                        <div *ngIf="!isCurrentProfileOwner; else currentProfileOwnerBlock">
                             <div class="button-container">
                                 <button class="circle-button circle-button-s circle-button-border">
                                     <div class="circle-button-container">
@@ -56,7 +56,7 @@
                                 </button>
                             </div>
                         </div>
-                        <ng-template #currentUserOwnerBlock>
+                        <ng-template #currentProfileOwnerBlock>
                             <div>
                                 <div class="button-container">
                                     <button mat-flat-button
@@ -71,7 +71,7 @@
                             </div>
                         </ng-template>
                     </div>
-                    <div *ngIf="!isCurrentUserOwner">
+                    <div *ngIf="!isCurrentProfileOwner">
                         <div *ngIf="isFollowing; else notFollowing">
                             <div class="button-container">
                                 <button (click)="unfollow(profile.id)" mat-flat-button

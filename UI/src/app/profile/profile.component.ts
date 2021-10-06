@@ -20,7 +20,7 @@ import { scrollTo } from '../_helpers/scrollTo';
 export class ProfileComponent implements OnInit {
   public isAuthenticated: boolean;
   public isFollowing: boolean;
-  public isCurrentUserOwner: boolean;
+  public isCurrentProfileOwner: boolean;
   public user: User;
 
   profile: Profile;
@@ -44,10 +44,7 @@ export class ProfileComponent implements OnInit {
     this.isAuthenticated = await this.authenticationService.isAuthenticated().toPromise();
     if (this.isAuthenticated) {
       this.user = this.usersService.currentUserValue;
-      this.isCurrentUserOwner = this.user.id == this.profile.userId;
-      if (!this.isCurrentUserOwner) {
-        this.getIsFollowing(this.profile.id);
-      }
+      this.getIsFollowing(this.profile.id);
     }
   }
 
@@ -61,10 +58,13 @@ export class ProfileComponent implements OnInit {
   getIsFollowing(profileId) {
     this.profileService.currentProfileObservable.subscribe((res) => {
       if (res != null) {
-        this.followingService.isfollowing(this.profileService.currentProfileValue.id, profileId)
-          .subscribe(res => {
-            this.isFollowing = res;
-          });
+        this.isCurrentProfileOwner = this.profile.id == this.profileService.currentProfileValue.id;
+        if (!this.isCurrentProfileOwner) {
+          this.followingService.isfollowing(this.profileService.currentProfileValue.id, profileId)
+            .subscribe(res => {
+              this.isFollowing = res;
+            });
+        }
       }
     });
   }
