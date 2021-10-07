@@ -7,4 +7,5 @@ export class Post {
     profileName: string;
     likesAmount: number;
     repliesAmount: number;
+    isLiked: boolean;
 }

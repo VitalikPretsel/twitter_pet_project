@@ -11,7 +11,7 @@ export class LikesService {
   constructor(private http: HttpClient) { }
 
   public isLiked(profileId, postId) {
-    return this.http.get<boolean>(`${environment.apiUrl}/likess/details?profileId=${profileId}&postId=${postId}`);
+    return this.http.get<boolean>(`${environment.apiUrl}/likes/details?profileId=${profileId}&postId=${postId}`);
   }
 
   public like(likeValues) {

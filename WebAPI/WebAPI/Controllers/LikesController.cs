@@ -84,6 +84,7 @@ namespace WebAPI.Controllers
             return Ok(like);
         }
 
+        [HttpDelete("details")]
         public async Task<IActionResult> Delete(int profileId, int postId)
         {
             Like like = await likeRepository.Get(profileId, postId);
