@@ -9,5 +9,7 @@ namespace DAL.Repositories
 {
     public interface ILikeRepository : IGenericRepository<Like>
     {
+        Task<Like> Get(int profileId, int postId);
+        Task<bool> Any(int profileId, int postId);
     }
 }
