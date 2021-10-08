@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { first, map } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../_services/authentication.service'
 
@@ -22,12 +22,6 @@ export class SignupComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService
   ) {
-    this.authenticationService.isAuthenticated().pipe(map(
-      (res) => {
-        if (res) {
-          this.router.navigate(['/home']);
-        }
-      })).subscribe();
   }
 
   ngOnInit(): void {
