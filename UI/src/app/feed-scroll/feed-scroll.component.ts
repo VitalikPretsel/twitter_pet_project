@@ -62,28 +62,27 @@ export class FeedScrollComponent implements OnChanges {
     });
   }
 
-  getIsLiked(profileId, postId, postIndex) {
-    this.likesService.isLiked(profileId, postId).subscribe(res => {
-      this.allPost[postIndex].isLiked = res;
-    });
-  }
-
-  like(postId) {
-    this.likesService.like({
-      profileId: this.profileService.currentProfileValue.id,
-      postId: postId
-    }).subscribe(() => {
-      let post = this.allPost.find(p => p.id == postId);
-      post.likesAmount += 1;
-      post.isLiked = true;
-    })
-  }
-
-  unlike(postId) {
-    this.likesService.unlike(this.profileService.currentProfileValue.id, postId).subscribe(() => {
-      let post = this.allPost.find(p => p.id == postId);
-      post.likesAmount -= 1;
-      post.isLiked = false;
+  likeAction(postId) {
+    let post = this.allPost.find(p => p.id == postId);
+    let likeObservable;
+    if (post.isLiked) {
+      likeObservable = this.likesService.unlike(this.profileService.currentProfileValue.id, postId);
+    }
+    else {
+      likeObservable = this.likesService.like({
+        profileId: this.profileService.currentProfileValue.id,
+        postId: postId
+      });
+    }
+    likeObservable.subscribe(() => {
+      if (post.isLiked) {
+        post.likesAmount -= 1;
+        post.isLiked = false;
+      }
+      else {
+        post.likesAmount += 1;
+        post.isLiked = true;
+      }
     })
   }
 
