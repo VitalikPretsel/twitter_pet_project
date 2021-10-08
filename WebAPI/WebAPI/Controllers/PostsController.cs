@@ -40,6 +40,12 @@ namespace WebAPI.Controllers
             return Ok(mapper.Map<List<PostVm>>(await postRepository.GetFewProfilePosts(profileIds, step, id)));
         }
 
+        [HttpGet("getProfileLikedPosts/details")]
+        public async Task<ActionResult<IEnumerable<int>>> Get(int profileFollowerId, int step, [FromQuery] int[] profileFollowingIds, int? id = null)
+        {
+            return Ok(await postRepository.GetProfileLikedPosts(profileFollowerId, profileFollowingIds, step, id));
+        }
+
         [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<PostVm>> Get(int id)

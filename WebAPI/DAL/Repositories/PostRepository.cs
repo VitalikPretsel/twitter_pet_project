@@ -40,7 +40,14 @@ namespace DAL.Repositories
             }
             return appContext.Posts.Include(p => p.Profile).Include(p => p.Likes).Include(p => p.Replies)
                 .Where(p => profileIds.Any(id => id == p.ProfileId)).
-                OrderByDescending(p => p.Id).Where(p => p.Id <= id).Take(step).AsEnumerable();
+                OrderByDescending(p => p.Id).Where(p => p.Id <= id).Take(step);
+        }
+
+        public async Task<IEnumerable<int>> GetProfileLikedPosts(int profileFollowerId, int[] profileFollowingIds, int step, int? id)
+        {
+            return (await GetFewProfilePosts(profileFollowingIds, step, id))
+                .Where(p => p.Likes.Any(p => p.ProfileId == profileFollowerId))
+                .Select(p => p.Id);
         }
     }
 }
