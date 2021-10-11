@@ -64,6 +64,12 @@
         .button-text
             color: white
 
+.circle-button-negative
+    .circle-button-container
+        .button-text
+            .onhover-display
+                display: none
+
 .circle-button:hover
     .circle-button-container
         background-color: $gray-4
@@ -73,6 +79,16 @@
 .circle-button-black:hover
     .circle-button-container
         background-color: $gray-8
+.circle-button-negative:hover
+    .circle-button-container
+        border-color: mat-color($red-twitter, 100)
+        background-color: mat-color($red-twitter, 100)
+        .button-text
+            color: mat-color($red-twitter, 500)
+            .onhover-hide
+                display: none
+            .onhover-display
+                display: inline-block
 
 .circle-button:active
     .circle-button-container
@@ -83,7 +99,9 @@
 .circle-button-black:active
     .circle-button-container
         background-color: $gray-8
-
+.circle-button-negative:active
+    .circle-button-container
+        background-color: mat-color($red-twitter, 200)
 
 .flat-circle-button.mat-flat-button
     font-size: 1.2em
