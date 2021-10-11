@@ -26,6 +26,10 @@ namespace DAL.Entities
         [MaxLength(256)]
         public byte[] PasswordSalt { get; set; }
 
+        public string RefreshToken { get; set; }
+
+        public DateTime RefreshTokenExpiryTime { get; set; }
+
         public List<Profile> Profiles { get; set; }
     }
 }

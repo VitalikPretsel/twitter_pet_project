@@ -30,12 +30,14 @@ export class ProfileComponent implements OnInit {
     private service: ProfileService,
     private usersService: UsersService,
     private authenticationService: AuthenticationService,
-    private activatedRoute: ActivatedRoute) { 
-    let profileName = this.activatedRoute.snapshot.paramMap.get('profileName');
-    this.getProfile(profileName);
+    private activatedRoute: ActivatedRoute) {
   }
 
   async ngOnInit() {
+    this.activatedRoute.params.subscribe(() => {
+      let profileName = this.activatedRoute.snapshot.paramMap.get('profileName');
+      this.getProfile(profileName);
+    });
     this.isAuthenticated = await this.authenticationService.isAuthenticated().toPromise();
     if (this.isAuthenticated)
       this.getCurrentUser();
@@ -51,9 +53,9 @@ export class ProfileComponent implements OnInit {
 
   getProfile(profileName) {
     this.service.getProfile(profileName).subscribe(data => {
-        this.profile = data;
-        this.profileIds = [this.profile.id];
-      });
+      this.profile = data;
+      this.profileIds = [this.profile.id];
+    });
   }
 
   scrollTo = scrollTo;

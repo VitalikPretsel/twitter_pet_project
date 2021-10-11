@@ -10,37 +10,29 @@ using AutoMapper;
 
 namespace WebAPI.Controllers
 {
-    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
         private readonly IUserRepository userRepository;
-        private readonly AuthService authService;
         private readonly IMapper mapper;
 
-        public AccountController(IUserRepository repository, IMapper mapper, AuthService service)
+        public AccountController(IUserRepository repository, IMapper mapper)
         {
             userRepository = repository;
-            authService = service;
             this.mapper = mapper;
         }
 
         [HttpGet]
         public ActionResult<UserVm> GetCurrentUser()
         {
-            var tokenString = Request.Cookies[TokenConstants.TokenName];
-            string email = authService.GetClaims(tokenString).ToList()
-                .FirstOrDefault(claim => claim.Type == ClaimTypes.Email).Value;
-            return Ok(mapper.Map<UserVm>(userRepository.FindUserByEmail(email)));
+            return Ok(mapper.Map<UserVm>(userRepository.FindUserByName(User.Identity.Name)));
         }
 
         [HttpGet("userName")]
         public ActionResult<string> GetCurrentUserName()
         {
-            var tokenString = Request.Cookies[TokenConstants.TokenName];
-            return Ok(authService.GetClaims(tokenString).ToList()
-                .FirstOrDefault(claim => claim.Type == ClaimTypes.Name).Value);
+            return Ok(User.Identity.Name);
         }
     }
 }

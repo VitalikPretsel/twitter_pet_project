@@ -6,6 +6,7 @@ using WebAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using System;
 
 namespace WebAPI.Controllers
 {
@@ -53,13 +54,13 @@ namespace WebAPI.Controllers
                     PasswordSalt = passwordSalt,
                 };
                 await userRepository.Add(user);
-                Authenticate(user);
+                await Authenticate(user);
                 return Ok();
             }
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginVm loginModel)
+        public async Task<IActionResult> Login([FromBody] LoginVm loginModel)
         {
             if (loginModel == null)
             {
@@ -69,7 +70,7 @@ namespace WebAPI.Controllers
             if (user != null && 
                 passwordEncryptionService.VerifyPassword(loginModel.Password, user?.PasswordHash, user?.PasswordSalt))
             {
-                Authenticate(user);
+                await Authenticate(user);
                 return Ok();
             }
             else
@@ -78,25 +79,77 @@ namespace WebAPI.Controllers
             }
         }
 
-        [NonAction]
-        private void Authenticate(User user)
+        [HttpPost("refresh")]
+        public IActionResult Refresh()
         {
-            var token = authService.GetTokenString(user);
-            Response.Cookies.Append(TokenConstants.TokenName, token,
-                new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.None, Secure = true });
+            string accessToken = Request.Cookies[TokenConstants.AccessTokenName];
+            string refreshToken = Request.Cookies[TokenConstants.RefreshTokenName];
+            if (accessToken == null)
+            {
+                return BadRequest("No access token was provided.");
+            }
+
+            var principal = authService.GetPrincipalFromExpiredToken(accessToken);
+            User user = userRepository.FindUserByName(principal.Identity.Name);
+            
+            if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
+            {
+                return BadRequest("Refresh token is not valid.");
+            }
+
+            SetAccessToken(user);
+
+            return Ok();
+        }
+
+        [NonAction]
+        public void Revoke()
+        {
+            User user = userRepository.FindUserByName(User.Identity.Name);
+            if (user == null)
+            {
+                return;
+            }
+
+            user.RefreshToken = null;
+            userRepository.Update(user);
+        }
+
+        [NonAction]
+        private async Task Authenticate(User user)
+        {
+            string accessToken = authService.GetAccessTokenString(user);
+            string refreshToken = authService.GetRefreshTokenString();
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = DateTime.Now.AddHours(1);
+            await userRepository.Update(user);
+
+            CookieOptions options = new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.None, Secure = true };
+            Response.Cookies.Append(TokenConstants.AccessTokenName, accessToken, options);
+            Response.Cookies.Append(TokenConstants.RefreshTokenName, refreshToken, options);
+        }
+
+        [NonAction]
+        private void SetAccessToken(User user)
+        {
+            string accessToken = authService.GetAccessTokenString(user);
+            CookieOptions options = new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.None, Secure = true };
+            Response.Cookies.Append(TokenConstants.AccessTokenName, accessToken, options);
         }
 
         [HttpGet]
         public ActionResult<bool> IsAuthenticated()
         {
-            var tokenString = Request.Cookies[TokenConstants.TokenName];
-            return Ok(!authService.IsTokenExpired(tokenString));
+            return Ok(User.Identity.IsAuthenticated);
         }
 
         [HttpDelete]
         public IActionResult Logout()
         {
-            Response.Cookies.Delete(TokenConstants.TokenName, new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.None, Secure = true });
+            CookieOptions options = new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.None, Secure = true };
+            Response.Cookies.Delete(TokenConstants.AccessTokenName, options);
+            Response.Cookies.Delete(TokenConstants.RefreshTokenName, options);
+            Revoke();
             return Ok();
         }
     }
