@@ -18,7 +18,7 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(tap(() => { },
-      async (err) => {
+      (err) => {
         if (err.status == 401) {
           this.authenticationService.refreshToken()
             .subscribe(() => { }, () => {

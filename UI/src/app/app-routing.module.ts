@@ -6,7 +6,6 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { LayoutComponent } from './layout/layout.component';
 import { ProfileComponent } from './profile/profile.component';
-import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { NonauthGuard } from './_helpers/nonauth.guard';
 import { WelcomeComponent } from './welcome/welcome.component';
@@ -15,7 +14,6 @@ const routes: Routes = [
   { path: '', component: WelcomeComponent, canActivate: [NonauthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [NonauthGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [NonauthGuard] },
-  { path: 'create_profile', component: CreateProfileComponent },
   {
     path: '',
     component: LayoutComponent,

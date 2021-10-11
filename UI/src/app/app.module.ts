@@ -22,6 +22,8 @@ import { SignupComponent } from './signup/signup.component';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
 
 import { AuthenticationService } from './_services/authentication.service';
+import { UsersService } from './_services/users.service';
+
 import { appInitializer } from './_helpers/app.initializer';
 import { HttpRequestInterceptor} from './_helpers/http-request.interceptor';
 import { UnauthorizedInterceptor } from './_helpers/unauthorized.interceptor';
@@ -50,7 +52,7 @@ import { UnauthorizedInterceptor } from './_helpers/unauthorized.interceptor';
     InfiniteScrollModule
   ],
   providers: [
-    { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthenticationService] },
+    { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthenticationService, UsersService] },
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: UnauthorizedInterceptor, multi: true }],
   bootstrap: [AppComponent]

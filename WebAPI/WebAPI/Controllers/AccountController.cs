@@ -28,11 +28,5 @@ namespace WebAPI.Controllers
         {
             return Ok(mapper.Map<UserVm>(userRepository.FindUserByName(User.Identity.Name)));
         }
-
-        [HttpGet("userName")]
-        public ActionResult<string> GetCurrentUserName()
-        {
-            return Ok(User.Identity.Name);
-        }
     }
 }

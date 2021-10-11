@@ -66,7 +66,7 @@ namespace WebAPI.Controllers
             {
                 return BadRequest();
             }
-            User user = userRepository.FindUserByName(loginModel.UserName);
+            User user = userRepository.FindUserByName(loginModel.Login) ?? userRepository.FindUserByEmail(loginModel.Login);
             if (user != null && 
                 passwordEncryptionService.VerifyPassword(loginModel.Password, user?.PasswordHash, user?.PasswordSalt))
             {

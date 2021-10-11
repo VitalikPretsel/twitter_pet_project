@@ -31,20 +31,13 @@ export class HomeComponent implements OnInit {
     this.isAuthenticated = await this.authenticationService.isAuthenticated().toPromise();
     if (this.isAuthenticated)
     {
-    this.getCurrentUser();
-    this.getSelectedProfile();
+      this.user = this.userService.currentUserValue;
+      this.getSelectedProfile();
     }
   }
 
-  getCurrentUser() {
-    this.userService.getCurrentUser()
-      .subscribe(res => {
-        this.user = res;
-      });
-  }
-
   getSelectedProfile() {
-    this.profileService.profileChangedObservable.subscribe((res) => {
+    this.profileService.currentProfileObservable.subscribe((res) => {
       if (res != null) {
         this.getFollowingsIds(res.id);
       }

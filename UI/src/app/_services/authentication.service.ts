@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
+import { UsersService } from './users.service';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -9,7 +10,7 @@ import { environment } from '../../environments/environment';
 })
 export class AuthenticationService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private userService: UsersService) { }
 
   isAuthenticated() {
     return this.http.get<boolean>(`${environment.apiUrl}/auth`);
@@ -19,6 +20,7 @@ export class AuthenticationService {
     return this.http.post<void>(`${environment.apiUrl}/auth/login`, loginValues)
       .pipe(map(() => {
         this.startRefreshTokenTimer();
+        this.userService.getCurrentUser().subscribe();
       }));
   }
 
@@ -26,6 +28,7 @@ export class AuthenticationService {
     return this.http.post<void>(`${environment.apiUrl}/auth/signup`, signupValues)
       .pipe(map(() => {
         this.startRefreshTokenTimer();
+        this.userService.getCurrentUser().subscribe();
       }));
   }
 

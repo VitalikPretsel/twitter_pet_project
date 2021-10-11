@@ -10,13 +10,17 @@ import { environment } from '../../environments/environment';
 })
 export class ProfileService {
 
-  private profileChanged = new BehaviorSubject<Profile>(null);
-  public profileChangedObservable = this.profileChanged.asObservable();
+  private currentProfileSubject = new BehaviorSubject<Profile>(null);
+  public currentProfileObservable = this.currentProfileSubject.asObservable();
+
+  public get currentProfileValue(): Profile {
+    return this.currentProfileSubject.value;
+  }
 
   constructor(private http: HttpClient) { }
 
   public changeProfile(profile) {
-    this.profileChanged.next(profile);
+    this.currentProfileSubject.next(profile);
   }
 
   public getProfile(profileName) {
