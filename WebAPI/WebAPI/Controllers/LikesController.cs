@@ -40,6 +40,12 @@ namespace WebAPI.Controllers
             return Ok(like);
         }
 
+        [HttpGet("details")]
+        public async Task<ActionResult<bool>> GetIsLiked(int profileId, int postId)
+        {
+            return Ok(await likeRepository.Any(profileId, postId));
+        }
+
         [HttpPost]
         public async Task<ActionResult<Like>> Post(Like like)
         {
@@ -76,6 +82,18 @@ namespace WebAPI.Controllers
             }
             await likeRepository.Delete(like);
             return Ok(like);
+        }
+
+        [HttpDelete("details")]
+        public async Task<IActionResult> Delete(int profileId, int postId)
+        {
+            Like like = await likeRepository.Get(profileId, postId);
+            if (like == null)
+            {
+                return NotFound();
+            }
+            await likeRepository.Delete(like);
+            return Ok();
         }
     }
 }

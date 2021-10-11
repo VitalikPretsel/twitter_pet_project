@@ -1,89 +1,107 @@
 <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
     <div *ngFor="let post of allPost; trackBy: identify">
-    <div class="post-container">
-        <article>
-            <div class="blank-item"></div>
-            <div class="profile-picture-item">
-                <a (click)="scrollTo('#top')" routerLink="../{{post?.profileName}}">
-                    <img src="{{post?.profilePicturePath}}" onerror="this.src='/assets/img/default_profile_img.png'" />
+        <div class="post-container">
+            <article>
+                <div class="blank-item"></div>
+                <div class="profile-picture-item">
+                    <a (click)="scrollTo('#top')" routerLink="../{{post?.profileName}}">
+                        <img src="{{post?.profilePicturePath}}"
+                            onerror="this.src='/assets/img/default_profile_img.png'" />
+                    </a>
+                </div>
+                <div class="header-item">
+                    <div>
+                        <span><a (click)="scrollTo('#top')" routerLink="../{{post?.profileName}}"
+                                class="link link-black">{{post.profileName}}</a></span>
+                        <span class="header-item-date"> · {{post?.postingDate | date: 'medium'}}</span>
+                    </div>
+                </div>
+                <div class="text-item">
+                    {{post?.id}} {{post?.postText}}
+                </div>
+                <div class="buttons-item">
+                    <div class="buttons-container">
+                        <button mat-button class="icon-text-button">
+                            <div>
+                                <span class="icon-text-button-icon">
+                                    <div class="icon-container">
+                                        <svg>
+                                            <use href="/assets/svg/post_buttons_icons.svg#reply_icon" />
+                                        </svg>
+                                    </div>
+                                </span>
+                                <span class="icon-text-button-text">
+                                    {{post?.repliesAmount}}
+                                </span>
+                            </div>
+                        </button>
+                        <button mat-button class="icon-text-button icon-text-button-accent">
+                            <div>
+                                <span class="icon-text-button-icon">
+                                    <div class="icon-container">
+                                        <svg>
+                                            <use href="/assets/svg/post_buttons_icons.svg#repost_icon" />
+                                        </svg>
+                                    </div>
+                                </span>
+                                <span class="icon-text-button-text">
+                                    123
+                                </span>
+                            </div>
+                        </button>
+
+                        <button (click)="likeAction(post.id)" mat-button class="icon-text-button icon-text-button-warn">
+                            <div *ngIf="!post.isLiked; else liked">
+                                <span class="icon-text-button-icon">
+                                    <div class="icon-container">
+                                        <svg>
+                                            <use href="/assets/svg/post_buttons_icons.svg#heart_icon" />
+                                        </svg>
+                                    </div>
+                                </span>
+                                <span class="icon-text-button-text">
+                                    {{post?.likesAmount}}
+                                </span>
+                            </div>
+                            <ng-template #liked>
+                                <div>
+                                    <span class="icon-text-button-icon liked">
+                                        <div class="icon-container">
+                                            <svg>
+                                                <use href="/assets/svg/post_buttons_icons.svg#heart_filled_icon" />
+                                            </svg>
+                                        </div>
+                                    </span>
+                                    <span class="icon-text-button-text liked">
+                                        {{post?.likesAmount}}
+                                    </span>
+                                </div>
+                            </ng-template>
+                        </button>
+
+                        <button mat-button class="icon-text-button">
+                            <div>
+                                <span class="icon-text-button-icon">
+                                    <div class="icon-container">
+                                        <svg>
+                                            <use href="/assets/svg/post_buttons_icons.svg#share_icon" />
+                                        </svg>
+                                    </div>
+                                </span>
+                                <span class="icon-text-button-text">
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <a class="thread-item">
+                    <div class="blank-thread-item">
+                    </div>
+                    <div class="show-thread-item">
+                        <div>{{feedPostStrings?.showThreadButton}}</div>
+                    </div>
                 </a>
-            </div>
-            <div class="header-item">
-                <div>
-                    <span><a (click)="scrollTo('#top')" routerLink="../{{post?.profileName}}" class="link link-black">{{post.profileName}}</a></span>
-                    <span class="header-item-date"> · {{post?.postingDate | date: 'medium'}}</span>
-                </div>
-            </div>
-            <div class="text-item">
-                {{post?.id}} {{post?.postText}}
-            </div>
-            <div class="buttons-item">
-                <div class="buttons-container">
-                    <button mat-button class="icon-text-button">
-                        <div>
-                            <span class="icon-text-button-icon">
-                                <div class="icon-container">
-                                    <svg>
-                                        <use href="/assets/svg/post_buttons_icons.svg#reply_icon"/>
-                                    </svg>
-                                </div>
-                            </span>
-                            <span class="icon-text-button-text">
-                                {{post?.repliesAmount}}
-                            </span>
-                        </div>
-                    </button>
-                    <button mat-button class="icon-text-button icon-text-button-accent">
-                        <div>
-                            <span class="icon-text-button-icon">
-                                <div class="icon-container">
-                                    <svg>
-                                        <use href="/assets/svg/post_buttons_icons.svg#repost_icon"/>
-                                    </svg>
-                                </div>
-                            </span>
-                            <span class="icon-text-button-text">
-                                123
-                            </span>
-                        </div>
-                    </button>
-                    <button mat-button class="icon-text-button icon-text-button-warn">
-                        <div>
-                            <span class="icon-text-button-icon">
-                                <div class="icon-container">
-                                    <svg>
-                                        <use href="/assets/svg/post_buttons_icons.svg#heart_icon"/>
-                                    </svg>
-                                </div>
-                            </span>
-                            <span class="icon-text-button-text">
-                                {{post?.likesAmount}}
-                            </span>
-                        </div>
-                    </button>
-                    <button mat-button class="icon-text-button">
-                        <div>
-                            <span class="icon-text-button-icon">
-                                <div class="icon-container">
-                                    <svg>
-                                        <use href="/assets/svg/post_buttons_icons.svg#share_icon"/>
-                                    </svg>
-                                </div>
-                            </span>
-                            <span class="icon-text-button-text">
-                            </span>
-                        </div>
-                    </button>
-                </div>
-            </div>
-            <a class="thread-item">
-                <div class="blank-thread-item">
-                </div>
-                <div class="show-thread-item">
-                    <div>{{feedPostStrings?.showThreadButton}}</div>
-                </div>
-            </a>
-        </article>
+            </article>
+        </div>
     </div>
-</div>
 </div>

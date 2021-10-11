@@ -10,5 +10,6 @@ namespace DAL.Repositories
     public interface IPostRepository : IGenericRepository<Post>
     {
         Task<IEnumerable<Post>> GetFewProfilePosts(int[] profileIds, int step, int? id);
+        Task<IEnumerable<int>> GetProfileLikedPosts(int profileFollowerId, int[] profileFollowingIds, int step, int? id);
     }
 }
