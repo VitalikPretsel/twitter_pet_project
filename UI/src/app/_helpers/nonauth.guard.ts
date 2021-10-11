@@ -17,7 +17,6 @@ export class NonauthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.authenticationService.isAuthenticated()
       .pipe(map(res => {
-        console.log(res);
         if (res) {
           this.router.navigate(['/home']);
           return false;
