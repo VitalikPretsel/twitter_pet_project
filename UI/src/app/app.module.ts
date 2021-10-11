@@ -20,6 +20,7 @@ import { UserControlsComponent } from './layout/user-controls/user-controls.comp
 import { WelcomeComponent } from './welcome/welcome.component';
 import { SignupComponent } from './signup/signup.component';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
+import { CreateTweetComponent } from './create-tweet/create-tweet.component';
 
 import { AuthenticationService } from './_services/authentication.service';
 import { UsersService } from './_services/users.service';
@@ -40,7 +41,8 @@ import { UnauthorizedInterceptor } from './_helpers/unauthorized.interceptor';
     UserControlsComponent,
     WelcomeComponent,
     SignupComponent,
-    CreateProfileComponent
+    CreateProfileComponent,
+    CreateTweetComponent
   ],
   imports: [
     MaterialModule,
